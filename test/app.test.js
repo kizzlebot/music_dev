@@ -6,13 +6,14 @@ var server ;
 
 
 
-
+var spawn = require('child_process').spawn;
 
 
 
 
 describe('routes', function(){
   before(function(done){
+    // Spawn database server
     server = app.listen(4000, (err) => {
       done();
     });
