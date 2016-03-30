@@ -1,0 +1,28 @@
+{
+	"file_exclude_patterns":
+	[
+	],
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.sublime-project",
+				// "Procfile",
+				"LICENSE",
+				".gitignore",
+				".travis.yml",
+				".env",
+				".env.example",
+				".eslintrc",
+				".babelrc",
+				"npm-debug.log"
+			],
+			"folder_exclude_patterns":
+			[
+				"node_modules"
+			],
+			"path": "."
+		}
+	]
+}
