@@ -72,7 +72,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-var routes = require('./controllers/');
+var routes = require('./controllers');
 
 
 app.get('/', routes.home.index);
