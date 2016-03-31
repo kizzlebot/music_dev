@@ -44,7 +44,7 @@ describe('routes', function(){
 
 
 
-    describe('/user/register', function(){
+    describe('/signup', function(){
 
 
       var defaultCredentials = {email:'test@test.com', password:'test'};
@@ -53,11 +53,11 @@ describe('routes', function(){
 
       describe('GET', function(){
         it('200 (OK) if not logged in', function(done){
-          request(server).get('/user/register').expect(200, done);
+          request(server).get('/signup').expect(200, done);
         });
 
         it('451 (Redirect) to / if logged in', function(done){
-          request(server).get('/user/register').expect(451).end((err, res) => {
+          request(server).get('/signup').expect(451).end((err, res) => {
             expect(res.header['location']).to.include('/');
           })
         });
@@ -70,11 +70,11 @@ describe('routes', function(){
 
         describe('Failure', function(){
           it('409 (conflict) if email already exists', function(done){
-            request(server).post('/user/register').send(defaultCredentials).expect(409, done);
+            request(server).post('/signup').send(defaultCredentials).expect(409, done);
           });
 
           it('409 (conflict) if username already exists', function(done){
-            request(server).post('/user/register').send(defaultCredentials).expect(409, done);
+            request(server).post('/signup').send(defaultCredentials).expect(409, done);
           });
         })
 
@@ -84,7 +84,7 @@ describe('routes', function(){
         describe('Success', function(){
           it('redirects to /', function(done){
             request(server)
-              .post('/user/register')
+              .post('/signup')
               .send(defaultCredentials)
               .end((err, res) => {
                 expect(res.header['location']).to.include('/');
@@ -97,25 +97,25 @@ describe('routes', function(){
 
 
 
-    describe('/user/login', function(){
+    describe('/login', function(){
 
       describe('GET', function(){
         it('200 (OK) if not logged', function(done){
-          request(server).get('/user/login').expect(200, done);
+          request(server).get('/login').expect(200, done);
         });
 
         it('451 (Redirect) if logged in', function(done){
-          request(server).get('/user/login').expect(451, done);
+          request(server).get('/login').expect(451, done);
         });
       });
 
       describe('POST', function(){
         it('401 () with invalid data', function(done){
-          request(server).post('/user/login').expect(401, done);
+          request(server).post('/login').expect(401, done);
         });
 
         it('451 (Redirect) on valid data', function(done){
-          request(server).post('/user/login').expect(401, done);
+          request(server).post('/login').expect(401, done);
         });
       });
 
