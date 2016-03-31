@@ -101,40 +101,47 @@ var _lastfm = new LastfmAPI({
 
 var uri = require('url');
 
-app.get('/auth/lastfm', function(req, res, next){
-  if (!req.user) return res.redirect('/login');
-  User.findById(req.user.id, (err, user) => {
-    if (err) next(err);
-    if (!user.lastfm){
-      var redirectTo = uri.format(_lastfm.getAuthenticationUrl({ 'cb' : `http://${req.hostname}:${process.env.PORT || 3000}/auth/lastfm/callback` }));
-      res.redirect(redirectTo);
-    }
-  });
-});
-
+// app.get('/auth/lastfm', function(req, res, next){
+//   if (!req.user) return res.redirect('/login');
+//   User.findById(req.user.id, (err, user) => {
+//     if (err) next(err);
+//     if (!user.lastfm){
+//       var redirectTo = uri.format(_lastfm.getAuthenticationUrl({ 'cb' : `http://${req.hostname}:${process.env.PORT || 3000}/auth/lastfm/callback` }));
+//       res.redirect(redirectTo);
+//     }
+//   });
+// });
+app.get('/auth/lastfm', passport.authenticate('lastfm'));
 app.get('/auth/lastfm/callback', function(req, res, next){
-  if (!req.query.token){
-    req.flash('error', {msg:'token no found'})
-    return res.redirect(req.session.returnTo || '/');
-  }
-
-  _lastfm.authenticate(req.query.token, function(err, session){
-    User.findById(req.user.id, (err, user) => {
-      if (err) return next(err);
-
-      user.tokens.push({type:'lastfm', username:session.username, key:session.key });
-      user.lastfm = session.key;
-
-
-      user.save(function(err){
-        if (err) return next(err);
-        req.flash('success', {msg:"Last.fm authentication success"});
-        return res.redirect('/');
-      })
-    });
-  })
-
+  console.log('in app.js')
+  passport.authenticate('lastfm', {failureRedirect:'/'}, function(err, user, sesh){
+    res.redirect('/');
+  })(req, {} );
+    // res.redirect('/');
 });
+// app.get('/auth/lastfm/callback', function(req, res, next){
+//   if (!req.query.token){
+//     req.flash('error', {msg:'token no found'})
+//     return res.redirect(req.session.returnTo || '/');
+//   }
+
+//   _lastfm.authenticate(req.query.token, function(err, session){
+//     User.findById(req.user.id, (err, user) => {
+//       if (err) return next(err);
+
+//       user.tokens.push({type:'lastfm', username:session.username, key:session.key });
+//       user.lastfm = session.key;
+
+
+//       user.save(function(err){
+//         if (err) return next(err);
+//         req.flash('success', {msg:"Last.fm authentication success"});
+//         return res.redirect('/');
+//       })
+//     });
+//   })
+
+// });
 
 
 app.post('/signup', routes.user.postSignup);

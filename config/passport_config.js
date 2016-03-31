@@ -7,7 +7,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var LastFmStrategy = require('./lastfm_strategy');
 var User = require('../models/User');
-
+var uri = require('url');
 
 
 
@@ -53,26 +53,31 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 var {LASTFM_KEY, LASTFM_SECRET} = process.env;
 
 
-passport.use(new LastFmStrategy({ token_callback_url: '/auth/lastfm/callback', 'api_key': LASTFM_KEY, 'secret': LASTFM_SECRET, }, function(req, sessionKey, done) {
-  // Try to find user by email
-  console.log('In the strategy callback')
-  if (req.user){
-    if (req.user.lastfm){
-      done(null);
-    }
+var LastfmAPI = require('lastfmapi');
 
-    User.findOne({id:req.user.id}, function(err, user){
-      if (err) done(err);
-      if (user && !user.lastfm){
-        user.lastfm = sessionKey;
-        user.save((err, user) => {
-          if (err) return done(err);
-          return done(null, user);
-        });
-      }
+
+var _lastfm = new LastfmAPI({
+  'api_key': LASTFM_KEY,
+  'secret':LASTFM_SECRET
+});
+
+
+
+passport.use(new LastFmStrategy({ 'api_key': LASTFM_KEY, 'secret': LASTFM_SECRET, }, function(req, sessionKey, done) {
+  // Find/Update user's lastfm session
+  console.log('findBhID');
+  User.findById(req.user.id, (err, user) => {
+    if (err) return done(err);
+
+    user.tokens.push({type:'lastfm', username:sessionKey.username, key:sessionKey.key });
+    user.lastfm = sessionKey.key;
+
+    user.save(function(err){
+      if (err) return next(err);
+      req.flash('success', {msg:"Last.fm authentication success"});
+      return done(err, user, sessionKey);
     })
-  }
-  done(null, false, {message:'no implemented yet'});
+  });
 }));
 
 

@@ -6,7 +6,6 @@ var LastfmAPI = require('lastfmapi');
 function LastfmStrategy(options, verify){
 	if (!options.api_key)  { throw new TypeError('LastfmStrategy requires a api_key option'); }
 	if (!verify)  { throw new TypeError('LastfmStrategy requires verify callback'); }
-	if (!options.token_callback_url) { throw new TypeError('LastfmStrategy requires token_callback_url option'); }
 
 	Strategy.call(this);
 
@@ -22,7 +21,6 @@ function LastfmStrategy(options, verify){
 		'api_key': this.api_key,
 		'secret':this.secret
 	});
-	console.log('Created lastfm strategy');
 }
 
 
@@ -30,37 +28,30 @@ function LastfmStrategy(options, verify){
 // This needs to return a function(req, res, next){}
 LastfmStrategy.prototype.authenticate = function(request, options){
 	var self = this;
-	var authUrl = self._lastfm.getAuthenticationUrl({ 'cb' : `http://${request.hostname}:${process.env.PORT || 3000}/auth/lastfm/callback` });
+	var authUrl = self._lastfm.getAuthenticationUrl() + `&cb=http://localhost:${process.env.PORT || 3000}/auth/lastfm/callback`;
 
 	// if (request.path.indexOf('callback') > 0){
 	if (request.query && request.query.token){
-		function loaded(err, ok, state){
-			if (err) return self.error(err);
-      if (!ok) {return self.fail(state, 403); }
-
-      var token = request.query.token;
-
-			this._lastfm.authenticate(request.query.token, function(err, session){
-				if (err) return self.error(err);
-				else if (!session) return self.fail(session, 403);
+    var token = request.query.token;
+		console.log('in lastfm_strategy.authenticate');
 
 
-				function verified(err, user){
-	        if (err) { return self.error(err); }
-	        if (!user) { return self.fail({}); }
-	        self.success(user, {});
-				}
+		this._lastfm.authenticate(request.query.token, function(er, session){
+			if (!session) self.fail(session, 403);
 
-				return self._verify(request, session, verified);
-			});
-		}
+			function verified(err, user, session){
+				console.log('in lastfm_strategy.verified');
+        if (err) { self.error(err); }
+        if (!user) { self.fail(user, session); }
+        self.success(user, session);
+			}
+
+			return self._verify(request, session, verified);
+		});
 
 	}
-
-	// }
-
-	// if user not loggedin
-	if (!request.user){
+ // user not loggedin
+	else if (!request.user){
 		return self.redirect('/login');
 	}
 
@@ -119,7 +110,7 @@ LastfmStrategy.prototype.generate_api_sig = function(token){
 	return md5(raw);
 }
 LastfmStrategy.prototype.generate_auth_url = function(req){
-	return `http://last.fm/api/auth?api_key=${this.api_key}&cb=http://${req.hostname}:${process.env.PORT || 3000}/auth/lastfm`;
+	return `http://last.fm/api/auth?api_key=${this.api_key}&cb=http://localhost:${process.env.PORT || 3000}/auth/lastfm`;
 }
 
 
