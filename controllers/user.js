@@ -10,14 +10,11 @@ var User = require('../models/User');
  * Login page.
  */
 exports.getLogin = function(req, res) {
-  // if (req.user) {
-  //   return res.redirect('/');
-  // }
-  // res.render('account/login', {
-    // title: 'Create Account'
-  // });
-  res.render('home', {
-    title: 'Login'
+  if (req.user) {
+    return res.redirect('/');
+  }
+  res.render('account/login', {
+    title: 'Create Account'
   });
 };
 
@@ -41,15 +38,16 @@ exports.postLogin = function(req, res, next) {
       return next(err);
     }
     if (!user) {
-      // req.flash('errors', { msg: info.message });
-      return res.json({msg:info.message});
+      req.flash('errors', { msg: info.message });
+      res.redirect('/login')
+      // return res.json({msg:info.message});
     }
     req.logIn(user, function(err) {
       if (err) {
         return next(err);
       }
-      // req.flash('success', { msg: 'Success! You are logged in.' });
-      res.sendStatus(200);
+      req.flash('success', { msg: 'Success! You are logged in.' });
+      res.status(200).redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
 };
@@ -68,7 +66,6 @@ exports.logout = function(req, res) {
  * Create a new local account.
  */
 exports.postSignup = function(req, res, next) {
-  console.log(req.user);
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -88,7 +85,7 @@ exports.postSignup = function(req, res, next) {
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       // req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.json({ msg: 'Account with that email address already exists'});
+      return res.render('/account/signup', { msg: 'Account with that email address already exists'});
     }
     user.save(function(err) {
       if (err) {
@@ -98,9 +95,17 @@ exports.postSignup = function(req, res, next) {
         if (err) {
           return next(err);
         }
-        res.send(200);
+        res.redirect('/');
       });
     });
+  });
+};
+exports.getSignup = function(req, res) {
+  if (req.user) {
+    return res.redirect('/');
+  }
+  res.render('account/signup', {
+    title: 'Create Account'
   });
 };
 

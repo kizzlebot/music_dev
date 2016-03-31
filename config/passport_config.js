@@ -5,7 +5,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-
+var LastFmStrategy = require('./lastfm_strategy');
 var User = require('../models/User');
 
 
@@ -47,15 +47,33 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
     user.comparePassword(password, function(err, isMatch) {
       return (isMatch) ? done(null, user) : done(null, false, { message: 'Invalid email or password.' });
     });
-
-
   });
 }));
 
+var {LASTFM_KEY, LASTFM_SECRET} = process.env;
 
 
+passport.use(new LastFmStrategy({ token_callback_url: '/auth/lastfm/callback', 'api_key': LASTFM_KEY, 'secret': LASTFM_SECRET, }, function(req, sessionKey, done) {
+  // Try to find user by email
+  console.log('In the strategy callback')
+  if (req.user){
+    if (req.user.lastfm){
+      done(null);
+    }
 
-
+    User.findOne({id:req.user.id}, function(err, user){
+      if (err) done(err);
+      if (user && !user.lastfm){
+        user.lastfm = sessionKey;
+        user.save((err, user) => {
+          if (err) return done(err);
+          return done(null, user);
+        });
+      }
+    })
+  }
+  done(null, false, {message:'no implemented yet'});
+}));
 
 
 
@@ -298,22 +316,14 @@ passport.use(new LinkedInStrategy({
 /**
  * Login Required middleware.
  */
-exports.isAuthenticated = function(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/login');
-};
+exports.isAuthenticated = (req, res, next) => (req.isAuthenticated()) ? next() : res.redirect('/login');
+
 
 
 /**
  * Authorization Required middleware.
  */
-exports.isAuthorized = function(req, res, next) {
+exports.isAuthorized = (req, res, next) => {
   var provider = req.path.split('/').slice(-1)[0];
-
-  if (_.find(req.user.tokens, { kind: provider })) {
-    next();
-  }
-  else {
-    res.redirect('/auth/' + provider);
-  }
+  return (_.find(req.user.tokens, { kind: provider })) ? next() : res.redirect(`/auth/${provider}`);
 };

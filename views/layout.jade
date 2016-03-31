@@ -2,6 +2,16 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    include ./partials/navbar
+
+    .container:.content(style=".content {margin-top:20px}")
+      include partials/flash
+      block content
+
+    include ./partials/footer
+    block scripts
+      script(src="https://code.jquery.com/jquery.min.js")
+      script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")

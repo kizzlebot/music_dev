@@ -7,12 +7,12 @@ var userSchema = new mongoose.Schema({
   password: String,
 
   facebook: String,
-  twitter: String,
+
   google: String,
   github: String,
-  instagram: String,
+
   linkedin: String,
-  steam: String,
+  lastfm: String,
   tokens: Array,
 
   profile: {
@@ -30,19 +30,17 @@ var userSchema = new mongoose.Schema({
 /**
  * Password hash middleware.
  */
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function(next){
   var user = this;
   if (!user.isModified('password')) {
     return next();
   }
-  bcrypt.genSalt(10, function(err, salt) {
-    if (err) {
-      return next(err);
-    }
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) {
-        return next(err);
-      }
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, null, (err, hash) => {
+      if (err) return next(err);
+
       user.password = hash;
       next();
     });
