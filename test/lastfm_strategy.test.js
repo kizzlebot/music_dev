@@ -13,4 +13,8 @@ describe('lastfm strategy constructor', function(){
 		expect(lastfm_strategy.prototype.authenticate).to.be.defined;
 	});
 
+	it('should throw if clientid not specified', function(){
+		expect(new lastfm_strategy()).to.throw(TypeError)
+	});
+
 })
