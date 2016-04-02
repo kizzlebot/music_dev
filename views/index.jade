@@ -4,3 +4,5 @@ block content
   .row
     h1= title
     p Welcome to #{title}
+    if lastfm
+      p= JSON.stringify(lastfm)

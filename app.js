@@ -14,6 +14,8 @@ var flash = require('express-flash');
 var session = require('express-session');
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
+var lusca = require('lusca');
+
 var app = express();
 
 
@@ -60,7 +62,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
+// app.use(function(req, res, next) {
+//   if (req.path === '/api/upload') next();
+//   else lusca.csrf()(req, res, next);
+// });
+// app.use(lusca.xframe('SAMEORIGIN'));
+// app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   // if (/api/i.test(req.path)) req.session.returnTo = req.path;
@@ -74,6 +81,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 require('./config/passport_config');
 
+
+
+
+
+
+
+
+
+
 var routes = require('./controllers');
 var User = require('./models/User');
 
@@ -83,68 +99,28 @@ app.get('/', routes.home.index);
 app.get('/login', routes.user.getLogin);
 app.get('/signup', routes.user.getSignup);
 app.get('/logout', routes.user.logout);
-
+app.get('/contact', routes.user.getContact);
 app.post('/login', routes.user.postLogin);
 app.post('/forgot', routes.user.postForgot);
 app.post('/reset/:token', routes.user.postReset);
+app.post('/signup', routes.user.postSignup);
 
 
 
-var LastfmAPI = require('lastfmapi');
 
 
-var _lastfm = new LastfmAPI({
-  'api_key': process.env.LASTFM_KEY,
-  'secret':process.env.LASTFM_SECRET
-});
 
 
-var uri = require('url');
 
-// app.get('/auth/lastfm', function(req, res, next){
-//   if (!req.user) return res.redirect('/login');
-//   User.findById(req.user.id, (err, user) => {
-//     if (err) next(err);
-//     if (!user.lastfm){
-//       var redirectTo = uri.format(_lastfm.getAuthenticationUrl({ 'cb' : `http://${req.hostname}:${process.env.PORT || 3000}/auth/lastfm/callback` }));
-//       res.redirect(redirectTo);
-//     }
-//   });
-// });
 app.get('/auth/lastfm', passport.authenticate('lastfm'));
 app.get('/auth/lastfm/callback', function(req, res, next){
-  console.log('in app.js')
   passport.authenticate('lastfm', {failureRedirect:'/'}, function(err, user, sesh){
     res.redirect('/');
   })(req, {} );
-    // res.redirect('/');
 });
-// app.get('/auth/lastfm/callback', function(req, res, next){
-//   if (!req.query.token){
-//     req.flash('error', {msg:'token no found'})
-//     return res.redirect(req.session.returnTo || '/');
-//   }
-
-//   _lastfm.authenticate(req.query.token, function(err, session){
-//     User.findById(req.user.id, (err, user) => {
-//       if (err) return next(err);
-
-//       user.tokens.push({type:'lastfm', username:session.username, key:session.key });
-//       user.lastfm = session.key;
 
 
-//       user.save(function(err){
-//         if (err) return next(err);
-//         req.flash('success', {msg:"Last.fm authentication success"});
-//         return res.redirect('/');
-//       })
-//     });
-//   })
 
-// });
-
-
-app.post('/signup', routes.user.postSignup);
 // app.post('/contact', contactController.postContact);
 // app.post('/account/profile', passportConfig.isAuthenticated, routes.user.postUpdateProfile);
 // app.post('/account/password', passportConfig.isAuthenticated, routes.user.postUpdatePassword);
@@ -189,7 +165,7 @@ if (app.get('env') === 'development') {
 /* production error handler
  *  - No stacktraces shown to user */
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
+  // res.status(err.status || 500);
   res.render('error', {
     message: err.message,
     error: {}

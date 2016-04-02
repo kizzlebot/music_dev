@@ -34,22 +34,21 @@ LastfmStrategy.prototype.authenticate = function(request, options){
 			if (!session) self.fail(session, 403);
 
 			function verified(err, user, session){
-        if (err) { self.error(err); }
-        if (!user) { self.fail(user, session); }
-        self.success(user, session);
+        if (err)  self.error(err);
+        else if (!user) self.fail(user, session);
+        else self.success(user, session);
 			}
 
-			return self._verify(request, session, verified);
+			self._verify(request, session, verified);
 		});
-
 	}
 
 	else if (!request.user){
-		return self.redirect('/login');
+		self.redirect('/login');
 	}
 
 	else{
-		return self.redirect(authUrl);
+		self.redirect(authUrl);
 	}
 }
 

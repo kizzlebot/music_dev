@@ -16,13 +16,19 @@ var _lastfm = new LastfmAPI({
 // module.exports = _lastfm;
 
 exports.index = function(req, res, next){
-	var lastfm_sessionkey = req.user.tokens.filter((e) => e.type == 'lastfm');
-	if (lastfm_sessionkey.length > 0) {
-		lastfm_sessionkey = lastfm_sessionkey[0];
-
+	if (req.users){
+		var session = req.user.tokens.reduce((prev, curr) => {
+			if (prev) return prev;
+			if (curr.type == 'lastfm') return curr;
+			return prev;
+		}, null);
+		if (session){
+			_lastfm.setSessionCredentials(session.username, session.key);
+			_lastfm.user.getInfo((err, data) => res.render('index', {title:'expressf', lastfm:data}))
+		}
 	}
+	else res.render('index', {title:'express'});
 
-	// console.log(lastfm_sessionkey);
-	res.render('index', {title:'express'});
+
 
 }

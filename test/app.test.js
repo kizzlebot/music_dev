@@ -1,8 +1,10 @@
-/* global describe, it, expect, before, request */
+/* global describe, it, expect, before, request, assert */
 
 
 var app = require('../app.js');
 var server ;
+var cheerio = require('cheerio');
+
 
 
 
@@ -24,7 +26,6 @@ describe('routes', function(){
   describe('unauthenticated', function(){
 
     describe('/', function(){
-
       describe('GET', function(){
         it('responds with 200 with HTML page', function(done){
           request(server).get('/').expect(200).end(function(err, res){
@@ -33,13 +34,6 @@ describe('routes', function(){
           })
         });
       })
-
-      describe('POST', function(){
-        it('responds with 404', function(done){
-          request(server).post('/').expect(404, done);
-        });
-      });
-
     });
 
 
@@ -48,8 +42,6 @@ describe('routes', function(){
 
 
       var defaultCredentials = {email:'test@test.com', password:'test'};
-
-
 
       describe('GET', function(){
         it('200 (OK) if not logged in', function(done){
@@ -107,16 +99,44 @@ describe('routes', function(){
         it('451 (Redirect) if logged in', function(done){
           request(server).get('/login').expect(451, done);
         });
+
+        // it('should contain csrf as a hidden input field', function(done){
+        //   request(server)
+        //     .get('/login')
+        //     .end(function(err, res){
+        //       var $ = cheerio.load(res.text);
+        //       var csrf = $('input[name=_csrf]');
+
+        //       assert.isDefined(csrf, 'csrf is defined');
+        //       assert.isDefined(csrf.val(), 'csrf value is defined');
+        //       done();
+        //     });
+        // });
+
+        it('should allow log in', function(done){
+          request(server)
+            .get('/login')
+            .end(function(err, res){
+              var $ = cheerio.load(res.text);
+              var csrf = $('input[name=_csrf]');
+
+              // assert.isDefined(csrf, 'csrf is defined');
+              // assert.isDefined(csrf.val(), 'csrf value is defined');
+
+              request(server)
+                .post('/login')
+                .send({
+                  // _csrf:csrf.val(),
+                  email:'thrice43@gmail.com',
+                  password:'tree444'
+                })
+                .expect(302, done);
+            });
+        })
       });
 
       describe('POST', function(){
-        it('401 () with invalid data', function(done){
-          request(server).post('/login').expect(401, done);
-        });
 
-        it('451 (Redirect) on valid data', function(done){
-          request(server).post('/login').expect(401, done);
-        });
       });
 
     });
@@ -126,10 +146,10 @@ describe('routes', function(){
 
   describe('authenticated only', function(){
 
-    describe('/user/logout', function(){
+    describe('/logout', function(){
       describe('GET', function(){
         it('200 (OK)', function(done){
-          request(server).get('/user/logout').expect(200, done);
+          request(server).get('/logout').expect(200, done);
         })
       });
       describe('POST', function(){

@@ -1,3 +1,6 @@
 var chai = require('chai');
-global.request = require('supertest');
+chai.use(require('chai-passport-strategy'));
+global.assert = chai.assert;
 global.expect = chai.expect;
+global.request = require('supertest');
+
