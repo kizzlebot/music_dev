@@ -77,10 +77,10 @@ block content
   .form-horizontal
     .form-group
       .col-sm-offset-3.col-sm-4
-        if user.instagram
-          p: a.text-danger(href='/account/unlink/instagram') Unlink your Instagram account
+        if user.lastfm
+          p: a.text-danger(href='/account/unlink/lastfm') Unlink your Last.fm account
         else
-          p: a(href='/auth/instagram') Link your Instagram account
+          p: a(href='/auth/lastfm') Link your Last.fm account
       .col-sm-offset-3.col-sm-4
         if user.google
           p: a.text-danger(href='/account/unlink/google') Unlink your Google account

@@ -6,6 +6,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var LastFmStrategy = require('./lastfm_strategy');
+var SoundCloudStrategy = require('passport-soundcloud');
 
 var User = require('../models/User');
 var uri = require('url');
@@ -42,7 +43,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
         message: `Email ${email} not found.`
       });
     }
-
 
     // Check if password given matches value in db
     user.comparePassword(password, function(err, isMatch) {
@@ -97,6 +97,33 @@ passport.use(new LastFmStrategy({
     })
   }
 }));
+
+passport.use(new SoundCloudStrategy({
+  clientID: process.env.SOUNDCLOUD_ID,
+  clientSecret: process.env.SOUNDCLOUD_SECRET,
+  callbackURL: 'http://127.0.0.1:3000/auth/soundcloud/callback'
+}, function(req, accessToken, refreshToken, profile, done) {
+  // If no logged in
+  if (!req.user) {
+    done(null, false, {message: 'Must be logged in first'});
+  }
+
+  else {
+    User.findById(req.user.id, function(err, user) {
+      if (user){
+        if (user.soundcloud){
+          done(err, user);
+        }
+        else {
+          user.soundcloud = profile.id;
+          done(err, user);
+        }
+      }
+    });
+  }
+
+}));
+
 
 
 
@@ -332,9 +359,6 @@ passport.use(new LinkedInStrategy({
     });
   }
 }));
-
-
-
 
 
 /**
