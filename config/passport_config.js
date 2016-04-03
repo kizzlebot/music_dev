@@ -105,7 +105,8 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 
 passport.use(new LastFmStrategy({
   'api_key': LASTFM_KEY,
-  'secret': LASTFM_SECRET
+  'secret': LASTFM_SECRET,
+  'callbackURL': `http://${process.env.HOSTNAME || 'localhost'}:${process.env.PORT || 3000}/auth/lastfm/callback`
 }, function(req, sessionKey, done) {
   // Find/Update user's lastfm session
 

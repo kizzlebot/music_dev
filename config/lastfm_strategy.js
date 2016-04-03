@@ -5,6 +5,8 @@ var LastfmAPI = require('lastfmapi');
 
 function LastfmStrategy(options, verify){
 	if (!options.api_key)  { throw new TypeError('LastfmStrategy requires a api_key option'); }
+	if (!options.secret)  { throw new TypeError('LastfmStrategy requires a secret option'); }
+	if (!options.callbackURL)  { throw new TypeError('LastfmStrategy requires a callbackURL option'); }
 	if (!verify)  { throw new TypeError('LastfmStrategy requires verify callback'); }
 
 	Strategy.call(this);
@@ -12,6 +14,8 @@ function LastfmStrategy(options, verify){
 	this.name = 'lastfm';
 	this.api_key = options.api_key;
 	this.secret = options.secret;
+	this.callbackURL= options.callbackURL;
+
 
 
 	this._verify = verify;
@@ -24,7 +28,7 @@ function LastfmStrategy(options, verify){
 
 LastfmStrategy.prototype.authenticate = function(req, options){
 	var self = this;
-	var authUrl = self._lastfm.getAuthenticationUrl() + `&cb=http://localhost:${process.env.PORT || 3000}/auth/lastfm/callback`;
+	var authUrl = self._lastfm.getAuthenticationUrl() + `&cb=${this.callbackURL}`;
 
 
 	if (req.query && req.query.token){
