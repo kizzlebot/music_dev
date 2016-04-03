@@ -1,3 +1,6 @@
+
+
+
 var webpack       = require("webpack");
 var nodeExternals = require("webpack-node-externals");
 var path          = require("path");
@@ -6,15 +9,24 @@ var dotenv = require('dotenv');
 var pkg = require('../package.json');
 
 
-// dotenv.config({path:path.resolve('./.env')});
+dotenv.config({path: path.join(process.cwd(), '.env.example')});
 
-var env = {};
+var eenv = {};
 
 
 // Read/Parse the .env file
-// fs.readFile(path.resolve('./.env.example'), function(err, data){
-// 	env['process.env'] = dotenv.parse(data);
-// })
+fs.readFile(path.join(process.cwd(), '.env.example'), function(err, data){
+
+	var env = dotenv.parse(data);
+  eenv['process.env'] = Object.keys(process.env).forEach((prev, curr) => {
+    if (!prev[curr]) return prev ;
+    prev[curr] = process.env[curr];
+    return prev ;
+  }, env);
+});
+
+
+
 // env['process.env'] = Object.keys(process.env).reduce((prev, curr) => {
 // 	prev[curr] = `"${process.env[curr]}"`;
 // 	return prev ;
@@ -26,17 +38,17 @@ var env = {};
 module.exports = {
   target:  "node",
   cache:   false,
-  context: __dirname,
+  context: process.cwd(),
   debug:   false,
-  devtool: "source-map",
-  entry:   ["../app"],
+  // devtool: "source-map",
+  entry:   ["./src/server.js"],
   output:  {
-    path:          path.join(__dirname, "../"),
+    path:          path.join(process.cwd(), "/dist"),
     filename:      "server.js"
   },
   plugins: [
     new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false, __PKG__:`"${pkg.name}"`}),
-    new webpack.DefinePlugin(env)
+    new webpack.DefinePlugin(eenv)
   ],
   module:  {
     loaders: [
@@ -56,7 +68,7 @@ module.exports = {
     whitelist: ["webpack/hot/poll?1000"]
   })],
   resolve: {
-    modulesDirectories: ["server", "node_modules", "public"],
+    modulesDirectories: ["src", "node_modules", "static"],
     extensions: ["", ".json", ".js"]
   },
   node:    {

@@ -1,4 +1,5 @@
-var LastFmStrategy = require('../server/config/lastfm_strategy');
+var path = require('path');
+var LastFmStrategy = require(path.join(process.cwd(), 'src/server/config/lastfm_strategy'));
 
 
 var strategy;

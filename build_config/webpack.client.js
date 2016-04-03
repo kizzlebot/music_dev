@@ -5,12 +5,12 @@ var pkg = require('../package.json');
 module.exports = {
   target:  "web",
   cache:   false,
-  context: __dirname,
+  context: process.cwd(),
   debug:   false,
   devtool: false,
-  entry:   ["../client/app"],
+  entry:   ["./src/client"],
   output:  {
-    path:          path.join(__dirname, "../public/dist"),
+    path:          path.join(process.cwd(), "dist"),
     filename:      "client.js",
     chunkFilename: "[name].[id].js"
   },
