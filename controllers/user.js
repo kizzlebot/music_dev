@@ -1,7 +1,15 @@
 var _ = require('lodash');
 var async = require('async');
 var crypto = require('crypto');
-var nodemailer = require('nodemailer');
+var nodemailer = require("nodemailer");
+var transporter = nodemailer.createTransport({
+  service: 'SendGrid',
+  auth: {
+    user: process.env.SENDGRID_USER,
+    pass: process.env.SENDGRID_PASSWORD
+  }
+});
+
 var passport = require('passport');
 var User = require('../models/User');
 
@@ -16,6 +24,96 @@ exports.getLogin = function(req, res) {
     title: 'Login to Account'
   });
 };
+
+
+
+/**
+ * GET /contact
+ * Contact form page.
+ */
+exports.getContact = function(req, res) {
+  res.render('contact', {
+    title: 'Contact'
+  });
+};
+exports.getSignup = function(req, res) {
+  if (req.user) {
+    return res.status(302).redirect('/');
+  }
+  res.render('account/signup', {
+    title: 'Create Account'
+  });
+};
+
+/**
+ * GET /account
+ * Profile page.
+ */
+exports.getAccount = function(req, res) {
+  res.render('account/profile', {
+    title: 'Account Management'
+  });
+};
+
+
+/**
+ * GET /forgot
+ * Forgot Password page.
+ */
+exports.getForgot = function(req, res) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+  res.render('account/forgot', {
+    title: 'Forgot Password'
+  });
+};
+
+/**
+ * GET /account/unlink/:provider
+ * Unlink OAuth provider.
+ */
+exports.getOauthUnlink = function(req, res, next) {
+  var provider = req.params.provider;
+  User.findById(req.user.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    user[provider] = undefined;
+    user.tokens = _.reject(user.tokens, function(token) { return token.kind === provider; });
+    user.save(function(err) {
+      if (err) return next(err);
+      req.flash('info', { msg: provider + ' account has been unlinked.' });
+      res.redirect('/account');
+    });
+  });
+};
+
+/**
+ * GET /reset/:token
+ * Reset Password page.
+ */
+exports.getReset = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+  User
+    .findOne({ passwordResetToken: req.params.token })
+    .where('passwordResetExpires').gt(Date.now())
+    .exec(function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+        return res.redirect('/forgot');
+      }
+      res.render('account/reset', {
+        title: 'Password Reset'
+      });
+    });
+};
+
 
 /**
  * POST /login
@@ -51,18 +149,6 @@ exports.postLogin = function(req, res, next) {
 };
 
 /**
- * GET /contact
- * Contact form page.
- */
-exports.getContact = function(req, res) {
-  res.render('contact', {
-    title: 'Contact'
-  });
-};
-
-
-
-/**
  * GET /logout
  * Log out.
  */
@@ -71,6 +157,43 @@ exports.logout = function(req, res) {
   res.redirect('/');
 };
 
+
+
+
+exports.postContact = function(req, res) {
+  req.assert('name', 'Name cannot be blank').notEmpty();
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('message', 'Message cannot be blank').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/contact');
+  }
+
+  var from = req.body.email;
+  var name = req.body.name;
+  var body = req.body.message;
+  var to = 'your@email.com';
+  var subject = 'Contact Form | Hackathon Starter';
+
+  var mailOptions = {
+    to: to,
+    from: from,
+    subject: subject,
+    text: body
+  };
+
+  transporter.sendMail(mailOptions, function(err) {
+    if (err) {
+      req.flash('errors', { msg: err.message });
+      return res.redirect('/contact');
+    }
+    req.flash('success', { msg: 'Email has been sent successfully!' });
+    res.redirect('/contact');
+  });
+};
 
 /**
  * POST /signup
@@ -115,24 +238,7 @@ exports.postSignup = function(req, res, next) {
 
 
 
-exports.getSignup = function(req, res) {
-  if (req.user) {
-    return res.status(302).redirect('/');
-  }
-  res.render('account/signup', {
-    title: 'Create Account'
-  });
-};
 
-/**
- * GET /account
- * Profile page.
- */
-exports.getAccount = function(req, res) {
-  res.render('account/profile', {
-    title: 'Account Management'
-  });
-};
 
 /**
  * POST /account/profile
@@ -203,50 +309,6 @@ exports.postDeleteAccount = function(req, res, next) {
   });
 };
 
-/**
- * GET /account/unlink/:provider
- * Unlink OAuth provider.
- */
-exports.getOauthUnlink = function(req, res, next) {
-  var provider = req.params.provider;
-  User.findById(req.user.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    user[provider] = undefined;
-    user.tokens = _.reject(user.tokens, function(token) { return token.kind === provider; });
-    user.save(function(err) {
-      if (err) return next(err);
-      req.flash('info', { msg: provider + ' account has been unlinked.' });
-      res.redirect('/account');
-    });
-  });
-};
-
-/**
- * GET /reset/:token
- * Reset Password page.
- */
-exports.getReset = function(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/');
-  }
-  User
-    .findOne({ passwordResetToken: req.params.token })
-    .where('passwordResetExpires').gt(Date.now())
-    .exec(function(err, user) {
-      if (err) {
-        return next(err);
-      }
-      if (!user) {
-        req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
-        return res.redirect('/forgot');
-      }
-      res.render('account/reset', {
-        title: 'Password Reset'
-      });
-    });
-};
 
 /**
  * POST /reset/:token
@@ -314,19 +376,6 @@ exports.postReset = function(req, res, next) {
       return next(err);
     }
     res.redirect('/');
-  });
-};
-
-/**
- * GET /forgot
- * Forgot Password page.
- */
-exports.getForgot = function(req, res) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/');
-  }
-  res.render('account/forgot', {
-    title: 'Forgot Password'
   });
 };
 

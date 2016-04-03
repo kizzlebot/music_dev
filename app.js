@@ -79,7 +79,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-require('./config/passport_config');
+var passportConfig = require('./config/passport_config');
 
 
 
@@ -100,22 +100,59 @@ app.get('/login', routes.user.getLogin);
 app.get('/signup', routes.user.getSignup);
 app.get('/logout', routes.user.logout);
 app.get('/contact', routes.user.getContact);
+app.get('/forgot', routes.user.getForgot);
+app.get('/reset/:token', routes.user.getReset);
+app.get('/account', passportConfig.isAuthenticated, routes.user.getAccount);
+app.get('/account/unlink/:provider', passportConfig.isAuthenticated, routes.user.getOauthUnlink);
+
+
 app.post('/login', routes.user.postLogin);
+app.post('/signup', routes.user.postSignup);
+app.post('/contact', routes.user.postContact);
 app.post('/forgot', routes.user.postForgot);
 app.post('/reset/:token', routes.user.postReset);
 app.post('/signup', routes.user.postSignup);
+app.post('/reset/:token', routes.user.postReset);
+app.post('/account/profile', passportConfig.isAuthenticated, routes.user.postUpdateProfile);
+app.post('/account/password', passportConfig.isAuthenticated, routes.user.postUpdatePassword);
+app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDeleteAccount);
 
 
 
 
 
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');
+});
+
+app.get('/auth/github', passport.authenticate('github'));
+app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');
+});
+
+app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');
+});
+
+app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');
+});
+
+
+app.get('/auth/soundcloud', passport.authenticate('soundcloud', { state: 'SOME STATE' }));
+app.get('/auth/soundcloud/callback', passport.authenticate('soundcloud', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');
+});
 
 
 
 app.get('/auth/lastfm', passport.authenticate('lastfm'));
 app.get('/auth/lastfm/callback', function(req, res, next){
   passport.authenticate('lastfm', {failureRedirect:'/'}, function(err, user, sesh){
-    res.redirect('/');
+    res.redirect(req.session.returnTo || '/');
   })(req, {} );
 });
 
@@ -128,12 +165,6 @@ app.get('/auth/lastfm/callback', function(req, res, next){
 // app.get('/account/unlink/:provider', passportConfig.isAuthenticated, routes.user.getOauthUnlink);
 
 
-
-
-// app.get('/auth/lastfm', passport.authenticate('lastfm', {  }));
-// app.get('/auth/lastfm/callback', passport.authenticate('lastfm', { failureRedirect: '/login' }), function(req, res) {
-//   res.redirect(req.session.returnTo || '/');
-// });
 
 
 
