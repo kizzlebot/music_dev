@@ -47,7 +47,7 @@ mongoose.connection.on('error', function() {
 app.set('port', process.env.PORT || '3000');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'server', 'views'));
 app.set('view engine', 'jade');
 
 app.use(compress());
@@ -92,7 +92,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-var passportConfig = require('./config/passport_config');
+var passportConfig = require('./server/config/passport_config');
 
 
 
@@ -117,8 +117,8 @@ var passportConfig = require('./config/passport_config');
  * ---------------------------------------------------
  * --------------------------------------------------- */
 
-var routes = require('./controllers');
-var User = require('./models/User');
+var routes = require('./server/controllers');
+var User = require('./server/models/User');
 
 
 app.get('/', routes.home.index);

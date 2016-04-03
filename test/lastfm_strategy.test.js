@@ -1,4 +1,4 @@
-var LastFmStrategy = require('../config/lastfm_strategy');
+var LastFmStrategy = require('../server/config/lastfm_strategy');
 
 
 var strategy;

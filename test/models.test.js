@@ -1,6 +1,6 @@
 var chai = require('chai');
 var should = chai.should();
-var User = require('../models/User');
+var User = require('../server/models/User');
 var server ;
 var app = require('../app.js');
 
