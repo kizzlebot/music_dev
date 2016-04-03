@@ -117,7 +117,7 @@ var passportConfig = require('./server/config/passport_config');
  * ---------------------------------------------------
  * --------------------------------------------------- */
 
-var routes = require('./server/controllers');
+var routes = require('./server/controllers/index');
 var User = require('./server/models/User');
 
 
@@ -242,6 +242,19 @@ app.use(function(err, req, res, next) {
 
 
 
+  if (module.hot) {
+    console.log("[HMR] Waiting for server-side updates");
+
+    module.hot.accept("components/routes", () => {
+      routes = require("components/routes");
+    });
+
+    module.hot.addStatusHandler((status) => {
+      if (status === "abort") {
+        setTimeout(() => process.exit(0), 0);
+      }
+    });
+  }
 
 
 
