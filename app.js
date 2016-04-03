@@ -33,7 +33,6 @@ mongoose.connection.on('error', function() {
 
 
 
-
 app.set('port', process.env.PORT || '3000');
 
 // view engine setup
@@ -41,10 +40,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(compress());
-app.use(logger('dev', {
-  // Skip logging if test environment
-  skip: (req, res) => (process.env.NODE_ENV == 'test')
-}));
+
+// Skip logging if test environment
+app.use(logger('dev', { skip: (req, res) => (process.env.NODE_ENV == 'test') }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
@@ -62,15 +61,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(function(req, res, next) {
-  if (req.path === '/api/upload') next();
-  else lusca.csrf()(req, res, next);
+app.use((req, res, next) => {
+  (req.path === '/api/upload') ? next() : lusca.csrf()(req, res, next);
 });
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
+
+
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  // if (/api/i.test(req.path)) req.session.returnTo = req.path;
+  if (/api/i.test(req.path)) req.session.returnTo = req.path;
   if(res.locals._csrf) res.cookie('csrf', res.locals._csrf);
   next();
 });
@@ -119,6 +119,18 @@ app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDele
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/auth/soundcloud', passportConfig.isAuthenticated, passportConfig.hasAPI('soundcloud'), passport.authenticate('soundcloud'));
 app.get('/auth/soundcloud/callback', function(req, res) {
   passport.authenticate('soundcloud', { failureRedirect:'/login' }, function(err, user, sesh){
@@ -133,7 +145,6 @@ app.get('/auth/lastfm/callback', function(req, res, next){
     res.redirect(req.session.returnTo || '/');
   })(req, {} );
 });
-
 
 
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
@@ -159,12 +170,6 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 
 
 
-
-// app.post('/contact', contactController.postContact);
-// app.post('/account/profile', passportConfig.isAuthenticated, routes.user.postUpdateProfile);
-// app.post('/account/password', passportConfig.isAuthenticated, routes.user.postUpdatePassword);
-// app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDeleteAccount);
-// app.get('/account/unlink/:provider', passportConfig.isAuthenticated, routes.user.getOauthUnlink);
 
 
 

@@ -36,7 +36,6 @@ LastfmStrategy.prototype.authenticate = function(req, options){
 
 			// Build the done() function called by the verify function
 			function verified(err, user, session){
-				console.info('in verified()');
 
         if (err)  self.error(err);
         else if (!user) self.fail(user, session);
