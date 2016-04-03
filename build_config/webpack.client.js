@@ -10,7 +10,7 @@ module.exports = {
   devtool: false,
   entry:   ["./src/client"],
   output:  {
-    path:          path.join(process.cwd(), "dist"),
+    path:          path.join(process.cwd(), "src", "server", "public"),
     filename:      "client.js",
     chunkFilename: "[name].[id].js"
   },
