@@ -22,31 +22,30 @@ function LastfmStrategy(options, verify){
 }
 
 
-LastfmStrategy.prototype.authenticate = function(request, options){
+LastfmStrategy.prototype.authenticate = function(req, options){
 	var self = this;
 	var authUrl = self._lastfm.getAuthenticationUrl() + `&cb=http://localhost:${process.env.PORT || 3000}/auth/lastfm/callback`;
 
 
-	if (request.query && request.query.token){
-    var token = request.query.token;
+	if (req.query && req.query.token){
+    var token = req.query.token;
 
-		this._lastfm.authenticate(request.query.token, function(er, session){
+		this._lastfm.authenticate(req.query.token, function(er, session){
 			if (!session) self.fail(session, 403);
 
+
+			// Build the done() function called by the verify function
 			function verified(err, user, session){
+				console.info('in verified()');
+
         if (err)  self.error(err);
         else if (!user) self.fail(user, session);
         else self.success(user, session);
 			}
 
-			self._verify(request, session, verified);
+			self._verify(req, session, verified);
 		});
 	}
-
-	else if (!request.user){
-		self.redirect('/login');
-	}
-
 	else{
 		self.redirect(authUrl);
 	}

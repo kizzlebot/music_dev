@@ -36,6 +36,7 @@
     "passport-google-oauth": "^1.0.0",
     "passport-linkedin-oauth2": "^1.4.0",
     "passport-local": "^1.0.0",
+    "passport-oauth": "^1.0.0",
     "passport-strategy": "^1.0.0",
     "react": "^0.14.8",
     "serve-favicon": "~2.3.0"

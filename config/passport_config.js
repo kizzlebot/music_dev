@@ -6,6 +6,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var LastFmStrategy = require('./lastfm_strategy');
+
 var User = require('../models/User');
 var uri = require('url');
 
@@ -63,21 +64,38 @@ var _lastfm = new LastfmAPI({
 
 
 
-passport.use(new LastFmStrategy({ 'api_key': LASTFM_KEY, 'secret': LASTFM_SECRET, }, function(req, sessionKey, done) {
+passport.use(new LastFmStrategy({
+  'api_key': LASTFM_KEY,
+  'secret': LASTFM_SECRET
+}, function(req, sessionKey, done) {
   // Find/Update user's lastfm session
-  console.log('findBhID');
-  User.findById(req.user.id, (err, user) => {
-    if (err) return done(err);
 
-    user.tokens.push({type:'lastfm', username:sessionKey.username, key:sessionKey.key });
-    user.lastfm = sessionKey.key;
+  // If user logged in
+  if (req.user){
+    User.findById(req.user.id, (err, user) => {
+      if (err) return done(err);
 
-    user.save(function(err){
-      if (err) return next(err);
-      req.flash('success', {msg:"Last.fm authentication success"});
-      return done(err, user, sessionKey);
+      user.tokens.push({type:'lastfm', username:sessionKey.username, key:sessionKey.key });
+      user.lastfm = sessionKey.key;
+
+      user.save(function(err){
+        if (err) return done(err);
+        req.flash('success', {msg:"Last.fm authentication success"});
+        return done(err, user, sessionKey);
+      })
+    });
+  }
+  else{
+    User.findOne({lastfm:sessionKey.key}, function(err, existing){
+      if (existing){
+        req.flash('errors', { msg: 'There is already a Lastfm account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
+        done(err, existing);
+      }
+      else{
+        done(err);
+      }
     })
-  });
+  }
 }));
 
 
@@ -112,7 +130,8 @@ passport.use(new FacebookStrategy({
         });
       }
     });
-  } else {
+  }
+  else {
     User.findOne({ facebook: profile.id }, function(err, existingUser) {
       if (existingUser) {
         return done(null, existingUser);

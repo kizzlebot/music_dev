@@ -13,7 +13,7 @@ exports.getLogin = function(req, res) {
   if (req.user) return res.redirect('/');
 
   res.render('account/login', {
-    title: 'Create Account'
+    title: 'Login to Account'
   });
 };
 
@@ -30,23 +30,22 @@ exports.postLogin = function(req, res, next) {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/login');
+    return res.status(401).render('account/login');
   }
 
   passport.authenticate('local', function(err, user, info) {
-    if (err) {
-      return next(err);
-    }
+    if (err) return next(err);
+
     else if (!user) {
       req.flash('errors', { msg: info.message });
-      return res.redirect('/login')
+      return res.status(401).render('account/login')
     }
 
     req.logIn(user, function(err) {
       if (err) return next(err);
 
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.status(200).redirect(req.session.returnTo || '/');
+      res.status(202).redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
 };
@@ -71,6 +70,7 @@ exports.logout = function(req, res) {
   req.logout();
   res.redirect('/');
 };
+
 
 /**
  * POST /signup
@@ -111,9 +111,13 @@ exports.postSignup = function(req, res, next) {
     });
   });
 };
+
+
+
+
 exports.getSignup = function(req, res) {
   if (req.user) {
-    return res.redirect('/');
+    return res.status(302).redirect('/');
   }
   res.render('account/signup', {
     title: 'Create Account'
