@@ -98,7 +98,7 @@ passport.use(new LastFmStrategy({
   }
 }));
 
-passport.use(new SoundCloudStrategy({
+passport.use(new SoundCloudStrategy.Strategy({
   clientID: process.env.SOUNDCLOUD_ID,
   clientSecret: process.env.SOUNDCLOUD_SECRET,
   callbackURL: 'http://127.0.0.1:3000/auth/soundcloud/callback'
