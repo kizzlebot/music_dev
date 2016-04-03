@@ -39,10 +39,10 @@ var _lastfm = new LastfmAPI({
 
 var cb_url ;
 if (process.env.HOSTNAME){
-  cb_url = `http://${process.env.HOSTNAME}`;
+  cb_url = `${process.env.HOSTNAME}`;
 }
 else{
-  cb_url = `http://localhost:${process.env.PORT}`;
+  cb_url = `localhost:${process.env.PORT}`;
 }
 
 
