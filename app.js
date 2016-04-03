@@ -21,6 +21,17 @@ var app = express();
 
 
 
+
+
+
+
+/* ----------------------------------------------------
+ * ----------------------------------------------------
+ *                    Middleware
+ * ---------------------------------------------------
+ * --------------------------------------------------- */
+
+
 /**
  * Connect to MongoDB.
  */
@@ -71,11 +82,13 @@ app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   if (/api/i.test(req.path)) req.session.returnTo = req.path;
-  if(res.locals._csrf) res.cookie('csrf', res.locals._csrf);
+  if(res.locals._csrf) {
+    res.cookie('csrf', res.locals._csrf);
+    res.set('CSRF', res.locals._csrf);
+  }
   next();
 });
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 
@@ -89,6 +102,20 @@ var passportConfig = require('./config/passport_config');
 
 
 
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------------------
+ * ----------------------------------------------------
+ *                    Routes
+ * ---------------------------------------------------
+ * --------------------------------------------------- */
 
 var routes = require('./controllers');
 var User = require('./models/User');
@@ -152,15 +179,18 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
   res.redirect(req.session.returnTo || '/');
 });
 
+
 app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');
 });
 
+
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');
 });
+
 
 app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login' }), function(req, res) {
@@ -213,4 +243,8 @@ app.use(function(err, req, res, next) {
 
 
 
+
+
+// If file was loaded directly (ie via npm start) then start the server and export it.
+// Otherwise if 'required' from another file export express app without starting server
 module.exports = (require.main == module) ? app.listen(app.get('port'), () => console.log('Example app listening at port %s', app.get('port'))) : app;
