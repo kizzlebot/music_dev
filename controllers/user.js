@@ -26,7 +26,6 @@ exports.getLogin = function(req, res) {
 };
 
 
-
 /**
  * GET /contact
  * Contact form page.
@@ -36,6 +35,8 @@ exports.getContact = function(req, res) {
     title: 'Contact'
   });
 };
+
+
 exports.getSignup = function(req, res) {
   if (req.user) {
     return res.status(302).redirect('/');
@@ -44,6 +45,7 @@ exports.getSignup = function(req, res) {
     title: 'Create Account'
   });
 };
+
 
 /**
  * GET /account
@@ -69,6 +71,7 @@ exports.getForgot = function(req, res) {
   });
 };
 
+
 /**
  * GET /account/unlink/:provider
  * Unlink OAuth provider.
@@ -88,6 +91,7 @@ exports.getOauthUnlink = function(req, res, next) {
     });
   });
 };
+
 
 /**
  * GET /reset/:token
