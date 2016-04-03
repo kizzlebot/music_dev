@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --exec babel-node app.js",
-    "test": "NODE_ENV=test mocha --reporter spec --timeout 5000 --compilers js:babel-register --require test/bootstrap/node test/*.test.js"
+    "test": "NODE_ENV=test mocha --reporter spec --timeout 10000 --compilers js:babel-register --require test/bootstrap/node test/*.test.js"
   },
   "dependencies": {
     "babel-cli": "^6.6.5",
