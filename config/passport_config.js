@@ -37,13 +37,21 @@ var _lastfm = new LastfmAPI({
 
 
 
+var cb_url ;
+if (process.env.HOSTNAME){
+  cb_url = `http://${process.env.HOSTNAME}`;
+}
+else{
+  cb_url = `http://localhost:${process.env.PORT}`;
+}
+
 
 
 
 passport.use(new SoundCloudTokenStrategy({
   clientID: process.env.SOUNDCLOUD_ID,
   clientSecret: process.env.SOUNDCLOUD_SECRET,
-  callbackURL: `${process.env.HOSTNAME || 'http://localhost'}:${process.env.PORT || 3000}/auth/soundcloud/callback`,
+  callbackURL: `${cb_url}/auth/soundcloud/callback`,
   passReqToCallback: true
 }, function(req, accessToken, refreshToken, profile, done){
 
@@ -106,7 +114,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 passport.use(new LastFmStrategy({
   'api_key': LASTFM_KEY,
   'secret': LASTFM_SECRET,
-  'callbackURL': `${process.env.HOSTNAME || 'http://localhost'}:${process.env.PORT || 3000}/auth/lastfm/callback`
+  'callbackURL': `${cb_url}}/auth/lastfm/callback`
 }, function(req, sessionKey, done) {
   // Find/Update user's lastfm session
 
