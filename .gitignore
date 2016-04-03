@@ -44,3 +44,4 @@ src/server/public/f775f9cca88e21d45bebe185b27c0e5b.svg
 src/server/public/images
 src/server/public/javascripts
 src/server/public/stylesheets
+dist/server.js
