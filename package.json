@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "babel-node app.js",
+    "start": "node app.js",
     "dev": "nodemon --exec babel-node app.js",
     "test": "NODE_ENV=test mocha --reporter spec --timeout 5000 --compilers js:babel-register --require test/bootstrap/node test/*.test.js"
   },

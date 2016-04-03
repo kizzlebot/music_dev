@@ -1,3 +1,4 @@
+var uri = require('url');
 var _ = require('lodash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -6,9 +7,10 @@ var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var LastFmStrategy = require('./lastfm_strategy');
+var SoundCloudTokenStrategy = require('passport-soundcloud').Strategy;
 
 var User = require('../models/User');
-var uri = require('url');
+
 
 
 
@@ -35,8 +37,8 @@ var _lastfm = new LastfmAPI({
 
 
 
-// var SoundCloudTokenStrategy = require('passport-soundcloud-token');
-var SoundCloudTokenStrategy = require('passport-soundcloud').Strategy;
+
+
 
 passport.use(new SoundCloudTokenStrategy({
   clientID: process.env.SOUNDCLOUD_ID,
@@ -199,6 +201,7 @@ passport.use(new FacebookStrategy({
 
 
 
+
 /**
  * GitHub.
  */
@@ -256,6 +259,7 @@ passport.use(new GitHubStrategy({
     });
   }
 }));
+
 
 
 
