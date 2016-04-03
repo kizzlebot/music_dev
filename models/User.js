@@ -13,6 +13,7 @@ var userSchema = new mongoose.Schema({
 
   linkedin: String,
   lastfm: String,
+  soundcloud:String,
   tokens: Array,
 
   profile: {
@@ -56,6 +57,9 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
     cb(null, isMatch);
   });
 };
+
+
+
 
 /**
  * Helper method for getting user's gravatar.

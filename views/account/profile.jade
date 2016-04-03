@@ -82,6 +82,11 @@ block content
         else
           p: a(href='/auth/lastfm') Link your Last.fm account
       .col-sm-offset-3.col-sm-4
+        if user.soundcloud
+          p: a.text-danger(href='/account/unlink/soundcloud') Unlink your SoundCloud account
+        else
+          p: a(href='/auth/soundcloud') Link your SoundCloud account
+      .col-sm-offset-3.col-sm-4
         if user.google
           p: a.text-danger(href='/account/unlink/google') Unlink your Google account
         else

@@ -6,7 +6,6 @@ var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var LastFmStrategy = require('./lastfm_strategy');
-var SoundCloudStrategy = require('passport-soundcloud');
 
 var User = require('../models/User');
 var uri = require('url');
@@ -23,7 +22,57 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+var {LASTFM_KEY, LASTFM_SECRET} = process.env;
+var LastfmAPI = require('lastfmapi');
 
+
+var _lastfm = new LastfmAPI({
+  'api_key': LASTFM_KEY,
+  'secret':LASTFM_SECRET
+});
+
+
+
+
+
+// var SoundCloudTokenStrategy = require('passport-soundcloud-token');
+var SoundCloudTokenStrategy = require('passport-soundcloud').Strategy;
+
+passport.use(new SoundCloudTokenStrategy({
+  clientID: process.env.SOUNDCLOUD_ID,
+  clientSecret: process.env.SOUNDCLOUD_SECRET,
+  callbackURL: `http://${process.env.HOSTNAME || 'localhost'}:${process.env.PORT || 3000}/auth/soundcloud/callback`,
+  passReqToCallback: true
+}, function(req, accessToken, refreshToken, profile, done){
+
+  if (req.user){
+
+    User.findById(req.user.id, (err, user) => {
+      if (err) return done(err);
+
+
+      // check if soundcloud oauth_token already present for this user
+
+      if (user.soundcloud && _.find(req.user.tokens, {type:'soundcloud'})) {
+        return done(err, user)
+      }
+      else {
+        user.tokens.push({type:'soundcloud', accessToken, refreshToken, profile});
+        user.soundcloud = profile.id;
+
+        user.save(function(err){
+          if (err) return done(err);
+          req.flash('success', {msg:"Soundcloud authentication success"});
+          return done(err, user);
+        })
+      }
+    });
+  }
+  else{
+    req.flash('errors', {msg: 'Need to be logged in first'});
+    done(null, false, {message: 'Need to be logged in first'});
+  }
+}));
 
 
 
@@ -39,9 +88,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 
     // if email not found
     if (!user) {
-      return done(null, false, {
-        message: `Email ${email} not found.`
-      });
+      return done(null, false, {message: `Email ${email} not found.` });
     }
 
     // Check if password given matches value in db
@@ -51,16 +98,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
   });
 }));
 
-var {LASTFM_KEY, LASTFM_SECRET} = process.env;
-
-
-var LastfmAPI = require('lastfmapi');
-
-
-var _lastfm = new LastfmAPI({
-  'api_key': LASTFM_KEY,
-  'secret':LASTFM_SECRET
-});
 
 
 
@@ -96,32 +133,6 @@ passport.use(new LastFmStrategy({
       }
     })
   }
-}));
-
-passport.use(new SoundCloudStrategy.Strategy({
-  clientID: process.env.SOUNDCLOUD_ID,
-  clientSecret: process.env.SOUNDCLOUD_SECRET,
-  callbackURL: 'http://127.0.0.1:3000/auth/soundcloud/callback'
-}, function(req, accessToken, refreshToken, profile, done) {
-  // If no logged in
-  if (!req.user) {
-    done(null, false, {message: 'Must be logged in first'});
-  }
-
-  else {
-    User.findById(req.user.id, function(err, user) {
-      if (user){
-        if (user.soundcloud){
-          done(err, user);
-        }
-        else {
-          user.soundcloud = profile.id;
-          done(err, user);
-        }
-      }
-    });
-  }
-
 }));
 
 
@@ -309,7 +320,7 @@ passport.use(new GoogleStrategy({
 passport.use(new LinkedInStrategy({
   clientID: process.env.LINKEDIN_ID,
   clientSecret: process.env.LINKEDIN_SECRET,
-  callbackURL: process.env.LINKEDIN_CALLBACK_URL,
+  callbackURL: 'http://127.0.0.1/auth/linkedin/callback',
   scope: ['r_basicprofile', 'r_emailaddress'],
   passReqToCallback: true
 }, function(req, accessToken, refreshToken, profile, done) {
@@ -361,10 +372,35 @@ passport.use(new LinkedInStrategy({
 }));
 
 
+
+
+
+
+exports.hasAPI = function(api_name){
+  return function(req, res, next){
+    if (req.user[api_name]){
+      res.redirect('/');
+    }
+    else{
+      next();
+    }
+  }
+}
+
+
 /**
  * Login Required middleware.
  */
-exports.isAuthenticated = (req, res, next) => (req.isAuthenticated()) ? next() : res.redirect('/login');
+exports.isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()){
+    req.session.returnTo = null;
+    next();
+  }
+  else{
+    req.session.returnTo = req.path ;
+    res.redirect('/login');
+  }
+}
 
 
 

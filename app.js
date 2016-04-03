@@ -119,6 +119,21 @@ app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDele
 
 
 
+app.get('/auth/soundcloud', passportConfig.isAuthenticated, passportConfig.hasAPI('soundcloud'), passport.authenticate('soundcloud'));
+app.get('/auth/soundcloud/callback', function(req, res) {
+  passport.authenticate('soundcloud', { failureRedirect:'/login' }, function(err, user, sesh){
+    res.redirect(req.session.returnTo || '/');
+  })(req, {} );
+});
+
+
+app.get('/auth/lastfm', passportConfig.isAuthenticated, passportConfig.hasAPI('lastfm'), passport.authenticate('lastfm'));
+app.get('/auth/lastfm/callback', function(req, res, next){
+  passport.authenticate('lastfm', { failureRedirect:'/login' }, function(err, user, sesh){
+    res.redirect(req.session.returnTo || '/');
+  })(req, {} );
+});
+
 
 
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
@@ -142,19 +157,6 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 });
 
 
-app.get('/auth/soundcloud', passport.authenticate('soundcloud', { state: 'SOME STATE' }));
-app.get('/auth/soundcloud/callback', passport.authenticate('soundcloud', { failureRedirect: '/login' }), function(req, res) {
-  res.redirect(req.session.returnTo || '/');
-});
-
-
-
-app.get('/auth/lastfm', passport.authenticate('lastfm'));
-app.get('/auth/lastfm/callback', function(req, res, next){
-  passport.authenticate('lastfm', {failureRedirect:'/'}, function(err, user, sesh){
-    res.redirect(req.session.returnTo || '/');
-  })(req, {} );
-});
 
 
 
