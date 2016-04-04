@@ -164,11 +164,8 @@ app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDele
 
 
 app.get('/auth/soundcloud', passportConfig.isAuthenticated, passportConfig.hasAPI('soundcloud'), passport.authenticate('soundcloud'));
-app.get('/auth/soundcloud/callback', function(req, res, next) {
-  passport.authenticate('soundcloud', { failureRedirect:'/login' }, function(err, user, sesh){
-    if (req.user) console.log(req.user);
+app.get('/auth/soundcloud/callback', passport.authenticate('soundcloud', { failureRedirect:'/login' }), function(req, res, next){
     res.redirect(req.session.returnTo || '/');
-  })(req, res, next);
 });
 
 
