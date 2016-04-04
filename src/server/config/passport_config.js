@@ -35,29 +35,27 @@ var _lastfm = new LastfmAPI({
 
 
 
+var cb_url =  (process.env.HOST) ? process.env.HOST : 'http://localhost:' + (process.env.PORT || 8000);
 
 
 
-
-
+console.log(cb_url + '/auth/soundcloud/callback');
 passport.use(new SoundCloudTokenStrategy({
   clientID: process.env.SOUNDCLOUD_ID,
   clientSecret: process.env.SOUNDCLOUD_SECRET,
-  callbackURL: `http://${process.env.HOSTNAME || 'localhost'}:${process.env.PORT || 8000}/auth/soundcloud/callback`,
-  passReqToCallback: true
+  callbackURL: cb_url + '/auth/soundcloud/callback'
 }, function(req, accessToken, refreshToken, profile, done){
 
   if (req.user){
-
     User.findById(req.user.id, (err, user) => {
       if (err) return done(err);
 
 
       // check if soundcloud oauth_token already present for this user
-
       if (user.soundcloud && _.find(req.user.tokens, {type:'soundcloud'})) {
-        return done(err, user)
+        return done(err, user, {msg:'Already linked'})
       }
+
       else {
         user.tokens.push({type:'soundcloud', accessToken, refreshToken, profile});
         user.soundcloud = profile.id;
@@ -104,8 +102,9 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 
 
 passport.use(new LastFmStrategy({
-  'api_key': LASTFM_KEY,
-  'secret': LASTFM_SECRET
+  'api_key': process.env.LASTFM_KEY,
+  'secret': process.env.LASTFM_SECRET,
+  'callbackURL': cb_url + '/auth/lastfm/callback'
 }, function(req, sessionKey, done) {
   // Find/Update user's lastfm session
 
@@ -113,6 +112,15 @@ passport.use(new LastFmStrategy({
   if (req.user){
     User.findById(req.user.id, (err, user) => {
       if (err) return done(err);
+
+      var creds = _.find(req.user.tokens, {type:'soundcloud'});
+
+      if (user.lastfm && creds){
+        req.flash('info', {msg:'Account already linked'});
+
+        return done(err, user, {msg:'Account already linked'})
+      }
+
 
       user.tokens.push({type:'lastfm', username:sessionKey.username, key:sessionKey.key });
       user.lastfm = sessionKey.key;
@@ -125,15 +133,7 @@ passport.use(new LastFmStrategy({
     });
   }
   else{
-    User.findOne({lastfm:sessionKey.key}, function(err, existing){
-      if (existing){
-        req.flash('errors', { msg: 'There is already a Lastfm account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
-        done(err, existing);
-      }
-      else{
-        done(err);
-      }
-    })
+    return done(null, false, {message:'Must be logged in'});
   }
 }));
 

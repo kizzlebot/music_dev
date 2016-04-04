@@ -1,59 +1,109 @@
+var url = require('url');
 var util = require('util');
+var defaults = {};
+
 var Strategy = require('passport-strategy');
-var LastfmAPI = require('lastfmapi');
+var LastFmNode = require('lastfm').LastFmNode;
+
+
+defaults.defaultOptions = function(params, callback, key) {
+  var options = params || {};
+
+  options.handlers = {
+    'success' : function(rsp) {
+      if (key) { rsp = rsp[key]; }
+
+      if (rsp && typeof callback === 'function') {
+        callback(null, rsp);
+      } else {
+        callback(new Error("Not found"));
+      }
+    },
+    'error' : function(err) {
+      if (typeof callback === 'function') {
+        callback(err);
+      }
+    }
+  };
+
+  return options;
+};
 
 
 function LastfmStrategy(options, verify){
-	if (!options.api_key)  { throw new TypeError('LastfmStrategy requires a api_key option'); }
-	if (!verify)  { throw new TypeError('LastfmStrategy requires verify callback'); }
+  options = options || {};
+  if (!options.api_key && !options.clientID)  { throw new TypeError('LastfmStrategy requires a clientID obtained from http://www.last.fm/api/account/create'); }
+  if (!options.secret && !options.clientSecret)  { throw new TypeError('LastfmStrategy requires a clientSecret obtained from http://www.last.fm/api/account/create'); }
+  if (!options.callback_url && !options.callbackURL)  { throw new TypeError('LastfmStrategy requires a callbackURL option'); }
 
-	Strategy.call(this);
+  if (!verify || typeof(verify) != 'function')  { throw new TypeError('LastfmStrategy requires verify callback function'); }
 
-	this.name = 'lastfm';
-	this.api_key = options.api_key;
-	this.secret = options.secret;
+  Strategy.call(this);
+
+  this.name = 'lastfm';
+  this.api_key = options.api_key || options.clientID;
+  this.secret = options.secret || options.clientSecret;
+  this.callbackURL = options.callback_url || options.callbackURL;
 
 
-	this._verify = verify;
-	this._lastfm = new LastfmAPI({
-		'api_key': this.api_key,
-		'secret':this.secret
-	});
+  this._verify = verify;
+  this._lastfm = new LastFmNode({
+    'api_key': this.api_key,
+    'secret':this.secret
+  });
 }
 
 
-LastfmStrategy.prototype.authenticate = function(req, options){
-	var self = this;
-	var authUrl = self._lastfm.getAuthenticationUrl() + `&cb=http://localhost:${process.env.PORT || 8000}/auth/lastfm/callback`;
+LastfmStrategy.prototype.authenticate = function(request, options){
+  var self = this;
+  var authUrl = self.getAuthenticationUrl({cb:self.callbackURL});
 
 
-	if (req.query && req.query.token){
-    var token = req.query.token;
-
-		this._lastfm.authenticate(req.query.token, function(er, session){
-			if (!session) self.fail(session, 403);
+  if (request.query && request.query.token){
+    var token = request.query.token;
 
 
-			// Build the done() function called by the verify function
-			function verified(err, user, session){
+    var callback = function(er, session){
+      if (!session) self.fail(session, 403);
 
+      function verified(err, user, session){
         if (err)  self.error(err);
         else if (!user) self.fail(user, session);
         else self.success(user, session);
-			}
+      }
 
-			self._verify(req, session, verified);
-		});
-	}
-	else{
-		self.redirect(authUrl);
-	}
+      self._verify(request, session, verified);
+    };
+
+
+    var lastfm_opts = defaults.defaultOptions({ 'token' : token }, callback, 'session');
+
+    this._lastfm.request('auth.getSession', lastfm_opts);
+  }
+  else{
+    self.redirect(authUrl);
+  }
 }
 
 
 
 
+LastfmStrategy.prototype.getAuthenticationUrl = function(param) {
+  var params = param ;
+  if (!param) params = {};
+  var baseUrl = 'http://www.last.fm/api/auth';
+  var urlParts = url.parse(baseUrl);
 
+  urlParts.query = {};;
+  urlParts.query.api_key = this.api_key;
+
+  // if (params.cb) {console.log(params); urlParts.query.cb = params.cb; }
+  if (params.token) { urlParts.query.token = params.token; }
+
+  var rtn = `${url.format(urlParts)}&cb=${this.callbackURL}`;
+  console.log(rtn);
+  return rtn ;
+};
 
 
 util.inherits(LastfmStrategy, Strategy);

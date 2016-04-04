@@ -4,7 +4,7 @@ var pkg = require('../package.json');
 
 
 var wds = {
-	hostname: process.env.HOSTNAME || "localhost",
+	hostname: process.env.HOST || "localhost",
 	port: process.env.WEBPACK_PORT || 8080
 };
 

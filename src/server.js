@@ -128,7 +128,6 @@ var User = require('./server/models/User');
 
 
 app.get('/', routes.home.index);
-
 app.get('/login', routes.user.getLogin);
 app.get('/signup', routes.user.getSignup);
 app.get('/logout', routes.user.logout);
@@ -165,10 +164,11 @@ app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDele
 
 
 app.get('/auth/soundcloud', passportConfig.isAuthenticated, passportConfig.hasAPI('soundcloud'), passport.authenticate('soundcloud'));
-app.get('/auth/soundcloud/callback', function(req, res) {
+app.get('/auth/soundcloud/callback', function(req, res, next) {
   passport.authenticate('soundcloud', { failureRedirect:'/login' }, function(err, user, sesh){
+    if (req.user) console.log(req.user);
     res.redirect(req.session.returnTo || '/');
-  })(req, {} );
+  })(req, res, next);
 });
 
 
