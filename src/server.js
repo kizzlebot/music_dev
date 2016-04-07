@@ -134,8 +134,19 @@ app.get('/logout', routes.user.logout);
 app.get('/contact', routes.user.getContact);
 app.get('/forgot', routes.user.getForgot);
 app.get('/reset/:token', routes.user.getReset);
+
 app.get('/account', passportConfig.isAuthenticated, routes.user.getAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, routes.user.getOauthUnlink);
+
+
+
+
+
+
+
+
+
+
 
 
 app.post('/login', routes.user.postLogin);
@@ -163,13 +174,14 @@ app.post('/account/delete', passportConfig.isAuthenticated, routes.user.postDele
 
 
 
-app.get('/auth/soundcloud', passportConfig.isAuthenticated, passportConfig.hasAPI('soundcloud'), passport.authenticate('soundcloud'));
+app.get('/auth/soundcloud', passportConfig.isAuthenticated, passport.authenticate('soundcloud'));
 app.get('/auth/soundcloud/callback', passport.authenticate('soundcloud', { failureRedirect:'/login' }), function(req, res, next){
     res.redirect(req.session.returnTo || '/');
 });
 
 
-app.get('/auth/lastfm', passportConfig.isAuthenticated, passportConfig.hasAPI('lastfm'), passport.authenticate('lastfm'));
+//
+app.get('/auth/lastfm', passportConfig.isAuthenticated, passport.authenticate('lastfm'));
 app.get('/auth/lastfm/callback', function(req, res, next){
   passport.authenticate('lastfm', { failureRedirect:'/login' }, function(err, user, sesh){
     res.redirect(req.session.returnTo || '/');
