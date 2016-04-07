@@ -11,7 +11,7 @@
     "watch-server-start": "just-wait --pattern \"dist/*.js\" && npm run start",
     "watch-client": "webpack-dev-server --config build_config/webpack.client-watch.js --port=${WEBPACK_PORT:=\"8080\"}",
     "watch": "NODE_ENV=development PORT=8000 concurrently --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\"",
-    "test": "NODE_ENV=test mocha --reporter spec --timeout 10000 --compilers js:babel-register --require test/bootstrap/node test/*.test.js"
+    "test": "NODE_ENV=test mocha --reporter mocha-unfunk-reporter --timeout 10000 --compilers js:babel-register --require test/bootstrap/node test/*.test.js"
   },
   "dependencies": {
     "babel-cli": "^6.6.5",
@@ -97,6 +97,7 @@
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "mocha": "^2.4.5",
+    "mocha-unfunk-reporter": "^0.4.0",
     "node-sass": "^3.4.2",
     "nodemon": "^1.9.1",
     "raw-loader": "^0.5.1",

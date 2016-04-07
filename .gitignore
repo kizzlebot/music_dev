@@ -36,3 +36,4 @@ music_dev.sublime-workspace
 dist/*hot-update.js
 dist/*hot-update.json
 dist/server.js
+.tmp/
