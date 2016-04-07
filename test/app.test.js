@@ -1,7 +1,7 @@
 /* global describe, it, expect, before, request, assert */
-
+var path = require('path');
 var server = null ;
-var app = require('../app.js');
+var app = require(path.join(process.cwd(), 'src', 'server.js'));
 var cheerio = require('cheerio');
 var csrf ;
 var headers = null;

@@ -1,8 +1,9 @@
 var chai = require('chai');
+var path = require('path');
 var should = chai.should();
-var User = require('../models/User');
+var User = require(path.join(process.cwd(), '/src/server/models/User'));
 var server ;
-var app = require('../app.js');
+var app = require(path.join(process.cwd(), 'src', 'server.js'));
 
 var defaultUser = { email: 'test@gmail.com', password:'abcdefg' };
 
