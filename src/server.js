@@ -283,4 +283,4 @@ if (app.get('env') === 'development') {
 
 // If file was loaded directly (ie via npm start) then start the server and export it.
 // Otherwise if 'required' from another file export express app without starting server
-module.exports = (require.main == module || process.env.NODE_ENV == 'development') ? app.listen(app.get('port'), () => console.log('Example app listening at port %s', app.get('port'))) : app;
+module.exports = (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test') ? app.listen(app.get('port'), () => console.log('Example app listening at port %s', app.get('port'))) : app;
