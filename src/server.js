@@ -146,7 +146,10 @@ var passportConfig = require('./server/config/passport_config');
 // var user = require('./server/controllers/user.js');
 // var api = require('./server/controllers/api');
 var routes = require('./server/controllers/');
+
+var App = require('./components/routes/app.js');
 var User = require('./server/models/User');
+
 
 
 app.get('/', routes.home.index);
@@ -283,4 +286,4 @@ if (app.get('env') === 'development') {
 
 // If file was loaded directly (ie via npm start) then start the server and export it.
 // Otherwise if 'required' from another file export express app without starting server
-module.exports = (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test') ? app.listen(app.get('port'), () => console.log('Example app listening at port %s', app.get('port'))) : app;
+module.exports = (process.env.NODE_ENV !== 'test') ? app.listen(app.get('port'), () => console.log('Example app listening at port %s', app.get('port'))) : app;
