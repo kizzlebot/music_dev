@@ -37,3 +37,4 @@ dist/*hot-update.js
 dist/*hot-update.json
 dist/server.js
 .tmp/
+.tmp/*

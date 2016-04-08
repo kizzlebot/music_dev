@@ -1,6 +1,7 @@
 // require("babel-register");
 
 var express = require('express');
+var _ = require('lodash');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -15,7 +16,12 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
 var lusca = require('lusca');
+var errorHandler = require('errorhandler');
 
+
+
+var LastfmAPI = require('lastfmapi');
+var _lastfm = new LastfmAPI({api_key:process.env.LASTFM_KEY, secret:process.env.LASTFM_SECRET});
 var app = express();
 
 
@@ -51,7 +57,7 @@ var webpack_port     = process.env.WEBPACK_PORT || 8080;
 app.set('port', port);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'server', 'views'));
+app.set('views', path.join(process.cwd(), 'src', 'server', 'views'));
 app.set('view engine', 'jade');
 
 app.use(compress());
@@ -76,6 +82,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+
+// Lusca CSRF
 app.use((req, res, next) => {
   (req.path === '/api/upload') ? next() : lusca.csrf()(req, res, next);
 });
@@ -90,9 +99,21 @@ app.use((req, res, next) => {
     res.cookie('csrf', res.locals._csrf);
     res.set('CSRF', res.locals._csrf);
   }
+
+  req.lastfm = _lastfm;
+
+  if (req.user.lastfm){
+    var session = _.find(req.user.tokens, {type:'lastfm'});
+    req.lastfm.setSessionCredentials(session.username, session.key);
+  }
+
   next();
 });
-app.use(express.static(path.join(__dirname, 'server', 'public')));
+
+
+
+
+app.use(express.static(path.join(process.cwd(), 'src', 'server', 'public')));
 
 
 
@@ -121,13 +142,16 @@ var passportConfig = require('./server/config/passport_config');
  * ---------------------------------------------------
  * --------------------------------------------------- */
 
-var home = require('./server/controllers/home.js');
-var user = require('./server/controllers/user.js');
-var routes = {home, user};
+// var home = require('./server/controllers/home.js');
+// var user = require('./server/controllers/user.js');
+// var api = require('./server/controllers/api');
+var routes = require('./server/controllers/');
 var User = require('./server/models/User');
 
 
 app.get('/', routes.home.index);
+
+
 app.get('/login', routes.user.getLogin);
 app.get('/signup', routes.user.getSignup);
 app.get('/logout', routes.user.logout);
@@ -140,6 +164,7 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, routes.user
 
 
 
+app.use('/api', routes.api);
 
 
 
@@ -232,44 +257,26 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
 /*************************
  * error handlers
  **************************/
+app.use(errorHandler());
 
-/* * development error handlers */
+
+
+
+
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+  if (module.hot) {
+    console.log(`[HMR] Waiting for server-side updates on ${app.get('port')}`);
+
+    module.hot.accept("components/routes", () => {
+      routes = require("components/routes");
     });
-  });
-}
 
-
-/* production error handler
- *  - No stacktraces shown to user */
-app.use(function(err, req, res, next) {
-  // res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-
-
-
-if (module.hot) {
-  console.log(`[HMR] Waiting for server-side updates on ${app.get('port')}`);
-
-  module.hot.accept("components/routes", () => {
-    routes = require("components/routes");
-  });
-
-  module.hot.addStatusHandler((status) => {
-    if (status === "abort") {
-      setTimeout(() => process.exit(0), 0);
-    }
-  });
+    module.hot.addStatusHandler((status) => {
+      if (status === "abort") {
+        setTimeout(() => process.exit(0), 0);
+      }
+    });
+  }
 }
 
 

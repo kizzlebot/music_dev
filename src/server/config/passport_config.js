@@ -131,12 +131,12 @@ passport.use(new LastFmStrategy({
 
       if (user.lastfm && creds){
         req.flash('info', {msg:'Account already linked'});
-
         return done(err, user, {msg:'Account already linked'})
       }
 
 
-      user.tokens.push({type:'lastfm', username:sessionKey.username, key:sessionKey.key });
+
+      user.tokens.push({type:'lastfm', username:sessionKey.name, key:sessionKey.key });
       user.lastfm = sessionKey.key;
 
       user.save(function(err){

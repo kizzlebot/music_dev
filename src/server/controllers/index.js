@@ -1,8 +1,8 @@
-var fs = require('fs');
-var path = require('path');
+// var fs = require('fs');
+// var path = require('path');
 
-var dirs = path.dirname(module.filename);
-var currFilename = module.filename.replace(`${dirs}/`, '');
+// var dirs = path.dirname(module.filename);
+// var currFilename = module.filename.replace(`${dirs}/`, '');
 
 
 
@@ -13,46 +13,50 @@ var currFilename = module.filename.replace(`${dirs}/`, '');
  * @param  {fs.State} valid   Called with `stat` object as argument
  * @return {Object}           Key-value of filenames
  */
-/*
-function getPathInfo(dirname = __dirname, valid){
-  return  fs.readdirSync(dirname)
-            .reduce( (prev, curr) => {
-              // if valid says no then skip
 
-              var stat = fs.statSync(path.join(dirname, curr));
-              if (!valid(stat) || curr == currFilename) return prev;
+// function getPathInfo(dirname = __dirname, valid, callback){
+//   var files = fs.readdirSync(dirname)
+//                 .reduce( (prev, curr) => {
+//                   // if valid function returns false then don't include in prev obj
+//                   var stat = fs.statSync(path.join(dirname, curr));
+//                   if (!valid(stat) || curr == currFilename) return prev;
 
-              // otherwise add to prev and return prev
-              var name = curr.replace(/(.*)\.(.*?)$/, "$1");
+//                   // otherwise add to prev and return prev
+//                   var name = curr.replace(/(.*)\.(.*?)$/, "$1");
 
-              prev[name] = path.join(dirname, curr);
-              return prev;
-            }, {});
-}
-function getFiles(dirname){
-  return getPathInfo(dirname, (stat) => stat.isFile());
-}
-
-function getDirectories(dirname){
-  return getPathInfo(dirname, (stat) => stat.isDirectory());
-}
+//                   prev[name] = path.join(dirname, curr);
+//                   return prev;
+//                 }, {});
 
 
-var toExport = {};
-var files = getFiles(__dirname);
+//   return (callback && typeof callback == 'function') ? callback(null, files) : files;
+// }
 
-Object.keys(files).forEach((k) => {
-  toExport[k] = require(files[k]);
-})
-*/
+
+// var getFiles = getPathInfo.bind(null, __dirname, (stat) => stat.isFile());
+// var getDirectories = getPathInfo.bind(null, __dirname, (stat) => stat.isDirectory());
+
+
+
+
+
+
+
+// var toExport = {};
+// var files = getFiles(__dirname);
+
+// Object.keys(files).forEach((k) => {
+//   toExport[k] = require(files[k]);
+// });
+
 
 var home = require('./home');
 var user = require('./user');
+var api = require('./api');
 
 
-var toExport = {
+module.exports = {
   home:home,
-  user:user
+  user:user,
+  api:api
 };
-
-module.exports = toExport;
