@@ -32,6 +32,7 @@ import SignUp from './signup';
 
 
 import {PageHeader} from 'react-bootstrap';
+import userStore from '../redux/userStore';
 import App from './app.js';
 
 

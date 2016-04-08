@@ -1,3 +1,5 @@
+import * as ReactRouter from "react-router";
+import { createMemoryHistory, useQueries } from 'history';
 // require("babel-register");
 
 var express = require('express');
@@ -146,11 +148,55 @@ var passportConfig = require('./server/config/passport_config');
 // var user = require('./server/controllers/user.js');
 // var api = require('./server/controllers/api');
 var routes = require('./server/controllers/');
-
-var App = require('./components/routes/app.js');
 var User = require('./server/models/User');
 
 
+
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+var createRoutes = require('./components/routes');
+
+app.use('*', function(req, res, next){
+  var history = useQueries(createMemoryHistory)();
+  var routes = createRoutes(history);
+  var location = req.path ;
+
+
+  ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
+    if (error || !renderProps) {
+      console.error(`if (error || !renderProps)`);
+      return next(error);
+    }
+
+    if (redirectLocation) {
+      console.error('redirectLocation hit');
+      return res.redirect(redirectLocation.pathname + redirectLocation.search);
+    }
+
+
+
+    var reactContent = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, {...renderProps, csrf:res.locals._csrf}))
+    var style = '/css/main.css';
+    var page = React.createElement('html', null,
+      React.createElement('head', null, React.createElement('link', { type: 'text/css', rel:'stylesheet', href: style })),
+      React.createElement('body', null,
+        React.createElement('div', {
+          id: 'react-root',
+          dangerouslySetInnerHTML: {__html:reactContent}
+        })
+      ),
+      React.createElement('script', {src:'/dist/bundle.js'}),
+    );
+
+
+
+
+    res.header("Content-Type", "text/html");
+    var html = ReactDOMServer.renderToStaticMarkup(page);
+    res.send(html);
+  });
+})
 
 app.get('/', routes.home.index);
 
