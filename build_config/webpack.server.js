@@ -21,20 +21,21 @@ var eenv = {};
 
 fs.readFile(path.resolve(path.join(process.cwd(), '.env.example')), function(err, data){
   eenv['process.env'] = dotenv.parse(data);
-  console.log(eenv);
+  eenv['process.env'] = Object.keys(eenv['process.env']).reduce((prev, curr) => {
+    if (process.env[curr]){
+      prev[curr] = process.env[curr];
+    }
+    else{
+      prev[curr] = eenv['process.env'];
+    }
+    return prev ;
+  }, {});
+
 });
 
 
 
 
-
-
-
-
-eenv['process.env'] = Object.keys(process.env).reduce((prev, curr) => {
-	prev[curr] = `${process.env[curr]}`;
-	return prev ;
-}, {});
 
 
 
@@ -62,9 +63,9 @@ module.exports = {
       { test: /\.jade?$/,              													loader: 'jade', exclude: /node_modules/},
       { test: /\.woff(\?\S*)?$/,                               	loader: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.woff2(\?\S*)?$/,                               loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
-      { test: /\.scss$/,                                        loaders: ['raw', 'css', 'sass'] },
-      { test: /\.css$/,                                         loaders: ['raw']}
+      { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' }
+      // { test: /\.scss$/,                                        loaders: ['raw', 'css', 'sass'] }
+      // { test: /\.css$/,                                         loaders: ['raw']}
     ],
     postLoaders: [],
     noParse: /\.min\.js/

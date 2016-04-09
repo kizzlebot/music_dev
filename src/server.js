@@ -47,9 +47,7 @@ middlewareLoader(app, __dirname, () => {
    * ---------------------------------------------------
    * --------------------------------------------------- */
 
-  // var home = require('./server/controllers/home.js');
-  // var user = require('./server/controllers/user.js');
-  // var api = require('./server/controllers/api');
+
   var routes = require('./server/controllers/');
   var User = require('./server/models/User');
 
@@ -67,9 +65,8 @@ middlewareLoader(app, __dirname, () => {
 
 
   var createRoutes = require('./components/routes/');
-  var mainStyle = require('./components/style/main.scss');
+  var mainStyle = require('!raw!sass!./components/style/main.scss');
 
-  console.log(mainStyle);
 
 
 
@@ -90,7 +87,7 @@ middlewareLoader(app, __dirname, () => {
         return res.redirect(redirectLocation.pathname + redirectLocation.search);
       }
 
-      var reactContent = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, {...renderProps, csrf:res.locals._csrf}))
+      var reactContent = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, {...renderProps, csrf:res.cookie('csrf')}))
       var style = '/style/main.css';
       var page = React.createElement('html', null,
         React.createElement('head', null,
