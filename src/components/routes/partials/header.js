@@ -13,8 +13,11 @@ import {LinkContainer, IndexLinkContainer} from 'react-router-bootstrap';
 
 
 var Header = React.createClass({
+	contextTypes:{
+		store:React.PropTypes.object.isRequired
+	},
   getInitialState(){
-    return userStore.getState();
+    return {};
   },
   componentDidMount(){
     userStore.subscribe((data) => {

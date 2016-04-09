@@ -12,7 +12,7 @@ if (__CLIENT__) {
 import React from 'react'
 import { render } from 'react-dom'
 import { browserHistory, IndexRoute, Router, Route, Link } from 'react-router'
-
+import { Provider } from 'react-redux';
 
 
 import Header from './partials/header';
@@ -41,45 +41,51 @@ import App from './app.js';
 
 
 
+
 module.exports = (history) => {
+
 	if (history){
 		return (
-			<Router history={history}>
-				<Route path="/" component={App} store={userStore}>
-					<IndexRoute component={Home}/>
+			<Provider store={userStore}>
+				<Router history={history}>
+					<Route path="/" component={App}>
+						<IndexRoute component={Home}/>
 
-					<Route path='api' component={APIs}>
-						<Route path='github' component={GithubAPI}/>
-						<Route path='linkedin' component={LinkedIn}/>
-						<Route path='stargazers' component={Stargazers}/>
+						<Route path='api' component={APIs}>
+							<Route path='github' component={GithubAPI}/>
+							<Route path='linkedin' component={LinkedIn}/>
+							<Route path='stargazers' component={Stargazers}/>
+						</Route>
+
+
+						<Route path="contact" component={Contact} />
+						<Route path="login" component={Login} />
+						<Route path="signup" component={SignUp} />
 					</Route>
-
-
-					<Route path="contact" component={Contact} />
-					<Route path="login" component={Login} />
-					<Route path="signup" component={SignUp} />
-				</Route>
-			</Router>
+				</Router>
+			</Provider>
 		)
 	}
 	else {
 		return (
-			<Router>
-				<Route path="/" component={App} store={userStore}>
-					<IndexRoute component={Home}/>
+			<Provider store={store}>
+				<Router>
+					<Route path="/" component={App} store={userStore}>
+						<IndexRoute component={Home}/>
 
-					<Route path='api' component={APIs}>
-						<Route path='github' component={GithubAPI}/>
-						<Route path='linkedin' component={LinkedIn}/>
-						<Route path='stargazers' component={Stargazers}/>
+						<Route path='api' component={APIs}>
+							<Route path='github' component={GithubAPI}/>
+							<Route path='linkedin' component={LinkedIn}/>
+							<Route path='stargazers' component={Stargazers}/>
+						</Route>
+
+
+						<Route path="contact" component={Contact} />
+						<Route path="login" component={Login} />
+						<Route path="signup" component={SignUp} />
 					</Route>
-
-
-					<Route path="contact" component={Contact} />
-					<Route path="login" component={Login} />
-					<Route path="signup" component={SignUp} />
-				</Route>
-			</Router>
+				</Router>
+			</Provider>
 		)
 	}
 };

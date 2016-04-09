@@ -34,7 +34,7 @@ import {LOG_IN, LOG_OUT, SIGN_UP, GET_PROFILE} from './actionTypes';
  * project.
  */
 
-function auth(state = {csrf:null}, action) {
+function auth(state = {}, action) {
   switch (action.type) {
     case LOG_IN:
       return {...state, logged_in:true}
@@ -50,6 +50,11 @@ function auth(state = {csrf:null}, action) {
 }
 
 
+const mapStateToProps = (state) => {
+  return {
+    auth: auth(state.todos, state.visibilityFilter)
+  }
+}
 
 
 
