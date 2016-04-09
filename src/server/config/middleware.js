@@ -108,6 +108,10 @@ module.exports = (app, dir, callback) => {
       req.lastfm.setSessionCredentials(session.username, session.key);
     }
 
+    var scriptPath = (__DEV__) ? `http://localhost:${process.env.WEBPACK_PORT || 8080}/dist/client.js` : '/dist/client.js';
+
+
+    res.locals.scriptPath = scriptPath;
     next();
   });
   app.use(express.static(path.join(dir, 'server', 'public')));

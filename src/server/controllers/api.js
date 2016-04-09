@@ -60,6 +60,11 @@ router.get('/lastfm/:action?', function(req, res, next){
 	}
 });
 
+router.get('/callback?', function(req, res, next){
+	console.log(req.query);
+	res.cookie('accessToken', req.query.code)
+	res.status(200).send()
+});
 
 
 module.exports = router;

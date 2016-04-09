@@ -33,7 +33,7 @@ config.output.hotUpdateMainFilename  = "update/[hash]/update.json";
 config.output.hotUpdateChunkFilename = "update/[hash]/[id].update.js";
 
 config.plugins = [
-  new webpack.DefinePlugin({ __CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true, __PKG__:`"${pkg.name}"` }),
+  new webpack.DefinePlugin({ __CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true, __PKG__:`"${pkg.name}"`, PORT:process.env.PORT || 8000, WEBPACK_PORT:process.env.WEBPACK_PORT|| 8080 }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()
 ];

@@ -64,51 +64,40 @@ middlewareLoader(app, __dirname, () => {
   var body = DOM.body; var div = DOM.div; var script = DOM.script;
 
 
-  var createRoutes = require('./components/routes/');
-  var mainStyle = require('!raw!sass!./components/style/main.scss');
+  // var reactRoutes = require('./components/routes/routes.js').default;
+  // var mainStyle = require('!raw!sass!./components/style/main.scss');
 
 
 
 
   var scriptPath = (process.env.NODE_ENV == 'development') ? 'http://localhost:8080/dist/client.js' : '/dist/client.js';
-  app.get('*', function(req, res, next){
-    var history = useQueries(createMemoryHistory)();
-    var routes = createRoutes(history);
-    var location = req.path ;
+  // app.get('*', function(req, res, next){
 
 
-    ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
-      if (error || !renderProps) {
-        return next(error);
-      }
+  //   var reactContent = ReactDOMServer.renderToString(React.createElement(reactRoutes, {}))
+  //   var style = '/style/main.css';
 
-      if (redirectLocation) {
-        console.error('redirectLocation hit');
-        return res.redirect(redirectLocation.pathname + redirectLocation.search);
-      }
-
-      var reactContent = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, {...renderProps, csrf:res.cookie('csrf')}))
-      var style = '/style/main.css';
-      var page = React.createElement('html', null,
-        React.createElement('head', null,
-          // React.createElement('link', { type: 'text/css', rel:'stylesheet', href: style }),
-          React.createElement('style', null, mainStyle)
-        ),
-        React.createElement('body', null,
-          React.createElement('div', {
-            id: 'react-root',
-            dangerouslySetInnerHTML: {__html:reactContent}
-          }),
-          React.createElement('script', {src: scriptPath})
-        )
-      );
+  //   var page = React.createElement('html', null,
+  //     React.createElement('head', null,
+  //       // React.createElement('link', { type: 'text/css', rel:'stylesheet', href: style }),
+  //       // React.createElement('style', null, mainStyle),
+  //       null
+  //     ),
+  //     React.createElement('body', null,
+  //       React.createElement('div', {
+  //         id: 'react-root',
+  //         dangerouslySetInnerHTML: {__html:reactContent}
+  //       }),
+  //       React.createElement('script', {src: scriptPath})
+  //     )
+  //   );
 
 
-      res.header("Content-Type", "text/html");
-      var html = ReactDOMServer.renderToStaticMarkup(page);
-      res.send(html);
-    });
-  });
+  //   res.header("Content-Type", "text/html");
+  //   var html = ReactDOMServer.renderToStaticMarkup(page);
+  //   res.send(html);
+  // });
+
 
   app.get('/', routes.home.index);
 
@@ -203,8 +192,8 @@ middlewareLoader(app, __dirname, () => {
     if (module.hot) {
       console.log(`[HMR] Waiting for server-side updates on ${app.get('port')}`);
 
-      module.hot.accept("components/routes", () => {
-        routes = require("components/routes");
+      module.hot.accept("components/routes/routes", () => {
+        reactRoutes = require("components/routes/routes");
       });
 
       module.hot.addStatusHandler((status) => {

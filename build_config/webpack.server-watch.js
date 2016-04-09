@@ -20,8 +20,19 @@ config.entry.unshift(
 
 config.output.publicPath = "http://" + wds.hostname + ":" + wds.port + "/dist";
 
+var env_variables = {
+  __CLIENT__: false,
+  __SERVER__: true,
+  __PRODUCTION__: false,
+  __DEV__: true,
+  __PKG__:`"${pkg.name}"`,
+  NODE_ENV:`"${process.env.NODE_ENV || 'production'}"`,
+  PORT: process.env.PORT || 8000,
+  WEBPACK_PORT: process.env.WEBPACK_PORT || 8080
+}
+
 config.plugins = [
-	new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: false, __DEV__: true, __PKG__:`"${pkg.name}"`}),
+	new webpack.DefinePlugin(env_variables),
 	new webpack.HotModuleReplacementPlugin(),
 	new webpack.NoErrorsPlugin()
 ];

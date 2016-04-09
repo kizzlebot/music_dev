@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 
 // module.exports = _lastfm;
-
+var scriptPath = (process.env.NODE_ENV == 'development') ? 'http://localhost:8080/dist/client.js' : '/dist/client.js';
 exports.index = function(req, res, next){
-	res.render('index', {title:'express'});
+	res.render('index', {title:'express', scriptPath:scriptPath});
 }
