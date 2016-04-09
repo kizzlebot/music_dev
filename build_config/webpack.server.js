@@ -7,30 +7,34 @@ var path          = require("path");
 var fs            = require("fs");
 var dotenv = require('dotenv');
 var pkg = require('../package.json');
+var path = require('path');
 
-
-dotenv.config({path: path.join(process.cwd(), '.env.example')});
-
+// dotenv.config({path: path.join(process.cwd(), '.env.example')});
 var eenv = {};
 
+// var env = (fs.existsSync(path.join(process.cwd(), '.env.example'))) ? dotenv.parse(fs.readFileSync(path.join(process.cwd(), '.env.example'))) : {};
+// var jenv = (fs.existsSync(path.join(process.cwd(), '.env'))) ? dotenv.parse(fs.readFileSync(path.join(process.cwd(), '.env'))) : {};
 
-// Read/Parse the .env file
-fs.readFile(path.join(process.cwd(), '.env.example'), function(err, data){
+// eenv['process.env'] = env;
 
-	var env = dotenv.parse(data);
-  eenv['process.env'] = Object.keys(process.env).forEach((prev, curr) => {
-    if (!prev[curr]) return prev ;
-    prev[curr] = process.env[curr];
-    return prev ;
-  }, env);
+
+
+fs.readFile(path.resolve(path.join(process.cwd(), '.env.example')), function(err, data){
+  eenv['process.env'] = dotenv.parse(data);
+  console.log(eenv);
 });
 
 
 
-// env['process.env'] = Object.keys(process.env).reduce((prev, curr) => {
-// 	prev[curr] = `"${process.env[curr]}"`;
-// 	return prev ;
-// }, {});
+
+
+
+
+
+eenv['process.env'] = Object.keys(process.env).reduce((prev, curr) => {
+	prev[curr] = `${process.env[curr]}`;
+	return prev ;
+}, {});
 
 
 
@@ -47,7 +51,7 @@ module.exports = {
     filename:      "server.js"
   },
   plugins: [
-    new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false, __PKG__:`"${pkg.name}"`}),
+    new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false, __PKG__:`"${pkg.name}"`, NODE_ENV:`"${process.env.NODE_ENV}"`}),
     new webpack.DefinePlugin(eenv)
   ],
   module:  {
@@ -59,7 +63,8 @@ module.exports = {
       { test: /\.woff(\?\S*)?$/,                               	loader: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.woff2(\?\S*)?$/,                               loader: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
-      { test: /\.scss$/,                                        loaders: ['raw', 'css', 'sass'] }
+      { test: /\.scss$/,                                        loaders: ['raw', 'css', 'sass'] },
+      { test: /\.css$/,                                         loaders: ['raw']}
     ],
     postLoaders: [],
     noParse: /\.min\.js/

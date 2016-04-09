@@ -5,12 +5,12 @@ var pkg = require('../package.json');
 module.exports = {
   target:  "web",
   cache:   false,
-  context: process.cwd(),
+  context: __dirname,
   debug:   false,
   devtool: false,
-  entry:   ["./src/client"],
+  entry:   ["../src/client"],
   output:  {
-    path:          path.join(process.cwd(), "src", "server", "public"),
+    path:          path.resolve(path.join(__dirname, '../', "src", "server", "public", "dist")),
     filename:      "client.js",
     chunkFilename: "[name].[id].js"
   },
@@ -31,7 +31,7 @@ module.exports = {
       { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
       { test: /\.less$/,                                        loader: "style!css!less"},
       { test: /\.scss$/,                                        loaders: ['style', 'css', 'sass'] },
-      { test: /\.css$/,                                         loaders: ['style','css']},
+      { test: /\.css$/,                                         loaders: ['style', 'css']},
       { test: require.resolve('jquery'),                        loader: 'expose?$!expose?jQuery' },
       { test: /bootstrap\/js\//,                                loader: 'imports?jQuery=jquery' },
     ],

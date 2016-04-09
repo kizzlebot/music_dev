@@ -3,7 +3,7 @@
 if (__CLIENT__) {
 	require("font-awesome-webpack");
 	// require("bootstrap-webpack");
-	// require('./style/css/main.scss');
+	require('../style/main.scss');
 	// require('./style/css/docs.scss');
 }
 
@@ -39,12 +39,6 @@ import App from './app.js';
 
 
 
-// function requireAuth(nextState, replace) {
-// 	replace({
-// 		pathname: '/',
-// 		state: { nextPathname: nextState.location.pathname }
-// 	})
-// }
 
 
 module.exports = (history) => {

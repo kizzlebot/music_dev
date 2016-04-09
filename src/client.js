@@ -13,7 +13,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 const history = createBrowserHistory();
 
 
-const reactRoot = window.document.getElementById("root");
+const reactRoot = window.document.getElementById("react-root");
 Transmit.render(ReactRouter.Router, {routes: createRoutes(history), history: ReactRouter.browserHistory}, reactRoot);
 
 /**
