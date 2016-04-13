@@ -16,13 +16,14 @@ class PostContainer extends Component {
     this.add = this.add.bind(this);
   }
 
-  handleClick(e) {
-    this.setState({
-      showAddPost: !this.state.showAddPost,
-    });
 
-    e.preventDefault();
+
+  componentDidMount() {
+    if (this.props.posts.length === 0) {
+      this.props.dispatch(Actions.fetchPosts());
+    }
   }
+
 
   add(name, title, content) {
     this.props.dispatch(Actions.addPostRequest({ name, title, content }));
@@ -31,19 +32,23 @@ class PostContainer extends Component {
     });
   }
 
-  componentDidMount() {
-    if(this.props.posts.length === 0) {
-      this.props.dispatch(Actions.fetchPosts());
-    }
+  handleClick(e) {
+    this.setState({
+      showAddPost: !this.state.showAddPost,
+    });
+
+    e.preventDefault();
   }
+
+
+
 
   render() {
     return (
       <div>
         <Header onClick={this.handleClick} />
         <div className="container">
-          <PostCreateView addPost={this.add}
-            showAddPost={this.state.showAddPost}/>
+          <PostCreateView addPost={this.add} showAddPost={this.state.showAddPost}/>
           <PostListView posts={this.props.posts}/>
         </div>
         <Footer />
@@ -52,7 +57,7 @@ class PostContainer extends Component {
   }
 }
 
-PostContainer.need = [() => { return Actions.fetchPosts(); }];
+PostContainer.need = [() => Actions.fetchPosts()];
 PostContainer.contextTypes = {
   router: React.PropTypes.object,
 };

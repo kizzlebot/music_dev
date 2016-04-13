@@ -12,6 +12,8 @@ export function getPosts(req, res) {
   });
 }
 
+
+
 export function addPost(req, res) {
   if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
     return res.status(403).end();
@@ -26,13 +28,14 @@ export function addPost(req, res) {
 
   newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
   newPost.cuid = cuid();
+
   newPost.save((err, saved) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    return res.json({ post: saved });
+    return (err) ? res.status(500).send(err) : res.json({ post: saved })
   });
 }
+
+
+
 
 export function getPost(req, res) {
   const newSlug = req.query.slug.split('-');
@@ -44,6 +47,9 @@ export function getPost(req, res) {
     res.json({ post });
   });
 }
+
+
+
 
 export function deletePost(req, res) {
   const postId = req.body.postId;

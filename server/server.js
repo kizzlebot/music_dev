@@ -159,9 +159,9 @@ app.use((req, res, next) => {
           </Provider>
         );
 
-
         const finalState = store.getState();
-        res.status(200).end(renderFullPage(initialView, finalState));
+        const html = renderFullPage(initialView, finalState);
+        res.status(200).end(html);
       });
   });
 });

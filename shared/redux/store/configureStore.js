@@ -13,7 +13,8 @@ export function configureStore(initialState = {}) {
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(createStore);
-  } else {
+  }
+  else {
     finalCreateStore = applyMiddleware(thunk)(createStore);
   }
 

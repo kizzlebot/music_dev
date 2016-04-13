@@ -4,6 +4,18 @@ import fetch from 'isomorphic-fetch';
 
 const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http://localhost:${Config.port}`) : '';
 
+
+/**
+ * Actions are payloads of information that send data from your application to your store.
+ * They are the only source of information for the store. You send them to the store using
+ *   store.dispatch().
+ */
+
+
+
+
+
+
 export function addPost(post) {
   return {
     type: ActionTypes.ADD_POST,
