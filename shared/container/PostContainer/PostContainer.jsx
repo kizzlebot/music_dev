@@ -58,15 +58,10 @@ class PostContainer extends Component {
 }
 
 PostContainer.need = [() => Actions.fetchPosts()];
+
 PostContainer.contextTypes = {
   router: React.PropTypes.object,
 };
-
-function mapStateToProps(store) {
-  return {
-    posts: store.posts,
-  };
-}
 
 PostContainer.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
@@ -76,5 +71,12 @@ PostContainer.propTypes = {
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
+
+function mapStateToProps(store) {
+  return {
+    posts: store.posts,
+  };
+}
+
 
 export default connect(mapStateToProps)(PostContainer);

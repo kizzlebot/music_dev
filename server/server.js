@@ -1,4 +1,3 @@
-/*eslint-disable */
 import path from 'path';
 
 
@@ -27,11 +26,10 @@ import { configureStore } from '../shared/redux/store/configureStore';
 import { Provider } from 'react-redux';
 
 
-// Import required modules
+// required react modules
 import routes from '../shared/routes';
 import { fetchComponentData } from './util/fetchData';
-import renderFullPage from './util/renderFullPage';
-import { renderError } from './util/renderFullPage';
+import renderFullPage, { renderError } from './util/renderFullPage';
 import posts from './routes/post.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
@@ -128,7 +126,6 @@ app.use('/api', posts);
 
 
 
-
 // --------------------------------------------------------------------
 // Server Side Rendering based on routes matched by React-router.
 // --------------------------------------------------------------------
@@ -161,6 +158,7 @@ app.use((req, res, next) => {
 
         const finalState = store.getState();
         const html = renderFullPage(initialView, finalState);
+
         res.status(200).end(html);
       });
   });
@@ -170,18 +168,35 @@ app.use((req, res, next) => {
 
 
 
-// start app
-app.listen(serverConfig.port, (error) => {
-  if (!error && process.env.NODE_ENV != 'test') {
-    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
-  }
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
+/* ----------------------------- Start/Export Server -------------------------------------*/
+/* -------------------------------------------------------------------------------------- */
+
+if (process.env.NODE_ENV != 'test') {
+  app.listen(serverConfig.port, (error) => {
+    if (!error) console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`);
+  });
+}
+
 
 export default app;
-
-
-
-
-
-
-/*eslint-enable */

@@ -14,7 +14,7 @@ function connectDB(done) {
     return done();
   }
 
-  mongoose.connect((process.env.MONGO_URL || 'mongodb://localhost:27017/mern-test'), function (err) {
+  mongoose.connect((process.env.MONGODB || process.env.MONGOLAB_URI || 'mongodb://localhost:27017/mern-test'), function (err) {
     if (err) return done(err);
     done();
   });
@@ -29,6 +29,13 @@ function dropDB(done) {
     mongoose.connection.close(done);
   });
 }
+
+
+
+
+
+
+
 
 describe('GET /api/getPosts', function () {
 
@@ -122,6 +129,14 @@ describe('POST /api/addPost', function () {
   });
 
 });
+
+
+
+
+
+
+
+
 
 describe('POST /api/deletePost', function () {
   var postId;
