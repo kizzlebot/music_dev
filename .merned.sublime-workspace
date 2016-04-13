@@ -1,0 +1,853 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"reac",
+				"reactContent"
+			],
+			[
+				"midd",
+				"middlewareLoader"
+			],
+			[
+				"script",
+				"scriptPath"
+			],
+			[
+				"LA",
+				"LASTFM_SECRET"
+			],
+			[
+				"Last",
+				"LastFm"
+			],
+			[
+				"callba",
+				"callbackURL"
+			],
+			[
+				"clie",
+				"clientSecret"
+			],
+			[
+				"pass",
+				"passReqToCallback"
+			],
+			[
+				"S",
+				"SoundCloudTokenStrategy"
+			],
+			[
+				"lastfm",
+				"lastfm_sessionkey"
+			],
+			[
+				"L",
+				"LASTFM_SECRET"
+			],
+			[
+				"Las",
+				"LastfmAPI"
+			],
+			[
+				"log",
+				"logout"
+			],
+			[
+				"tok",
+				"token_callback_url"
+			],
+			[
+				"get",
+				"getPathInfo"
+			],
+			[
+				"LOG",
+				"LOG_IN"
+			],
+			[
+				"LOG_",
+				"LOG_OUT"
+			],
+			[
+				"Gi",
+				"GithubAPI"
+			],
+			[
+				"sess",
+				"sessionUrl"
+			],
+			[
+				"LASTFM",
+				"LASTFM_KEY"
+			],
+			[
+				"a",
+				"AwesomeProj"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 93.0,
+		"last_filter": "update",
+		"selected_items":
+		[
+			[
+				"update",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"git: branch",
+				"Git: Change Branch"
+			],
+			[
+				"git:stash",
+				"Git: Stash Changes"
+			],
+			[
+				"git ",
+				"Git: Change Branch"
+			],
+			[
+				"gc",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"proj",
+				"Project: Edit"
+			],
+			[
+				"project",
+				"Project: Edit"
+			],
+			[
+				"eslint",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"p",
+				"Project: Edit"
+			],
+			[
+				"less",
+				"Set Syntax: LESS"
+			],
+			[
+				"scss",
+				"Set Syntax: SCSS"
+			],
+			[
+				"choose lint",
+				"SublimeLinter: Choose Lint Mode"
+			],
+			[
+				"sublimelinter user",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"linter",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"insta",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"jsfm",
+				"JSFMT: Format the current file"
+			],
+			[
+				"js",
+				"JSFMT: Format the current file"
+			],
+			[
+				"jsf",
+				"JSFMT: Format the current file"
+			]
+		],
+		"width": 507.0
+	},
+	"console":
+	{
+		"height": 297.0,
+		"history":
+		[
+			"set_timeout",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"set_timeout",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/kizzlebot/Documents/Developer/merned"
+	],
+	"file_history":
+	[
+		"/Users/kizzlebot/Documents/Developer/music_dev/package.json",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/config/middleware.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/build_config/webpack.server-watch.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/build_config/webpack.server.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/controllers/api.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/dist/server.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/client.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/actions/authed.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/views/layout.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/views/index.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/actions/environment.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/actions/navigator.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/controllers/home.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/routes.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/main.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/reducers/navigator.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/userStore.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/redux/routes.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/index.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/partials/header.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/redux/userStore.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/redux/boundActions.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/redux/actionCreators.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/redux/actions.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/style/lib/bootstrap/_variables.scss",
+		"/Users/kizzlebot/Documents/Developer/music_dev/build_config/webpack.client.js",
+		"/Users/kizzlebot/Documents/Developer/react-isomorphic-express/isomorphic.sublime-project",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/apis/github.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/controllers/index.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/.tmp/test.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/config/passport_config.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/utils/getJsFiles.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/controllers/user.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/test/app.test.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/config/lastfm_strategy.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/build_config/webpack.client-watch.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/server/config/lastfm_strategy.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/dist/0.6c3d8ca252abd309db48.hot-update.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/style/main.scss",
+		"/Users/kizzlebot/Documents/Developer/music_dev/src/components/routes/app.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/test/models.test.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/test/lastfm_strategy.test.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/build_config/webpack.config.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/views/account/login.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/config/passport_config.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/controllers/user.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/server.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/app.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/client/app.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/README.md",
+		"/Users/kizzlebot/Documents/Developer/music_dev/config/soundcloud_strategy.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/views/account/profile.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/models/User.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/test/nologin.test.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/test/nologin.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/controllers/home.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/views/index.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/test/bootstrap/node.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/views/partials/flash.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/utils/lastfm.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/temp.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/public/stylesheets/style.css",
+		"/Users/kizzlebot/Documents/Developer/music_dev/views/layout.jade",
+		"/Users/kizzlebot/Documents/Developer/music_dev/config/lastfm-strategy.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/views/partials/navbar.jade",
+		"/Users/kizzlebot/.protected_env",
+		"/Users/kizzlebot/Documents/Developer/music_dev/controllers/users.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/routes/home.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/music_dev.sublime-project",
+		"/Users/kizzlebot/Documents/Developer/music_dev/routes/index.js",
+		"/Users/kizzlebot/Documents/Developer/music_dev/bin/www",
+		"/Users/kizzlebot/Documents/devmusic/devmusic.sublime-project",
+		"/Users/kizzlebot/Documents/devmusic/controllers/user.js",
+		"/Users/kizzlebot/Documents/devmusic/test/app.test.js",
+		"/Users/kizzlebot/Documents/devmusic/test/routes.test.js",
+		"/Users/kizzlebot/Documents/devmusic/src/routes.js",
+		"/Users/kizzlebot/Documents/devmusic/src/redux/__tests__/userStore-test.js",
+		"/Users/kizzlebot/Documents/devmusic/views/layout.jade",
+		"/Users/kizzlebot/Documents/devmusic/test.js",
+		"/Users/kizzlebot/Documents/devmusic/__tests__/api-test.js",
+		"/Users/kizzlebot/Documents/devmusic/app.js",
+		"/Users/kizzlebot/Documents/devmusic/webpack.config.prod.js",
+		"/Users/kizzlebot/Documents/devmusic/npm-debug.log",
+		"/Users/kizzlebot/Documents/devmusic/src/client.js",
+		"/Users/kizzlebot/Documents/devmusic/src/partials/header.js",
+		"/Users/kizzlebot/Documents/devmusic/webpack.config.dev.js",
+		"/Users/kizzlebot/Documents/devmusic/package.json",
+		"/Users/kizzlebot/Documents/devmusic/config/middleware.js",
+		"/Users/kizzlebot/Documents/devmusic/src/__tests__/userStore-test.js",
+		"/Users/kizzlebot/Documents/devmusic/src/redux/userStore.js",
+		"/Users/kizzlebot/Documents/devmusic/src/index.js",
+		"/Users/kizzlebot/Documents/devmusic/controllers/api.js",
+		"/Users/kizzlebot/Documents/codeforFTL/builder.js",
+		"/Users/kizzlebot/Documents/devmusic/controllers/home.js",
+		"/Users/kizzlebot/Documents/devmusic/controllers/react_route.js",
+		"/Users/kizzlebot/Documents/devmusic/config/passport.js",
+		"/Users/kizzlebot/Documents/devmusic/models/User.js",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/main.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/themes/flatly/_variables.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/CheckboxWithLabel.js",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/themes/default/_default.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/routes/home.js",
+		"/Users/kizzlebot/Documents/devmusic/src/routes/login.js",
+		"/Users/kizzlebot/Documents/devmusic/src/routes/signup.js",
+		"/Users/kizzlebot/Documents/devmusic/src/redux/actionTypes.js",
+		"/Users/kizzlebot/Documents/devmusic/src/routes/apis.js",
+		"/Users/kizzlebot/Documents/kizzlebot.github.io/resume.json",
+		"/Users/kizzlebot/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/lib/bootstrap/_input-groups.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/routes/apis/linkedin.js",
+		"/Users/kizzlebot/Documents/devmusic/src/routes/apis/github.js",
+		"/Users/kizzlebot/Documents/devmusic/views/api/aviary.jade",
+		"/Users/kizzlebot/Documents/devmusic/views/api/linkedin.jade",
+		"/Users/kizzlebot/Documents/devmusic/Procfile",
+		"/Users/kizzlebot/Documents/devmusic/views/api/github.jade",
+		"/Users/kizzlebot/Documents/devmusic/views/api/index.jade",
+		"/Users/kizzlebot/Documents/devmusic/src/components/signup.js",
+		"/Users/kizzlebot/Documents/devmusic/views/account/signup.jade",
+		"/Users/kizzlebot/Documents/devmusic/src/components/apis.js",
+		"/Users/kizzlebot/Documents/devmusic/src/components/login.js",
+		"/Users/kizzlebot/Documents/devmusic/views/account/login.jade",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/lib/bootstrap/_variables.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/themes/default/_variables.less",
+		"/Users/kizzlebot/Documents/devmusic/public/css/lib/bootstrap/_variables.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/style/css/themes/default/_variables.scss",
+		"/Users/kizzlebot/Documents/devmusic/public/css/main.scss",
+		"/Users/kizzlebot/Documents/devmusic/src/style/main.css"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 95.0,
+		"where_history":
+		[
+			"/Users/kizzlebot/Documents/Developer/music_dev/src",
+			"src",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"expose-loader",
+			"changePlaying",
+			"appendLike",
+			"syncLike",
+			"toggleLike",
+			"addNewStreamSongsToPlaylist",
+			"unshiftNewStreamSongs",
+			"login",
+			"callback",
+			"auth",
+			"cookies",
+			"sockjs",
+			"callback",
+			"accessToken",
+			"api",
+			"redirect",
+			"cb",
+			"navigator",
+			"redux",
+			"routes",
+			"redux",
+			"routes",
+			"routes/",
+			"/routes/",
+			"components/routes/",
+			"\n    ",
+			"createRoutes",
+			"lastfm",
+			"createRoutes",
+			"cb",
+			"path",
+			"..",
+			"_",
+			"routes",
+			"cwd()",
+			"__dirname",
+			"eenv",
+			"bootstrap-webpack",
+			"sass",
+			"api",
+			"userStore",
+			"store",
+			"userStore",
+			"dirs",
+			"files",
+			"express",
+			"if not logg in",
+			"if not logg in ..",
+			"webpack",
+			"head",
+			"User",
+			"React",
+			"_.find",
+			"find",
+			"lastfm",
+			"import",
+			"import has",
+			"hasAPI",
+			"has",
+			"lastfm",
+			"console.log",
+			"sound",
+			"console.log",
+			"cb",
+			"LastfmAPI",
+			"rsp",
+			"options",
+			"var cb_url",
+			"musicdev",
+			"process.env.HOST",
+			"process.env.HOSTNAME",
+			"HOSTNAME",
+			"process.env.HOSTNAME",
+			"path",
+			"hmre",
+			"react-hmre",
+			"react-router",
+			"PORT",
+			"split",
+			"toString",
+			"../app.js",
+			"../",
+			"app",
+			"currFilename",
+			"curFilename",
+			"}",
+			"url",
+			"nodeExternals",
+			"currFileName",
+			"src",
+			"config",
+			"babel",
+			"session",
+			"_.",
+			"LastfmStrategy",
+			"redirect",
+			"linkedin",
+			"LinkedIn",
+			"linkedin",
+			"getForgot",
+			"logout",
+			"userController",
+			"302",
+			"redirect",
+			"logIn",
+			"request",
+			"api",
+			"api_key",
+			"undefined",
+			"jsdom",
+			"defined",
+			"/login",
+			"valid",
+			"validat",
+			"lastfm_strategy",
+			"flash",
+			"email already",
+			"/user/login",
+			"user/register",
+			"err",
+			"hostname",
+			"getA",
+			"flash",
+			"flashk",
+			"flashkj",
+			"flash",
+			"login",
+			"done"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"@",
+			"\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 18.0
+	},
+	"input":
+	{
+		"height": 28.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 84.0
+	},
+	"pinned_build_system": "",
+	"project": ".merned.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pa",
+				"package.json"
+			],
+			[
+				"server",
+				"src/server.js"
+			],
+			[
+				"pac",
+				"package.json"
+			],
+			[
+				"api",
+				"src/server/controllers/api.js"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"lay",
+				"src/server/views/layout.jade"
+			],
+			[
+				"index.jade",
+				"src/server/views/index.jade"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"usersto",
+				"src/components/redux/userStore.js"
+			],
+			[
+				"header",
+				"src/components/routes/partials/header.js"
+			],
+			[
+				"index.js",
+				"src/components/routes/index.js"
+			],
+			[
+				"ser",
+				"dist/server.js"
+			],
+			[
+				"we",
+				"build_config/webpack.server.js"
+			],
+			[
+				"wb",
+				"build_config/webpack.server.js"
+			],
+			[
+				"/routes",
+				"src/components/routes/index.js"
+			],
+			[
+				"webpack",
+				"build_config/webpack.client.js"
+			],
+			[
+				"webpac",
+				"build_config/webpack.client.js"
+			],
+			[
+				"client",
+				"src/client.js"
+			],
+			[
+				"api/github",
+				"src/apis/github.js"
+			],
+			[
+				"user",
+				"src/server/controllers/user.js"
+			],
+			[
+				"app.",
+				"test/app.test.js"
+			],
+			[
+				"lastfm",
+				"config/lastfm_strategy.js"
+			],
+			[
+				"server.js",
+				"src/server.js"
+			],
+			[
+				"passpor",
+				"src/server/config/passport_config.js"
+			],
+			[
+				"pass",
+				"config/passport_config.js"
+			],
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"boot",
+				"test/bootstrap/node.js"
+			],
+			[
+				"app.js",
+				"app.js"
+			],
+			[
+				"las",
+				"test/lastfm_strategy.test.js"
+			],
+			[
+				"layou",
+				"views/layout.jade"
+			],
+			[
+				"app.e",
+				"test/app.test.js"
+			],
+			[
+				"app.test",
+				"test/app.test.js"
+			],
+			[
+				"home",
+				"routes/home.js"
+			],
+			[
+				"headr",
+				"src/partials/header.js"
+			],
+			[
+				"package",
+				"package.json"
+			],
+			[
+				"routes",
+				"src/routes.js"
+			],
+			[
+				"index",
+				"src/index.js"
+			],
+			[
+				"prod",
+				"webpack.config.prod.js"
+			],
+			[
+				"style.s",
+				"src/style/css/main.scss"
+			],
+			[
+				"signup",
+				"src/routes/signup.js"
+			],
+			[
+				"login",
+				"src/routes/login.js"
+			],
+			[
+				"uses",
+				"src/redux/userStore.js"
+			],
+			[
+				"web",
+				"webpack.config.prod.js"
+			],
+			[
+				"head",
+				"src/partials/header.js"
+			],
+			[
+				"header.js",
+				"src/partials/header.js"
+			],
+			[
+				"index.jad",
+				"views/api/index.jade"
+			],
+			[
+				"dev",
+				"webpack.config.dev.js"
+			],
+			[
+				"proc",
+				"Procfile"
+			],
+			[
+				"var",
+				"src/style/css/lib/bootstrap/_variables.scss"
+			],
+			[
+				"_variables",
+				"src/style/css/lib/bootstrap/_variables.scss"
+			],
+			[
+				"layout",
+				"views/layout.jade"
+			],
+			[
+				"webp",
+				"webpack.config.dev.js"
+			],
+			[
+				"less",
+				"src/style/css/themes/default/_variables.less"
+			],
+			[
+				"_vari",
+				"src/style/css/lib/bootstrap/_variables.scss"
+			],
+			[
+				"man.scss",
+				"src/style/css/main.scss"
+			],
+			[
+				"home.jade",
+				"views/home.jade"
+			],
+			[
+				"src/",
+				"src/index.js"
+			],
+			[
+				"ine",
+				"src/index.js"
+			],
+			[
+				"pro",
+				"views/account/profile.jade"
+			],
+			[
+				".env.",
+				".env.example"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"iso",
+				"~/Documents/react-isomorphic-express/isomorphic.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 228.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
