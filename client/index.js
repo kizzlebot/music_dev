@@ -1,4 +1,5 @@
-require("bootstrap-webpack");
+/*eslint-disable */
+require('bootstrap-webpack');
 
 import React from 'react';
 import routes from '../shared/routes';
