@@ -1,3 +1,5 @@
+require("bootstrap-webpack");
+
 import React from 'react';
 import routes from '../shared/routes';
 import DevTools from '../shared/container/DevTools/DevTools';
@@ -5,6 +7,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { configureStore } from '../shared/redux/store/configureStore';
+
+
 
 const store = configureStore(window.__INITIAL_STATE__);
 const history = browserHistory;

@@ -97,6 +97,19 @@ app.use(...middlewares);
 
 
 
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
+/* -------------------------------- SETUP User Config ------------------------------------*/
+/* -------------------------------------------------------------------------------------- */
+
 app.use('/api', posts);
 
 
@@ -109,21 +122,15 @@ const renderError = err => {
 
 
 
-
+// --------------------------------------------------------------------
 // Server Side Rendering based on routes matched by React-router.
+// --------------------------------------------------------------------
 app.use((req, res, next) => {
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      return res.status(500).end(renderError(err));
-    }
+    if (err)              return res.status(500).end(renderError(err));
+    if (redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    if (!renderProps)     return next();
 
-    if (redirectLocation) {
-      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    }
-
-    if (!renderProps) {
-      return next();
-    }
 
     const initialState = { posts: [], post: {} };
 
