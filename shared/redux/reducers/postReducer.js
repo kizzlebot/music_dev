@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/constants';
+import ActionTypes from '../constants';
 
 const initialState = { posts: [], post: null };
 

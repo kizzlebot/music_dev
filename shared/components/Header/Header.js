@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 
 
+
 class Header extends React.Component {
   constructor(props){
     super(props);
@@ -13,11 +14,10 @@ class Header extends React.Component {
     var btnToRender = this.context.router.isActive('/', true) ? <a className="add-post-button" href="#" onClick={this.props.onClick}>Add Post</a> : null
 
     return (
-      <nav className="header navbar navbar-default">
-        <div className="container">
+      <nav className="header ">
+        <div className="header-container">
           <div className="header-content navbar-header">
-            <h1 className="site-title">
-              <a className href="/">MERN Starter Bloggs</a></h1>
+            <h1 className="site-title"><Link to="/" onClick={this.props.handleLogoClick}>MERN Starter Blog</Link></h1>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav" />

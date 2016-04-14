@@ -1,5 +1,5 @@
 /*eslint-disable */
-require('bootstrap-webpack');
+require('bootstrap-webpack!./bootstrap.config.js');
 
 import React from 'react';
 import routes from '../shared/routes';

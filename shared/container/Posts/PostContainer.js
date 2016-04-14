@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import PostListView from '../PostListView/PostListView';
+import PostListView from './PostListView';
 import PostCreateView from '../../components/PostCreateView/PostCreateView';
 import Header from '../../components/Header/Header';
+import Navbar from '../../components/Header/Navbar';
 import Footer from '../../components/Footer/Footer';
 import { connect } from 'react-redux';
-import * as Actions from '../../redux/actions/actions';
+import Actions from '../../redux/actions';
 
 class PostContainer extends Component {
   constructor(props, context) {
@@ -47,6 +48,7 @@ class PostContainer extends Component {
     return (
       <div>
         <Header onClick={this.handleClick} />
+        <Navbar onClick={this.handleClick} />
         <div className="container">
           <PostCreateView addPost={this.add} showAddPost={this.state.showAddPost}/>
           <PostListView posts={this.props.posts}/>

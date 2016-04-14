@@ -18,7 +18,8 @@
 				".babelrc",
 				"npm-debug.log",
 				"README*",
-				"nodemon.json"
+				"nodemon.json",
+        "Procfile"
 			],
 			"folder_exclude_patterns":
 			[

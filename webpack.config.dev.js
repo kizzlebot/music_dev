@@ -12,7 +12,8 @@ module.exports = {
 
   entry: [
     `webpack-hot-middleware/client`,
-    './client/index.js',
+    // `bootstrap-webpack!${process.cwd()}/client/bootstrap.config.js`,
+    `${process.cwd()}/client/index.js`,
   ],
 
   output: {

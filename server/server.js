@@ -85,7 +85,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    noInfo: true,
+    noInfo: (process.env.NODE_ENV == 'test'),
     quiet: (process.env.NODE_ENV == 'test'),
     stats:{
       colors:true
