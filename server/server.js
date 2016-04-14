@@ -37,7 +37,7 @@ import posts from './routes/post.routes';
 import api from './routes/index.js'
 
 import dummyData from './util/dummyData';
-var serverConfig = require('./config').default;
+import serverConfig from './config'
 
 
 /* -------------------------------------------------------------------------------------- */

@@ -24,6 +24,7 @@ export function postUsers(req, res) {
 
 export function authenticate(req, res, next){
   var { auth_token, username, password } = req.body;
+  console.log(req.body);
 
   // If user POSTS auth_token then first check to see its still valid
   if (auth_token){
@@ -47,14 +48,74 @@ export function authenticate(req, res, next){
     });
   }
 
-
-  if (username && password){
+  else if (username && password){
     findByUsernamePassword(username, password, (message) => {
       if (!message.success) res.status(401).json(message);
       else res.json(message);
     });
   }
+  else{
+    res.json({
+      success:false,
+      message:'No credentials provided'
+    })
+  }
 };
+
+
+
+export function register(req, res, next){
+
+  var { username, password, confirmPassword } = req.body ;
+  var msg = {
+    success:true,
+    message:null,
+    reason:[]
+  }
+
+
+  User.find({ username }, function(err, existingUsers){
+    if (err) return res.json(msg);
+    if (!existingUsers || existingUsers.length > 0){
+      msg.success &= false;
+      msg.message = `Registration failed.`;
+      msg.reason.push('username')
+    }
+    if (password.length < 7){
+      msg.success &= false;
+      msg.message = `Registration failed.`;
+      msg.reason.push('password length');
+    }
+    if (password != confirmPassword){
+      msg.success &= false;
+      msg.message = `Registration failed.`;
+      msg.reason.push('password does not match');
+    }
+
+
+
+
+
+    if(!msg.success) res.json(msg);
+    else{
+      var newUser = new User({ username, password });
+      var auth_token = jwt.sign(newUser, serverConfig.secret, { expiresIn: '1440h' });
+      msg.auth_token = auth_token;
+      newUser.auth_token = auth_token;
+
+      newUser.save(function(err, u){
+        if (err) {
+          res.json(err);
+          return ;
+        }
+
+        msg.message = 'Registration successful.';
+        res.json(msg);
+      });
+
+    }
+  });
+}
 
 
 
@@ -88,7 +149,6 @@ function findByUsernamePassword(username, password, callback){
       });
     }
   });
-
 }
 // export function createUser(req, res) {
 //   if (!req.body.user.email || !req.body.user.password || !req.body.post.content) {

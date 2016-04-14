@@ -5,8 +5,9 @@ var crypto = require('crypto');
 
 
 var userSchema = new mongoose.Schema({
-  email: { type: String, unique: true, lowercase: true },
   username: { type: String, unique: true, lowercase: true },
+  email: { type: String, lowercase: true },
+
   password: String,
 
   facebook: String,
@@ -78,4 +79,4 @@ userSchema.methods.gravatar = function(sizeArg) {
                          `https://gravatar.com/avatar/${crypto.createHash('md5').update(this.email).digest('hex')}?s=${size}&d=retro`;
 };
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
