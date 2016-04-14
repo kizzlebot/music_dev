@@ -1,5 +1,7 @@
 {
-	"file_exclude_patterns": [],
+	"file_exclude_patterns":
+	[
+	],
 	"folders":
 	[
 		{
@@ -12,11 +14,16 @@
 				".env",
 				".env.example",
 				".eslint*",
-        ".editorconfig",
+				".editorconfig",
 				".babelrc",
-				"npm-debug.log"
+				"npm-debug.log",
+				"README*",
+				"nodemon.json"
 			],
-			"folder_exclude_patterns": ["node_modules"],
+			"folder_exclude_patterns":
+			[
+				"node_modules"
+			],
 			"path": "."
 		}
 	]
