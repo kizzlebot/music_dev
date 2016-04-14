@@ -1,22 +1,31 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Nav, Navbar } from 'react-bootstrap';
+
 
 function Header(props, context) {
   return (
-    <div className="header">
-      <div className="header-content">
+    <Navbar className='header'>
+      <Navbar.Header className="header-content">
         <h1 className="site-title">
           <Link to="/" onClick={props.handleLogoClick}>MERN Starter Blog</Link>
         </h1>
-        {
-          context.router.isActive('/', true)
-            ? <a className="add-post-button" href="#" onClick={props.onClick}>Add Post</a>
-            : null
-        }
-      </div>
-    </div>
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav>
+        </Nav>
+        <Nav pullRight>
+          {
+            context.router.isActive('/', true)
+              ? <a className="add-post-button" href="#" onClick={props.onClick}>Add Post</a>
+              : null
+          }
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
+
 
 Header.contextTypes = {
   router: React.PropTypes.object,
