@@ -1,3 +1,4 @@
+/* global describe, it, expect, before, request, assert */
 import app from '../server';
 var chai = require('chai');
 var path = require('path');

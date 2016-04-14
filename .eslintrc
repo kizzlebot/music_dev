@@ -18,6 +18,7 @@
      "space-before-function-paren":[0],
      "no-var": 0,
      "prefer-const": 1,
+     "prefer-arrow-callback": 0,
      "no-shadow": 0,
      "no-shadow-restricted-names": 2,
      "no-undef": 2,
