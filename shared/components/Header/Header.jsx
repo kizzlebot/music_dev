@@ -1,29 +1,34 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Nav, Navbar } from 'react-bootstrap';
 
 
-function Header(props, context) {
-  return (
-    <Navbar className='header'>
-      <Navbar.Header className="header-content">
-        <h1 className="site-title">
-          <Link to="/" onClick={props.handleLogoClick}>MERN Starter Blog</Link>
-        </h1>
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav>
-        </Nav>
-        <Nav pullRight>
-          {
-            context.router.isActive('/', true)
-              ? <a className="add-post-button" href="#" onClick={props.onClick}>Add Post</a>
-              : null
-          }
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  );
+
+class Header extends React.Component {
+  constructor(props){
+    super(props);
+    this.props = props ;
+  }
+  render(){
+
+    var btnToRender = this.context.router.isActive('/', true) ? <a className="add-post-button" href="#" onClick={this.props.onClick}>Add Post</a> : null
+
+    return (
+      <nav className="header navbar navbar-default">
+        <div className="container">
+          <div className="header-content navbar-header">
+            <h1 className="site-title">
+              <a className href="/">MERN Starter Bloggs</a></h1>
+          </div>
+          <div className="navbar-collapse collapse">
+            <ul className="nav navbar-nav" />
+            <div className="nav navbar-nav navbar-right" style={{ marginLeft: '2em' }}>
+              {btnToRender}
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  }
 }
 
 
