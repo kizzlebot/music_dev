@@ -30,7 +30,10 @@ import { Provider } from 'react-redux';
 import routes from '../shared/routes';
 import { fetchComponentData } from './util/fetchData';
 import renderFullPage, { renderError } from './util/renderFullPage';
+
 import posts from './routes/post.routes';
+import api from './routes/index.js'
+
 import dummyData from './dummyData';
 import serverConfig from './config';
 
@@ -58,24 +61,6 @@ import serverConfig from './config';
 const app = new Express();
 
 
-// If non-production environment, use wepback-dev-middleware and logger
-if (process.env.NODE_ENV !== 'production') {
-  const compiler = webpack(config);
-
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    noInfo: true,
-    quiet: (process.env.NODE_ENV == 'test'),
-    stats:{
-      colors:true
-    }
-  }));
-  app.use(webpackHotMiddleware(compiler));
-
-  // Only use the logger if not testing
-  if (process.env.NODE_ENV != 'test') app.use(logger('dev'));
-}
-
 
 
 
@@ -94,6 +79,24 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 
 
 
+
+// If non-production environment, use wepback-dev-middleware and logger
+if (process.env.NODE_ENV !== 'production') {
+  const compiler = webpack(config);
+
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    noInfo: true,
+    quiet: (process.env.NODE_ENV == 'test'),
+    stats:{
+      colors:true
+    }
+  }));
+  app.use(webpackHotMiddleware(compiler));
+
+  // Only use the logger if not testing
+  if (process.env.NODE_ENV != 'test') app.use(logger('dev'));
+}
 
 
 // General Middlwares
@@ -130,7 +133,7 @@ app.use(...middlewares);
 /* -------------------------------- SETUP User Config ------------------------------------*/
 /* -------------------------------------------------------------------------------------- */
 
-app.use('/api', posts);
+app.use('/api', api);
 
 
 

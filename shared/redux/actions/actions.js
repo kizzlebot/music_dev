@@ -37,7 +37,7 @@ export function changeSelectedPost(slug) {
 
 export function addPostRequest(post) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/addPost`, {
+    fetch(`${baseURL}/api/posts/addPost`, {
       method: 'post',
       body: JSON.stringify({
         post: {
@@ -62,7 +62,7 @@ export function addSelectedPost(post) {
 
 export function getPostRequest(post) {
   return (dispatch) => {
-    return fetch(`${baseURL}/api/getPost?slug=${post}`, {
+    return fetch(`${baseURL}/api/posts/getPost?slug=${post}`, {
       method: 'get',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export function addPosts(posts) {
 
 export function fetchPosts() {
   return (dispatch) => {
-    return fetch(`${baseURL}/api/getPosts`).
+    return fetch(`${baseURL}/api/posts/getPosts`).
       then((response) => response.json()).
       then((response) => dispatch(addPosts(response.posts)));
   };
@@ -95,7 +95,7 @@ export function fetchPosts() {
 
 export function deletePostRequest(post) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/deletePost`, {
+    fetch(`${baseURL}/api/posts/deletePost`, {
       method: 'post',
       body: JSON.stringify({
         postId: post._id,

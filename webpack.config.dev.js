@@ -11,12 +11,12 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
 
   entry: [
-    `webpack-hot-middleware/client?quiet=${quiet}&reload=${true}`,
+    `webpack-hot-middleware/client`,
     './client/index.js',
   ],
 
   output: {
-    path: `${process.cwd()}/dist/`,
+    path: `${__dirname}/dist/`,
     filename: 'bundle.js',
     publicPath: '/dist/',
   },
@@ -27,7 +27,8 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.(js|jsx)*$/,                                   loader: 'babel', query: { presets: ['react-hmre'] }, exclude: [/node_modules/, /.+\.config.js/] },
+      { test: /\.js*$/,                                         loader: 'babel', query: { presets: ['react-hmre'] }, exclude: [/node_modules/, /.+\.config.js/] },
+      { test: /\.jsx*$/,                                        loader: 'babel', query: { presets: ['react-hmre'] }, exclude: [/node_modules/, /.+\.config.js/] },
       { test: /\.json?$/,        exclude: /node_modules/,       loader: 'json'},
       { test: /\.woff(\?\S*)?$/,                                loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
       { test: /\.woff2(\?\S*)?$/,                               loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
