@@ -3,8 +3,10 @@ import * as UserController from '../controllers/user.controller';
 const router = new Router();
 
 // Get all Posts
-router.get('/', UserController.getUser);
-router.post('/', UserController.postUser);
+router.get('/', UserController.getUsers);
+router.post('/', UserController.authenticate);
+
+
 
 
 

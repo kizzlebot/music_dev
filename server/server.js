@@ -36,7 +36,7 @@ import renderFullPage, { renderError } from './util/renderFullPage';
 import posts from './routes/post.routes';
 import api from './routes/index.js'
 
-import dummyData from './dummyData';
+import dummyData from './util/dummyData';
 var serverConfig = require('./config').default;
 
 
@@ -73,7 +73,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   }
 
   // feed some dummy data in DB.
-  dummyData((cnt) => cnt > 0);
+  // dummyData((cnt) => cnt > 0);
 });
 
 
@@ -103,7 +103,7 @@ if (process.env.NODE_ENV !== 'production') {
 // General Middlwares
 var middlewares = [
   bodyParser.json({ limit: '20mb' }),
-  bodyParser.urlencoded({ limit: '20mb', extended: true }),
+  bodyParser.urlencoded({ limit: '20mb', extended: false }),
   Express.static(path.resolve(path.join(process.cwd(), '/static')))
 ];
 
