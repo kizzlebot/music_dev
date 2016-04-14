@@ -71,12 +71,10 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
   }
-
-  // feed some dummy data in DB.
-  // dummyData((cnt) => cnt > 0);
 });
 
 
+app.set('test', process.env.NODE_ENV == 'test')
 
 
 // If non-production environment, use wepback-dev-middleware and logger
@@ -85,8 +83,8 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    noInfo: (process.env.NODE_ENV == 'test'),
-    quiet: (process.env.NODE_ENV == 'test'),
+    noInfo: app.get('test'),
+    quiet: app.get('test'),
     stats:{
       colors:true
     }
@@ -94,7 +92,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(compiler));
 
   // Only use the logger if not testing
-  if (process.env.NODE_ENV != 'test') app.use(logger('dev'));
+  if (!app.get('test')) app.use(logger('dev'));
 }
 
 

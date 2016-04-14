@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
 import Header from '../../components/Header/Header';
+import Navbar from '../../components/Header/Navbar';
 import Footer from '../../components/Footer/Footer';
 
 class PostDetailView extends Component {
@@ -26,6 +27,7 @@ class PostDetailView extends Component {
     return (
       <div>
         <Header onClick={function noop() {}} handleLogoClick={this.handleLogoClick}/>
+        <Navbar onClick={function noop(){}}/>
         <div className="container">
           <div className="single-post post-detail">
             <h3 className="post-title">{this.props.post.title}</h3>
