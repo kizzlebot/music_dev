@@ -26,6 +26,8 @@ import { configureStore } from '../shared/redux/store/configureStore';
 import { Provider } from 'react-redux';
 
 
+
+
 // required react modules
 import routes from '../shared/routes';
 import { fetchComponentData } from './util/fetchData';
@@ -35,7 +37,7 @@ import posts from './routes/post.routes';
 import api from './routes/index.js'
 
 import dummyData from './dummyData';
-import serverConfig from './config';
+var serverConfig = require('./config').default;
 
 
 /* -------------------------------------------------------------------------------------- */
@@ -59,9 +61,6 @@ import serverConfig from './config';
 
 // Initialize Express App server object
 const app = new Express();
-
-
-
 
 
 
@@ -99,15 +98,17 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
+
+
 // General Middlwares
 var middlewares = [
   bodyParser.json({ limit: '20mb' }),
-  bodyParser.urlencoded({ limit: '20mb', extended: false }),
+  bodyParser.urlencoded({ limit: '20mb', extended: true }),
   Express.static(path.resolve(path.join(process.cwd(), '/static')))
 ];
 
 
-
+app.set('port', serverConfig.port);
 // Set middlewares
 app.use(...middlewares);
 
