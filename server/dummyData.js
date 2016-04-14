@@ -1,8 +1,8 @@
 import Post from './models/post';
 
-export default function () {
+export default function (predicate) {
   Post.count().exec((err, count) => {
-    if (count > 0) return;
+    if (predicate(count)) return;
 
     const content1 = `Sed ut perspiciatis unde omnis iste natus error
       sit voluptatem accusantium doloremque laudantium, totam rem aperiam,

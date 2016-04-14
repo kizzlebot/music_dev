@@ -58,12 +58,21 @@ import serverConfig from './config';
 const app = new Express();
 
 
-// webpack middleware and logger if not in production mode
+// If non-production environment, use wepback-dev-middleware and logger
 if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    noInfo: true,
+    quiet: (process.env.NODE_ENV == 'test'),
+    stats:{
+      colors:true
+    }
+  }));
   app.use(webpackHotMiddleware(compiler));
 
+  // Only use the logger if not testing
   if (process.env.NODE_ENV != 'test') app.use(logger('dev'));
 }
 
@@ -80,7 +89,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   }
 
   // feed some dummy data in DB.
-  dummyData();
+  dummyData((cnt) => cnt > 0);
 });
 
 
@@ -187,16 +196,16 @@ app.use((req, res, next) => {
 
 
 
-
 /* -------------------------------------------------------------------------------------- */
 /* ----------------------------- Start/Export Server -------------------------------------*/
 /* -------------------------------------------------------------------------------------- */
-
 if (process.env.NODE_ENV != 'test') {
   app.listen(serverConfig.port, (error) => {
     if (!error) console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`);
   });
 }
+
+
 
 
 export default app;
