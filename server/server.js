@@ -153,9 +153,8 @@ app.use((req, res, next) => {
 
 
     // Initialize redux store
-    const initialState = { posts: [], post: {} };
+    const initialState = { posts:{ posts: [], post: {} }};
     const store = configureStore(initialState);
-
 
 
 

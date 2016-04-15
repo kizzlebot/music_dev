@@ -8,7 +8,7 @@ var quiet = (process.env.NODE_ENV == 'test');
 
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 
   entry: [
     `webpack-hot-middleware/client`,

@@ -1,16 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
-import Header from '../../components/Header/Header';
-import Navbar from '../../components/Header/Navbar';
-import Footer from '../../components/Footer/Footer';
 
 class PostDetailView extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.handleClick = this.handleClick.bind(this);
-    this.handleLogoClick = this.handleLogoClick.bind(this);
+    // this.handleLogoClick = this.handleLogoClick.bind(this);
   }
 
   handleClick() {
@@ -19,15 +16,10 @@ class PostDetailView extends Component {
     });
   }
 
-  handleLogoClick() {
-    this.props.dispatch(Actions.fetchPosts());
-  }
 
   render() {
     return (
       <div>
-        <Header onClick={function noop() {}} handleLogoClick={this.handleLogoClick}/>
-        <Navbar onClick={function noop(){}}/>
         <div className="container">
           <div className="single-post post-detail">
             <h3 className="post-title">{this.props.post.title}</h3>
@@ -35,7 +27,6 @@ class PostDetailView extends Component {
             <p className="post-desc">{this.props.post.content}</p>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
