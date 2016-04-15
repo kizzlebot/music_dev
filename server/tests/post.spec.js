@@ -55,7 +55,7 @@ describe('Posts HTTP API Requests', function(){
 
 
 
-  describe('GET /api/getPosts', function () {
+  describe('GET /api/posts/getPosts', function () {
     beforeEach('connect and add two post entries', function (done) {
       connectDB(function () {
         var post1 = new Post({name: 'Prashant', title: 'Hello Mern', content: "All cats meow 'mern!'"});
@@ -77,7 +77,7 @@ describe('Posts HTTP API Requests', function(){
 
     it('Should correctly give number of Posts', function (done) {
       request(app)
-        .get('/api/getPosts')
+        .get('/api/posts/getPosts')
         .set('Accept', 'application/json')
         .end(function (err, res) {
           Post.find().exec(function (err, posts) {
@@ -93,7 +93,7 @@ describe('Posts HTTP API Requests', function(){
 
 
 
-  describe('GET /api/getPost', function () {
+  describe('GET /api/posts/getPost', function () {
     beforeEach('connect and add one Post entry', function(done){
       connectDB(function () {
         var post = new Post({ name: 'Foo', title: 'bar', slug: 'bar', cuid: 'f34gb2bh24b24b2', content: 'Hello Mern says Foo' });
@@ -114,7 +114,7 @@ describe('Posts HTTP API Requests', function(){
 
     it('Should send correct data when queried against a title', function (done) {
       request(app)
-        .get('/api/getPost?slug=bar-f34gb2bh24b24b2')
+        .get('/api/posts/getPost?slug=bar-f34gb2bh24b24b2')
         .set('Accept', 'application/json')
         .end(function (err, res) {
           Post.findOne({ cuid: 'f34gb2bh24b24b2' }).exec(function (err, post) {
@@ -127,7 +127,7 @@ describe('Posts HTTP API Requests', function(){
   });
 
 
-  describe('POST /api/addPost', function () {
+  describe('POST /api/posts/addPost', function () {
     beforeEach('connect and add a post', function (done) {
       connectDB(function () {
         done();
@@ -141,7 +141,7 @@ describe('Posts HTTP API Requests', function(){
     it('Should send correctly add a post', function (done) {
 
       request(app)
-        .post('/api/addPost')
+        .post('/api/posts/addPost')
         .send({ post: { name: 'Foo', title: 'bar', content: 'Hello Mern says Foo' } })
         .set('Accept', 'application/json')
         .end(function (err, res) {
@@ -162,7 +162,7 @@ describe('Posts HTTP API Requests', function(){
 
 
 
-  describe('POST /api/deletePost', function () {
+  describe('POST /api/posts/deletePost', function () {
     var postId;
 
     beforeEach('connect and add one Post entry', function(done){
@@ -189,7 +189,7 @@ describe('Posts HTTP API Requests', function(){
       });
 
       request(app)
-        .post('/api/deletePost')
+        .post('/api/posts/deletePost')
         .send({ postId: postId})
         .set('Accept', 'application/json')
         .end(function () {

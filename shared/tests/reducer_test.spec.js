@@ -17,9 +17,9 @@ describe('reducer tests', () => {
     };
 
 
-    // deepFreeze(stateAfter);
-    // deepFreeze(stateBefore);
-    // deepFreeze(action);
+    deepFreeze(stateAfter);
+    deepFreeze(stateBefore);
+    deepFreeze(action);
     var out = combination(stateBefore, action);
     expect(out).toEqual(stateAfter);
   });
