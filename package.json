@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Boilerplate project for building Isomorphic apps using React and Redux",
   "scripts": {
-    "test": "NODE_ENV=test mocha shared/tests/*.spec.js --compilers js:babel-register",
+    "test": "NODE_ENV=test mocha shared/tests/*.spec.js --compilers js:babel-register --require shared/tests/bootstrap/node.js --recursive shared/tests/**/*.spec.js",
     "test:server": "cross-env NODE_ENV=test PORT=8080 mocha --reporter mocha-unfunk-reporter --timeout 5000 --compilers js:babel-register --require server/tests/bootstrap/node.js --recursive server/tests/**/*.spec.js",
     "start": "cross-env NODE_ENV=development nodemon index.js",
     "start:prod": "cross-env NODE_ENV=production node index.js",
