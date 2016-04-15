@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import PostListItem from '../../components/PostListItem/PostListItem';
+import PostListItem from '../../components/Posts/PostListItem';
 import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
 

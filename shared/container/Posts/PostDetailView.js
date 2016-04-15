@@ -2,12 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
 
+
+
+
+
+
+
 class PostDetailView extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.handleClick = this.handleClick.bind(this);
-    // this.handleLogoClick = this.handleLogoClick.bind(this);
   }
 
   handleClick() {
@@ -32,6 +37,13 @@ class PostDetailView extends Component {
   }
 }
 
+
+
+
+
+
+
+
 PostDetailView.need = [(params) => {
   return Actions.getPostRequest.bind(null, params.slug)();
 }];
@@ -52,6 +64,7 @@ PostDetailView.propTypes = {
 };
 
 function mapStateToProps(store) {
+  console.log(store.post);
   return {
     post: (store.post),
   };

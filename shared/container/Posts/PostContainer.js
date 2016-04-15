@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import PostListView from './PostListView';
-import PostCreateView from '../../components/PostCreateView/PostCreateView';
+import PostCreateView from '../../components/Posts/PostCreateView';
 import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
 

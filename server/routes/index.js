@@ -8,18 +8,8 @@ const router = new Router();
 
 
 router.use('/posts', PostRouter);
-router.use('/users', UserRouter);
+router.use('/api', UserRouter);
 
-// router.route('/posts/getPosts').get(PostController.getPosts);
-
-// // Get one post by title
-// router.route('/posts/getPost').get(PostController.getPost);
-
-// // Add a new Post
-// router.route('/posts/addPost').post(PostController.addPost);
-
-// // Delete a Post
-// router.route('/posts/deletePost').post(PostController.deletePost);
 
 
 export default router;

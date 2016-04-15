@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
+import { Header, Footer }  from '../components/Common'
 import { connect } from 'react-redux';
 
 class App extends Component {

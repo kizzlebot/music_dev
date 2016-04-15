@@ -3,6 +3,7 @@ import ActionTypes from '../constants';
 const initialState = { posts: [], post: null };
 
 const postReducer = (state = initialState, action) => {
+  if (!action) return state ;
   switch (action.type) {
     case ActionTypes.ADD_POST :
       return {
@@ -14,7 +15,8 @@ const postReducer = (state = initialState, action) => {
           cuid: action.cuid,
           _id: action._id,
         }, ...state.posts],
-        post: state.post };
+        post: state.post
+      };
 
     case ActionTypes.CHANGE_SELECTED_POST :
       return {
