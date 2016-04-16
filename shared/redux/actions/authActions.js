@@ -1,4 +1,4 @@
-import {LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER, FETCH_PROTECTED_DATA_REQUEST, RECEIVE_PROTECTED_DATA} from '../constants';
+import ActionTypes from '../constants';
 // import { pushState } from 'redux-router';
 import Config from '../../../server/config';
 import jwtDecode from 'jwt-decode';
@@ -14,7 +14,7 @@ const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http:/
 
 export function registerUser(formData) {
   return {
-    type: 'CHECK_EXISTING',
+    type: ActionTypes.CHECK_EXISTING,
     formData
   };
 }
@@ -42,7 +42,7 @@ export function registerUserRequest(formData) {
 export function loginUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {
-    type: 'LOGIN_USER_SUCCESS',
+    type: ActionTypes.LOGIN_USER_SUCCESS,
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
@@ -54,7 +54,7 @@ export function loginUserSuccess(responseData) {
 export function loginUserFailure(error) {
   localStorage.removeItem('token');
   return {
-    type: 'LOGIN_USER_FAILURE',
+    type: ActionTypes.LOGIN_USER_FAILURE,
     payload: {
       status: error.success,
       statusText: error.message
@@ -64,14 +64,14 @@ export function loginUserFailure(error) {
 
 export function loginUserRequest() {
   return {
-    type: 'LOGIN_USER_REQUEST'
+    type: ActionTypes.LOGIN_USER_REQUEST,
   }
 }
 
 export function logout() {
     localStorage.removeItem('token');
     return {
-        type: 'LOGOUT_USER'
+        type: ActionTypes.LOGOUT_USER,
     }
 }
 
@@ -141,7 +141,7 @@ export function loginUser(username, password, redirect="/") {
 
 export function receiveProtectedData(data) {
     return {
-        type: 'RECEIVE_PROTECTED_DATA',
+        type: ActionTypes.RECEIVE_PROTECTED_DATA,
         payload: {
             data: data
         }
@@ -150,7 +150,7 @@ export function receiveProtectedData(data) {
 
 export function fetchProtectedDataRequest() {
   return {
-    type: 'FETCH_PROTECTED_DATA_REQUEST'
+    type: ActionTypes.FETCH_PROTECTED_DATA_REQUEST,
   }
 }
 

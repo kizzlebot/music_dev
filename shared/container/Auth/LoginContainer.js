@@ -21,7 +21,17 @@ class LoginContainer extends Component {
 
     this.props.dispatch(Actions.loginUser(formFields.username, formFields.password));
   }
+  componentWillReceiveProps(newProps, router){
+    console.log(newProps);
+    console.log(router);
+    if (newProps.auth.isAuthenticated){
+      this.context.router.replace('/');
+    }
+  }
   render(){
+    // if (!!this.props.auth.isAuthenticated){
+    //   this.context.router.replace('/');
+    // }
     return (
       <div>
         <LoginView onSubmit={this.handleSubmit.bind(this)} />
