@@ -51,6 +51,12 @@ const authReducer = (state = initialState, action) => {
           'username': null,
           'statusText': 'You have been successfully logged out.'
       });
+    case ActionTypes.REGISTER_USER_REQUEST:
+      return state ;
+    case ActionTypes.REGISTER_USER_SUCCESS:
+      return state ;
+    case ActionTypes.REGISTER_USER_FAILURE:
+      return state ;
     default:
       return state ;
   }

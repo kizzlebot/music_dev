@@ -12,26 +12,49 @@ const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http:/
 
 
 
-export function registerUser(formData) {
+export function registerUserSuccess(responseData) {
+  localStorage.setItem('token', responseData.auth_token);
   return {
-    type: ActionTypes.CHECK_EXISTING,
-    formData
+    type: ActionTypes.LOGIN_USER_SUCCESS,
+    payload: {
+      // TODO: Either rename token or authToken
+      token: responseData.auth_token,
+      message:responseData.message
+    }
+  }
+}
+export function registerUserFailure(responseData) {
+  return {
+    type: ActionTypes.REGISTER_USER_FAILURE,
+    payload:{
+      token: responseData.auth_token,
+      status: responseData.success,
+      reason: responseData.reason
+    }
   };
 }
-
-export function registerUserRequest(formData) {
+export function registerUser(username, password, confirmPassword) {
   return (dispatch) => {
     fetch(`${baseURL}/api/users/register`, {
       method: 'post',
       body: JSON.stringify({
-        username:formData.username,
-        password: formData.password,
-        confirmPassword:formData.confirmPassword
+        username: username,
+        password: password,
+        confirmPassword: confirmPassword
       }),
       headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Content-Type': 'application/json',
       }),
-    }).then((res) => res.json()).then(res => dispatch(registerUser(res.message)));
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      (res.success) ? dispatch(registerUserSuccess(res)) : dispatch(registerUserFailure(res));
+    })
+    .catch(error => {
+        dispatch(registerUserFailure(error));
+    })
   }
 }
 

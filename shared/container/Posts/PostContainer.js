@@ -53,6 +53,9 @@ class PostContainer extends Component {
   }
 }
 
+
+
+
 PostContainer.need = [() => Actions.fetchPosts()];
 
 PostContainer.contextTypes = {

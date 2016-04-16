@@ -74,7 +74,7 @@ export function register(req, res, next){
     reason:[]
   }
 
-
+  // See if user already exists
   User.find({ username }, function(err, existingUsers){
     if (err) return res.json(msg);
     if (!existingUsers || existingUsers.length > 0){
@@ -96,8 +96,9 @@ export function register(req, res, next){
 
 
 
-
+    // If msg.success is now false return 403
     if(!msg.success) res.status(403).json(msg);
+    // Otherwise create a new user
     else{
       var newUser = new User({ username, password });
       var auth_token = jwt.sign(newUser, serverConfig.secret, { expiresIn: '1440h' });
@@ -113,7 +114,6 @@ export function register(req, res, next){
         msg.message = 'Registration successful.';
         res.json(msg);
       });
-
     }
   });
 }
