@@ -78,66 +78,42 @@ export function logout() {
 export function logoutAndRedirect() {
     return (dispatch, state) => {
         dispatch(logout());
-        // dispatch(pushState(null, '/login'));
     }
 }
 
 export function loginUser(username, password, redirect="/") {
-    return (dispatch) => {
-        dispatch(loginUserRequest());
-        fetch(`${baseURL}/api/users/login`, {
-          method: 'post',
-          body: JSON.stringify({
-            username: username, password: password
-          }),
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          }),
-        })
-        .then((res) => {
-          return res.json();
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.success){
-            dispatch(loginUserSuccess(res));
-          }
-          else{
-            dispatch(loginUserFailure(res));
-          }
-        })
-        .catch(error => {
-            dispatch(loginUserFailure(error));
-        })
-        // return fetch(`${baseURL}/api/users/login`, {
-        //     method: 'post',
-        //     headers: {
-        //       'Accept': 'application/json',
-        //       'Content-Type': 'application/json'
-        //     },
-        //         body: JSON.stringify({username: username, password: password})
-        //     })
-        //     .then(checkHttpStatus)
-        //     .then(parseJSON)
-        //     .then(response => {
-        //         try {
-        //             let decoded = jwtDecode(response.token);
-        //             dispatch(loginUserSuccess(response.token));
-        //         } catch (e) {
-        //             dispatch(loginUserFailure({
-        //                 response: {
-        //                     status: 403,
-        //                     statusText: 'Invalid token'
-        //                 }
-        //             }));
-        //         }
-        //     })
-        //     .catch(error => {
-        //       console.log(error);
-        //       dispatch(loginUserFailure(error));
-        //     })
-    }
+  return (dispatch) => {
+      dispatch(loginUserRequest());
+      fetch(`${baseURL}/api/users/login`, {
+        method: 'post',
+        body: JSON.stringify({
+          username: username, password: password
+        }),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        (res.success) ? dispatch(loginUserSuccess(res)) : dispatch(loginUserFailure(res));
+      })
+      .catch(error => {
+          dispatch(loginUserFailure(error));
+      })
+  }
 }
+
+
+
+
+
+
+
+
+
+
 
 export function receiveProtectedData(data) {
     return {
@@ -155,23 +131,22 @@ export function fetchProtectedDataRequest() {
 }
 
 export function fetchProtectedData(token) {
-
-    return (dispatch, state) => {
-        dispatch(fetchProtectedDataRequest());
-        return fetch(`${baseURL}/api/auth/user`, {
-                credentials: 'include',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(response => {
-                dispatch(receiveProtectedData(response.data));
-            })
-            .catch(error => {
-                if(error.response.status === 401) {
-                  dispatch(loginUserFailure(error));
-                  dispatch(pushState(null, '/login'));
-                }
-            })
-       }
+  return (dispatch, state) => {
+      dispatch(fetchProtectedDataRequest());
+      return fetch(`${baseURL}/api/auth/user`, {
+              credentials: 'include',
+              headers: {
+                  'Authorization': `Bearer ${token}`
+              }
+          })
+          .then(response => {
+              dispatch(receiveProtectedData(response.data));
+          })
+          .catch(error => {
+              if(error.response.status === 401) {
+                dispatch(loginUserFailure(error));
+                dispatch(pushState(null, '/login'));
+              }
+          })
+     }
 }

@@ -28,6 +28,11 @@ class LoginContainer extends Component {
       this.context.router.replace('/');
     }
   }
+  componentDidMount(){
+    if (this.props.auth.isAuthenticated){
+      this.context.router.replace('/');
+    }
+  }
   render(){
     // if (!!this.props.auth.isAuthenticated){
     //   this.context.router.replace('/');
