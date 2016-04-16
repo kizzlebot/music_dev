@@ -1,9 +1,13 @@
 import * as PostActions from './postActions';
+import * as AuthActions from './authActions';
 
 
-var obj = Object.keys(PostActions).reduce(function(prev, curr){
-  prev[curr] = PostActions[curr];
+export default Object.keys(AuthActions).concat(Object.keys(PostActions)).reduce(function(prev, curr){
+  if (curr in PostActions){
+    prev[curr] = PostActions[curr];
+  }
+  else if (curr in AuthActions){
+    prev[curr] = AuthActions[curr];
+  }
   return prev;
 }, {});
-
-export default obj;

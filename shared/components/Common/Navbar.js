@@ -31,6 +31,8 @@ class Navbar extends React.Component {
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
+              <li style={{ borderLeft:'1px solid rgb(63, 152, 230)' }}><Link to={'/login'} activeClassName={'active'}>Login</Link></li>
+              <li style={{ borderLeft:'1px solid rgb(63, 152, 230)' }}><Link to={'/login'} activeClassName={'active'}>Register</Link></li>
             </ul>
           </div>{/*/.nav-collapse */}
         </div>

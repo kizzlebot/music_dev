@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-class LoginView extends Component {
 
+class LoginView extends Component {
   constructor(props, context) {
     super(props, context);
     this.props = props;
@@ -9,15 +9,15 @@ class LoginView extends Component {
 
   render() {
     return (
-      <div>
+      <div className={'container'}>
         <div className="page-header">
           <h3>Sign in</h3>
         </div>
         <form ref={'form'} onSubmit={this.props.onSubmit} className="form-horizontal">
           <div className="form-group">
-            <label htmlFor="email" className="col-sm-3 control-label">Email</label>
+            <label htmlFor="username" className="col-sm-3 control-label">Username</label>
             <div className="col-sm-7">
-              <input type="email" name="email" id="email" placeholder="Email" autofocus="autofocus" className="form-control" />
+              <input type="username" name="username" id="username" placeholder="Username" autofocus="autofocus" className="form-control" />
             </div>
           </div>
           <div className="form-group">
@@ -52,7 +52,7 @@ class LoginView extends Component {
 }
 
 LoginView.propTypes = {
-  onSubmit: propTypes.func.isRequired
+  onSubmit: PropTypes.func
 }
 
 export default LoginView ;

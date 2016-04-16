@@ -27,35 +27,36 @@ export function authenticate(req, res, next){
   console.log(req.body);
 
   // If user POSTS auth_token then first check to see its still valid
-  if (auth_token){
-    User.findOne({ auth_token }, function(err, user){
-      if (err) throw err;
-      if (user){
-        res.json({
-          success:true,
-          message:'Authentication success',
-          auth_token
-        })
-      }
-      else{
-        if (username && password){
-          findByUsernamePassword(username, password, (message) => {
-            if (!message.success) res.status(401).json(message);
-            else res.json(message);
-          });
-        }
-      }
-    });
-  }
+  // if (auth_token){
+  //   User.findOne({ auth_token }, function(err, user){
+  //     if (err) throw err;
+  //     if (user){
+  //       res.json({
+  //         success:true,
+  //         message:'Authentication success',
+  //         auth_token
+  //       })
+  //     }
+  //     else{
+  //       if (username && password){
+  //         findByUsernamePassword(username, password, (message) => {
+  //           if (!message.success) res.status(401).json(message);
+  //           else res.json(message);
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
 
-  else if (username && password){
+  console.log('authenticate');
+  if (username && password){
     findByUsernamePassword(username, password, (message) => {
       if (!message.success) res.status(401).json(message);
       else res.json(message);
     });
   }
   else{
-    res.json({
+    res.status(403).json({
       success:false,
       message:'No credentials provided'
     })
@@ -96,7 +97,7 @@ export function register(req, res, next){
 
 
 
-    if(!msg.success) res.json(msg);
+    if(!msg.success) res.status(403).json(msg);
     else{
       var newUser = new User({ username, password });
       var auth_token = jwt.sign(newUser, serverConfig.secret, { expiresIn: '1440h' });

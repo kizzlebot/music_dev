@@ -1,5 +1,5 @@
 import ActionTypes from '../constants';
-
+import jwtDecode from 'jwt-decode';
 
 const initialState = {
     token: null,
@@ -11,15 +11,17 @@ const initialState = {
 
 
 const authReducer = (state = initialState, action) => {
+  if (!action || !action.type) return state ;
 
-  var funcs = {
-    LOGIN_USER_REQUEST: (state, payload) => {
+  var {payload} = action;
+
+  switch(action.type){
+    case ActionTypes.LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
           'isAuthenticating': true,
-          'statusText': null
+          'isAuthenticated': false
       });
-    },
-    LOGIN_USER_SUCCESS: (state, payload) => {
+    case ActionTypes.LOGIN_USER_SUCCESS:
       return Object.assign({}, state, {
           'isAuthenticating': false,
           'isAuthenticated': true,
@@ -27,8 +29,7 @@ const authReducer = (state = initialState, action) => {
           'username': jwtDecode(payload.token).username,
           'statusText': 'You have been successfully logged in.'
       });
-    },
-    LOGIN_USER_FAILURE: (state, payload) => {
+    case ActionTypes.LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
           'isAuthenticating': false,
           'isAuthenticated': false,
@@ -36,19 +37,25 @@ const authReducer = (state = initialState, action) => {
           'username': null,
           'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`
       });
-    },
-    LOGOUT_USER: (state, payload) => {
+    case ActionTypes.LOGOUT_USER_REQUEST:
+      return Object.assign({}, state, {
+          'isAuthenticated': false,
+          'isAuthenticating':false,
+          'token': null,
+          'username': null
+      });
+    case ActionTypes.LOGOUT_USER:
       return Object.assign({}, state, {
           'isAuthenticated': false,
           'token': null,
           'username': null,
           'statusText': 'You have been successfully logged out.'
       });
-    }
-  };
+    default:
+      return state ;
+  }
 
-  return (action && action.type in funcs) ? funcs[action.type](state, action.payload) : state ;
-
+  return state;
 }
 
 

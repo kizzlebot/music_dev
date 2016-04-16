@@ -38,6 +38,5 @@ describe('authReducer', () => {
 
 
   // it('action LOGIN_USER_REQUEST is working', () => {
-  //
   // });
 });

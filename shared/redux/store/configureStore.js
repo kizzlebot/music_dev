@@ -2,14 +2,17 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { persistState } from 'redux-devtools';
 import DevTools from '../../container/DevTools/DevTools';
-import rootReducer from '../reducers/postReducer';
+import rootReducer from '../reducers';
+import createLogger from 'redux-logger';
 
-export function configureStore(initialState = {}) {
+export default function configureStore(initialState = {}) {
   let finalCreateStore;
 
   if (process.env.CLIENT) {
+    const logger = createLogger();
+
     finalCreateStore = compose(
-      applyMiddleware(thunk),
+      applyMiddleware(thunk, logger),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(createStore);
@@ -19,6 +22,7 @@ export function configureStore(initialState = {}) {
   }
 
   const store = finalCreateStore(rootReducer, initialState);
+
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

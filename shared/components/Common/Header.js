@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import Navbar from './Navbar';
+
+// Redux
+
 
 
 
@@ -12,7 +14,6 @@ class Header extends React.Component {
   }
   render(){
     return (
-      <div>
         <nav className="header ">
           <div className="header-container">
             <div className="header-content navbar-header">
@@ -25,8 +26,6 @@ class Header extends React.Component {
             </div>
           </div>
         </nav>
-        <Navbar onClick={function noop(){}}/>
-      </div>
     );
   }
 }
@@ -38,7 +37,7 @@ Header.contextTypes = {
 
 Header.propTypes = {
   onClick: PropTypes.func.isRequired,
-  handleLogoClick: PropTypes.func,
+  handleLogoClick: PropTypes.func
 };
 
-export default Header;
+export default Header ;

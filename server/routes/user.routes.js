@@ -5,7 +5,7 @@ const router = new Router();
 // Get all Posts
 router.get('/', UserController.getUsers);
 router.post('/register', UserController.register);
-router.post('/authenticate', UserController.authenticate);
+router.post('/login', UserController.authenticate);
 
 
 

@@ -7,7 +7,8 @@ import DevTools from '../shared/container/DevTools/DevTools';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
-import { configureStore } from '../shared/redux/store/configureStore';
+import configureStore from '../shared/redux/store/configureStore';
+import Actions from '../shared/redux/actions';
 
 
 
@@ -29,8 +30,14 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
+
+
+window.store = store ;
+window.Actions = Actions
+
 if (process.env.CLIENT && !window.devToolsExtension) {
   const devToolsDest = document.createElement('div');
+
   dest.parentNode.insertBefore(devToolsDest, dest.nextSibling);
   render(
     <Provider store={store} key="provider">
@@ -38,4 +45,5 @@ if (process.env.CLIENT && !window.devToolsExtension) {
     </Provider>,
     devToolsDest
   );
+
 }

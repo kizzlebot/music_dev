@@ -22,7 +22,7 @@ import { match, RouterContext } from 'react-router';
 
 
 // Redux
-import { configureStore } from '../shared/redux/store/configureStore';
+import  configureStore  from '../shared/redux/store/configureStore';
 import { Provider } from 'react-redux';
 
 
@@ -74,7 +74,8 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 });
 
 
-app.set('test', process.env.NODE_ENV == 'test')
+app.set('test', process.env.NODE_ENV == 'test');
+app.set('quiet', !!process.env.QUIET);
 
 
 // If non-production environment, use wepback-dev-middleware and logger
@@ -83,8 +84,8 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    noInfo: app.get('test'),
-    quiet: app.get('test'),
+    noInfo: app.get('test') || app.get('quiet'),
+    quiet: app.get('test') || app.get('quiet'),
     stats:{
       colors:true
     }
@@ -157,7 +158,13 @@ app.use((req, res, next) => {
       posts:{
         posts: [], post: {}
       },
-      auth:{}
+      auth:{
+        token: '',
+        username: '',
+        isAuthenticated: false,
+        isAuthenticating: false,
+        statusText: ''
+      }
     };
     const store = configureStore(initialState);
 

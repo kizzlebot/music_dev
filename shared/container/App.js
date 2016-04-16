@@ -1,16 +1,26 @@
 import React, { Component, PropTypes } from 'react';
-import { Header, Footer }  from '../components/Common'
+import { HeaderContainer }  from './Common';
+import { Footer }  from '../components/Common'
+import Actions from '../redux/actions';
 import { connect } from 'react-redux';
+
+
+if (process.env.CLIENT){
+  require('font-awesome-webpack')
+}
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
   }
+  componentDidMount(){
+    this.props.dispatch(Actions.fetchPosts())
+  }
 
   render() {
     return (
       <div>
-        <Header onClick={function noop() {}}/>
+        <HeaderContainer/> ;
         { this.props.children }
         <Footer/>
       </div>
@@ -20,6 +30,7 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect()(App);
