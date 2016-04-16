@@ -51,10 +51,14 @@ const authReducer = (state = initialState, action) => {
           'username': null,
           'statusText': 'You have been successfully logged out.'
       });
+
+    // TODO: Implement correct register request reducer
     case ActionTypes.REGISTER_USER_REQUEST:
       return state ;
+    // TODO: Implement correct register success reducer
     case ActionTypes.REGISTER_USER_SUCCESS:
       return state ;
+    // TODO: Implement correct register failure reducer
     case ActionTypes.REGISTER_USER_FAILURE:
       return state ;
     default:

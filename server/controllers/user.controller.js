@@ -8,47 +8,19 @@ import serverConfig from '../config';
 
 
 export function getUsers(req, res) {
-  // TODO: Need to implement
+  // TODO: Need to implement querying
   User.find({}, function(err, users){
     if (err) res.status(500).send(err);
     else res.json({ users });
   })
 }
 
-export function postUsers(req, res) {
-  // TODO: Need to implement
-  res.json({ name:'james' });
-}
 
 
 
 export function authenticate(req, res, next){
   var { auth_token, username, password } = req.body;
-  console.log(req.body);
-
-  // If user POSTS auth_token then first check to see its still valid
-  // if (auth_token){
-  //   User.findOne({ auth_token }, function(err, user){
-  //     if (err) throw err;
-  //     if (user){
-  //       res.json({
-  //         success:true,
-  //         message:'Authentication success',
-  //         auth_token
-  //       })
-  //     }
-  //     else{
-  //       if (username && password){
-  //         findByUsernamePassword(username, password, (message) => {
-  //           if (!message.success) res.status(401).json(message);
-  //           else res.json(message);
-  //         });
-  //       }
-  //     }
-  //   });
-  // }
-
-  console.log('authenticate');
+  // If username and password present then attemp to authenticate
   if (username && password){
     findByUsernamePassword(username, password, (message) => {
       if (!message.success) res.status(401).json(message);
@@ -66,7 +38,6 @@ export function authenticate(req, res, next){
 
 
 export function register(req, res, next){
-
   var { username, password, confirmPassword } = req.body ;
   var msg = {
     success:true,
@@ -151,52 +122,3 @@ function findByUsernamePassword(username, password, callback){
     }
   });
 }
-// export function createUser(req, res) {
-//   if (!req.body.user.email || !req.body.user.password || !req.body.post.content) {
-//     return res.status(401).end();
-//   }
-
-//   const newPost = new Post(req.body.post);
-
-//   // Let's sanitize inputs
-//   newPost.title = sanitizeHtml(newPost.title);
-//   newPost.name = sanitizeHtml(newPost.name);
-//   newPost.content = sanitizeHtml(newPost.content);
-
-//   newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
-//   newPost.cuid = cuid();
-
-//   newPost.save((err, saved) => {
-//     return (err) ? res.status(500).send(err) : res.json({ post: saved })
-//   });
-// }
-
-
-
-
-// export function getPost(req, res) {
-//   const newSlug = req.query.slug.split('-');
-//   const newCuid = newSlug[newSlug.length - 1];
-//   Post.findOne({ cuid: newCuid }).exec((err, post) => {
-//     if (err) {
-//       return res.status(500).send(err);
-//     }
-//     res.json({ post });
-//   });
-// }
-
-
-
-
-// export function deletePost(req, res) {
-//   const postId = req.body.postId;
-//   Post.findById(postId).exec((err, post) => {
-//     if (err) {
-//       return res.status(500).send(err);
-//     }
-
-//     post.remove(() => {
-//       res.status(200).end();
-//     });
-//   });
-// }
