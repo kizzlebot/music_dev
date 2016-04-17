@@ -36,7 +36,7 @@ PostListView.propTypes = {
 };
 
 function mapStateToProps(store) {
-  console.log(store);
+
   return {
     posts: (store.posts.posts),
   };
