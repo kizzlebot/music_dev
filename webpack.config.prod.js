@@ -78,7 +78,7 @@ module.exports = {
       { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
       { test: /\.less$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'less') },
       { test: /\.scss$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'sass') },
-      { test: /\.css$/,                                         loader: ExtractTextPlugin.extract('style','css?modules'), },
+      { test: /\.css$/,                                         loader: ExtractTextPlugin.extract('style','css'), },
       { test: require.resolve('jquery'),                        loader: 'expose?$!expose?jQuery' },
       { test: /bootstrap\/js\//,                                loader: 'imports?jQuery=jquery' }
     ],

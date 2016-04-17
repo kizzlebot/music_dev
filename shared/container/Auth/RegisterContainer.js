@@ -1,15 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Actions from '../../redux/actions';
-
-
-import { LoginView } from '../../components/Auth';
-
-
 var $ = require('jquery');
 
 
-class LoginContainer extends Component {
+import Actions from '../../redux/actions';
+import { RegisterView } from '../../components/Auth';
+
+
+
+class RegisterContainer extends Component {
   constructor(props, context){
     super(props, context);
     this.props = props ;
@@ -17,13 +16,13 @@ class LoginContainer extends Component {
 
   handleSubmit(evt){
     evt.preventDefault();
-    var fields = $(evt.target).serializeArray();
-    var formFields = fields.reduce((prev, curr) => {
+
+    var formFields = $(evt.target).serializeArray().reduce((prev, curr) => {
       prev[curr.name] = curr.value ;
       return prev ;
     }, {});
 
-    this.props.dispatch(Actions.loginUser(formFields.username, formFields.password));
+    this.props.dispatch(Actions.registerUser(formFields.username, formFields.password, formFields.confirmPassword));
   }
   componentWillReceiveProps(newProps, router){
     if (newProps.auth.isAuthenticated){
@@ -31,6 +30,7 @@ class LoginContainer extends Component {
     }
   }
   componentDidMount(){
+    console.log('componentDidMount');
     if (this.props.auth.isAuthenticated){
       this.context.router.replace('/');
     }
@@ -38,18 +38,18 @@ class LoginContainer extends Component {
   render(){
     return (
       <div>
-        <LoginView onSubmit={this.handleSubmit.bind(this)} />
+        <RegisterView onSubmit={this.handleSubmit.bind(this)} />
       </div>
     );
   }
 }
 
 
-LoginContainer.contextTypes = {
+RegisterContainer.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-LoginContainer.propTypes = {
+RegisterContainer.propTypes = {
   auth: PropTypes.shape({
     token: PropTypes.string,
     username: PropTypes.string,
@@ -68,4 +68,4 @@ function mapStateToProps(store){
 }
 
 
-export default connect(mapStateToProps)(LoginContainer);
+export default connect(mapStateToProps)(RegisterContainer);

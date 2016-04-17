@@ -14,18 +14,20 @@ class Header extends React.Component {
   }
   render(){
     return (
-        <nav className="header ">
-          <div className="header-container">
-            <div className="header-content navbar-header">
-              <h1 className="site-title"><Link to="/" onClick={this.props.handleLogoClick}>MERN Starter Blog</Link></h1>
-            </div>
-            <div className="navbar-collapse collapse">
-              <ul className="nav navbar-nav" />
-              <div className="nav navbar-nav navbar-right" style={{ marginLeft: '2em' }}>
-              </div>
+      <nav className="header ">
+        <div className="header-container">
+          <div className="header-content navbar-header">
+            <h1 className="site-title animated infinite pulse">
+              <Link to="/" onClick={this.props.handleLogoClick}>MERN Starter Blog</Link>
+            </h1>
+          </div>
+          <div className="navbar-collapse collapse">
+            <ul className="nav navbar-nav" />
+            <div className="nav navbar-nav navbar-right" style={{ marginLeft: '2em' }}>
             </div>
           </div>
-        </nav>
+        </div>
+      </nav>
     );
   }
 }

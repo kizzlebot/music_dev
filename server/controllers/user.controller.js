@@ -7,6 +7,41 @@ import serverConfig from '../config';
 
 
 
+function findByUsernamePassword(username, password, callback){
+  User.findOne({ username }, function(err, user){
+    if (err) throw err;
+
+    // if user with given username not found
+    if (!user){
+      callback({ success: false, message: `User with username ${username} not found`})
+    }
+    else {
+      // Compare password and respond
+      user.comparePassword(password, (err, isMatch) => {
+        if (!isMatch) {
+          callback(null, {
+            success: false,
+            message: 'Authentication failed. Wrong password.'
+          });
+        }
+        else{
+          var auth_token = jwt.sign({
+            username: user.username
+          }, serverConfig.secret, { expiresInMinutes: 1440 });
+
+          callback(user, {
+            success:true,
+            message:'Authentication success.',
+            auth_token
+          })
+        }
+      });
+    }
+  });
+}
+
+
+
 export function getUsers(req, res) {
   // TODO: Need to implement querying
   User.find({}, function(err, users){
@@ -22,7 +57,7 @@ export function authenticate(req, res, next){
   var { auth_token, username, password } = req.body;
   // If username and password present then attemp to authenticate
   if (username && password){
-    findByUsernamePassword(username, password, (message) => {
+    findByUsernamePassword(username, password, (user, message) => {
       if (!message.success) res.status(401).json(message);
       else res.json(message);
     });
@@ -48,16 +83,22 @@ export function register(req, res, next){
   // See if user already exists
   User.find({ username }, function(err, existingUsers){
     if (err) return res.json(msg);
+
+    // If user with username already exists, then fail
     if (!existingUsers || existingUsers.length > 0){
       msg.success &= false;
       msg.message = `Registration failed.`;
       msg.reason.push('username')
     }
+
+    // NOTE: Should password.length check be moved before User.find?
     if (password.length < 7){
       msg.success &= false;
       msg.message = `Registration failed.`;
       msg.reason.push('password length');
     }
+
+    // NOTE: Should password != confirmPassword be moved before User.find?
     if (password != confirmPassword){
       msg.success &= false;
       msg.message = `Registration failed.`;
@@ -69,12 +110,14 @@ export function register(req, res, next){
 
     // If msg.success is now false return 403
     if(!msg.success) res.status(403).json(msg);
-    // Otherwise create a new user
+    // Otherwise create a new user and send back message
     else{
       var newUser = new User({ username, password });
-      var auth_token = jwt.sign(newUser, serverConfig.secret, { expiresIn: '1440h' });
+
+      var auth_token = jwt.sign({ username: username}, serverConfig.secret, { expiresIn: '1440h' });
+
       msg.auth_token = auth_token;
-      newUser.auth_token = auth_token;
+      // newUser.auth_token = auth_token;
 
       newUser.save(function(err, u){
         if (err) {
@@ -84,40 +127,6 @@ export function register(req, res, next){
 
         msg.message = 'Registration successful.';
         res.json(msg);
-      });
-    }
-  });
-}
-
-
-
-
-
-function findByUsernamePassword(username, password, callback){
-  User.findOne({ username }, function(err, user){
-    if (err) throw err;
-
-    // if user with given username not found
-    if (!user){
-      callback({ success: false, message: `User with username ${username} not found`})
-    }
-    else {
-      // Compare password and respond
-      user.comparePassword(password, (err, isMatch) => {
-        if (!isMatch) {
-          callback({
-            success: false,
-            message: 'Authentication failed. Wrong password.'
-          });
-        }
-        else{
-          var auth_token = jwt.sign(user, serverConfig.secret, { expiresInMinutes: 1440 })
-          callback({
-            success:true,
-            message:'Authentication success.',
-            auth_token
-          })
-        }
       });
     }
   });

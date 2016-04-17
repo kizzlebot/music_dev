@@ -11,7 +11,7 @@ class HeaderContainer extends Component {
     return (
       <div>
         <Header onClick={function noop() {}}/>
-        <Navbar onClick={function noop() {}} />
+        <Navbar showLoginRegister={this.props.auth.isAuthenticated} onClick={function noop() {}} />
       </div>
     );
   }
@@ -22,9 +22,20 @@ HeaderContainer.contextTypes = {
 }
 
 HeaderContainer.propTypes = {
+  auth: PropTypes.shape({
+    token: PropTypes.string,
+    username: PropTypes.string,
+    isAuthenticated: PropTypes.bool,
+    isAuthenticating: PropTypes.bool,
+    statusText: PropTypes.string
+  }),
   dispatch: PropTypes.func.isRequired,
 };
 
+function mapStateToProps(store){
+  return {
+    auth: store.auth
+  }
+}
 
-
-export default connect()(HeaderContainer);
+export default connect(mapStateToProps)(HeaderContainer);

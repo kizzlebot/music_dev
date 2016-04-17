@@ -36,7 +36,7 @@ module.exports = {
       { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
       { test: /\.less$/,                                        loaders: ['style', 'css', 'less'] },
       { test: /\.scss$/,                                        loaders: ['style', 'css', 'sass'] },
-      { test: /\.css$/,                                         loader: 'style!css?modules' },
+      { test: /\.css$/,                                         loader: 'style!css' },
       { test: require.resolve('jquery'),                        loader: 'expose?$!expose?jQuery' },
       { test: /bootstrap\/js\//,                                loader: 'imports?jQuery=jquery' }
     ],

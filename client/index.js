@@ -1,5 +1,6 @@
 /*eslint-disable */
 require('bootstrap-webpack!./bootstrap.config.js');
+require('animate.css');
 
 import React from 'react';
 import routes from '../shared/routes';

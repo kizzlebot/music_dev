@@ -10,6 +10,33 @@ class Navbar extends React.Component {
   render(){
 
     var btnToRender = this.context.router.isActive('/', true) ? <a className="add-post-button" href="#" onClick={this.props.onClick}>Add Post</a> : null
+    var toRender ;
+
+    if (this.props.showLoginRegister){
+      toRender = (
+        <ul className="nav navbar-nav navbar-right">
+          <li style={{ borderLeft:'1px solid rgb(63, 152, 230)' }}>
+            <Link to={'/login'} activeClassName={'active'}>Login</Link>
+          </li>
+          <li style={{ borderLeft:'1px solid rgb(63, 152, 230)', borderRight:'1px solid rgb(63, 152, 230)' }}>
+            <Link to={'/register'} activeClassName={'active'}>Register</Link>
+          </li>
+        </ul>
+      );
+    }
+    else{
+      // TODO: Logout route
+      toRender = (
+        <ul className="nav navbar-nav navbar-right">
+          <li style={{ borderLeft:'1px solid rgb(63, 152, 230)', borderRight:'1px solid rgb(63, 152, 230)' }}>
+            <Link to={'/register'} activeClassName={'active'}>Log Out</Link>
+          </li>
+        </ul>
+      );
+    }
+
+
+
     return (
       <nav className="navbar navbar-default navbar-static-top" style={{ boxShadow:"0 2px 6px rgba(0,0,0,.16), 0 2px 6px rgba(0,0,0,.23)" }}>
         <div className="container">
@@ -30,10 +57,7 @@ class Navbar extends React.Component {
                 </ul>
               </li>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li style={{ borderLeft:'1px solid rgb(63, 152, 230)' }}><Link to={'/login'} activeClassName={'active'}>Login</Link></li>
-              <li style={{ borderLeft:'1px solid rgb(63, 152, 230)' }}><Link to={'/login'} activeClassName={'active'}>Register</Link></li>
-            </ul>
+            {toRender}
           </div>{/*/.nav-collapse */}
         </div>
       </nav>
