@@ -8,9 +8,10 @@ import DevTools from '../shared/container/DevTools/DevTools';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
+
 import configureStore from '../shared/redux/store/configureStore';
 import Actions from '../shared/redux/actions';
-
+import jwtDecode from 'jwt-decode';
 
 
 const store = configureStore(window.__INITIAL_STATE__);
@@ -34,7 +35,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 window.store = store ;
-window.Actions = Actions
+window.Actions = Actions;
+window.jwt = jwtDecode;
 
 if (process.env.CLIENT && !window.devToolsExtension) {
   const devToolsDest = document.createElement('div');

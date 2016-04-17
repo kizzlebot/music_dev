@@ -13,7 +13,7 @@ function findByUsernamePassword(username, password, callback){
 
     // if user with given username not found
     if (!user){
-      callback({ success: false, message: `User with username ${username} not found`})
+      callback(null, { success: false, message: `User with username ${username} not found`})
     }
     else {
       // Compare password and respond
@@ -27,7 +27,7 @@ function findByUsernamePassword(username, password, callback){
         else{
           var auth_token = jwt.sign({
             username: user.username
-          }, serverConfig.secret, { expiresInMinutes: 1440 });
+          }, serverConfig.secret, { expiresIn: '1440h' });
 
           callback(user, {
             success:true,

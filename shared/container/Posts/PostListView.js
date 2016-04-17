@@ -35,4 +35,12 @@ PostListView.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(PostListView);
+function mapStateToProps(store) {
+  console.log(store);
+  return {
+    posts: (store.posts.posts),
+  };
+}
+
+
+export default connect(mapStateToProps)(PostListView);
