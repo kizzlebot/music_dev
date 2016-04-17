@@ -51,6 +51,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jade": "~1.11.0",
     "jquery": "^2.2.2",
+    "jsonwebtoken": "^5.7.0",
     "jwt-decode": "^2.0.1",
     "lastfmapi": "^0.1.1",
     "lodash": "^4.9.0",
