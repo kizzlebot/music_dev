@@ -12,7 +12,7 @@ class Navbar extends React.Component {
     var btnToRender = this.context.router.isActive('/', true) ? <a className="add-post-button" href="#" onClick={this.props.onClick}>Add Post</a> : null
     var toRender ;
 
-    if (this.props.showLoginRegister){
+    if (!this.props.isAuthenticated){
       toRender = (
         <ul className="nav navbar-nav navbar-right">
           <li style={{ borderLeft:'1px solid rgb(63, 152, 230)' }}>
@@ -29,7 +29,7 @@ class Navbar extends React.Component {
       toRender = (
         <ul className="nav navbar-nav navbar-right">
           <li style={{ borderLeft:'1px solid rgb(63, 152, 230)', borderRight:'1px solid rgb(63, 152, 230)' }}>
-            <Link to={'/register'} activeClassName={'active'}>Log Out</Link>
+            <a href='#' onClick={this.props.onLogout}>Log Out</a>
           </li>
         </ul>
       );
@@ -71,6 +71,7 @@ Navbar.contextTypes = {
 
 Navbar.propTypes = {
   onClick: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
   handleLogoClick: PropTypes.func,
 };
 

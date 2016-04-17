@@ -30,7 +30,6 @@ class RegisterContainer extends Component {
     }
   }
   componentDidMount(){
-    console.log('componentDidMount');
     if (this.props.auth.isAuthenticated){
       this.context.router.replace('/');
     }

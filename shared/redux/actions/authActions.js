@@ -9,7 +9,15 @@ const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http:/
 
 
 
-
+export function restoreLoginStatus() {
+  var token = localStorage.getItem('token');
+  return {
+    type: ActionTypes.RESTORE_LOGIN_STATUS,
+    payload: {
+      token: token
+    }
+  }
+}
 
 
 export function registerUserSuccess(responseData) {
@@ -19,10 +27,12 @@ export function registerUserSuccess(responseData) {
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
-      message:responseData.message
+      message:responseData.message,
+      reason: responseData.reason
     }
   }
 }
+
 export function registerUserFailure(responseData) {
   return {
     type: ActionTypes.REGISTER_USER_FAILURE,
@@ -33,6 +43,7 @@ export function registerUserFailure(responseData) {
     }
   };
 }
+
 export function registerUser(username, password, confirmPassword) {
   return (dispatch) => {
     fetch(`${baseURL}/api/users/register`, {
@@ -61,7 +72,6 @@ export function registerUser(username, password, confirmPassword) {
 
 
 
-
 export function loginUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {
@@ -69,7 +79,8 @@ export function loginUserSuccess(responseData) {
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
-      message:responseData.message
+      message:responseData.message,
+      reason: responseData.reason
     }
   }
 }
@@ -80,7 +91,8 @@ export function loginUserFailure(error) {
     type: ActionTypes.LOGIN_USER_FAILURE,
     payload: {
       status: error.success,
-      statusText: error.message
+      statusText: error.message,
+      reason: error.reason
     }
   }
 }
@@ -90,6 +102,33 @@ export function loginUserRequest() {
     type: ActionTypes.LOGIN_USER_REQUEST,
   }
 }
+
+export function loginUser(username, password, redirect="/") {
+  return (dispatch) => {
+    dispatch(loginUserRequest());
+    fetch(`${baseURL}/api/users/login`, {
+      method: 'post',
+      body: JSON.stringify({
+        username: username, password: password
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      (res.success) ? dispatch(loginUserSuccess(res)) : dispatch(loginUserFailure(res));
+    })
+    .catch(error => {
+        dispatch(loginUserFailure(error)); })
+  }
+}
+
+
+
+
 
 export function logout() {
     localStorage.removeItem('token');
@@ -104,29 +143,6 @@ export function logoutAndRedirect() {
     }
 }
 
-export function loginUser(username, password, redirect="/") {
-  return (dispatch) => {
-      dispatch(loginUserRequest());
-      fetch(`${baseURL}/api/users/login`, {
-        method: 'post',
-        body: JSON.stringify({
-          username: username, password: password
-        }),
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-      })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        (res.success) ? dispatch(loginUserSuccess(res)) : dispatch(loginUserFailure(res));
-      })
-      .catch(error => {
-          dispatch(loginUserFailure(error));
-      })
-  }
-}
 
 
 
@@ -139,12 +155,12 @@ export function loginUser(username, password, redirect="/") {
 
 
 export function receiveProtectedData(data) {
-    return {
-        type: ActionTypes.RECEIVE_PROTECTED_DATA,
-        payload: {
-            data: data
-        }
+  return {
+    type: ActionTypes.RECEIVE_PROTECTED_DATA,
+    payload: {
+      data: data
     }
+  }
 }
 
 export function fetchProtectedDataRequest() {
@@ -155,21 +171,20 @@ export function fetchProtectedDataRequest() {
 
 export function fetchProtectedData(token) {
   return (dispatch, state) => {
-      dispatch(fetchProtectedDataRequest());
-      return fetch(`${baseURL}/api/auth/user`, {
-              credentials: 'include',
-              headers: {
-                  'Authorization': `Bearer ${token}`
-              }
-          })
-          .then(response => {
-              dispatch(receiveProtectedData(response.data));
-          })
-          .catch(error => {
-              if(error.response.status === 401) {
-                dispatch(loginUserFailure(error));
-                dispatch(pushState(null, '/login'));
-              }
-          })
-     }
+    dispatch(fetchProtectedDataRequest());
+    return fetch(`${baseURL}/api/auth/user`, {
+      credentials: 'include',
+      headers: {
+          'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      dispatch(receiveProtectedData(response.data));
+    })
+    .catch(error => {
+      if(error.response.status === 401) {
+        dispatch(loginUserFailure(error));
+      }
+    })
+  }
 }

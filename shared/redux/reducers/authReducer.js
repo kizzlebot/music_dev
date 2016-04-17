@@ -16,10 +16,17 @@ const authReducer = (state = initialState, action) => {
   var {payload} = action;
 
   switch(action.type){
+    case ActionTypes.RESTORE_LOGIN_STATUS:
+      return Object.assign({}, state, {
+        'isAuthenticating': false,
+        'isAuthenticated': !!payload.token,
+        'token': payload.token
+      });
+      
     case ActionTypes.LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
-          'isAuthenticating': true,
-          'isAuthenticated': false
+        'isAuthenticating': true,
+        'isAuthenticated': false
       });
 
     case ActionTypes.LOGIN_USER_SUCCESS:
@@ -28,7 +35,8 @@ const authReducer = (state = initialState, action) => {
           'isAuthenticated': true,
           'token': payload.token,
           'username': jwtDecode(payload.token).username,
-          'statusText': 'You have been successfully logged in.'
+          'statusText': 'You have been successfully logged in.',
+          'reason': payload.reason
       });
 
     case ActionTypes.LOGIN_USER_FAILURE:
@@ -37,7 +45,34 @@ const authReducer = (state = initialState, action) => {
           'isAuthenticated': false,
           'token': null,
           'username': null,
-          'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`
+          'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`,
+          'reason': payload.reason
+      });
+
+    case ActionTypes.REGISTER_USER_REQUEST:
+      return Object.assign({}, state, {
+          'isAuthenticating': true,
+          'isAuthenticated': false
+      });
+
+    case ActionTypes.REGISTER_USER_SUCCESS:
+      return Object.assign({}, state, {
+          'isAuthenticating': false,
+          'isAuthenticated': true,
+          'token': payload.token,
+          'username': jwtDecode(payload.token).username,
+          'statusText': 'You have been successfully registered.',
+          'reason': payload.reason
+      });
+
+    case ActionTypes.REGISTER_USER_FAILURE:
+      return Object.assign({}, state, {
+          'isAuthenticating': false,
+          'isAuthenticated': false,
+          'token': null,
+          'username': null,
+          'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`,
+          'reason': payload.reason
       });
 
     case ActionTypes.LOGOUT_USER_REQUEST:
@@ -55,23 +90,6 @@ const authReducer = (state = initialState, action) => {
           'username': null,
           'statusText': 'You have been successfully logged out.'
       });
-
-    case ActionTypes.REGISTER_USER_REQUEST:
-      return Object.assign({}, state, {
-          'isAuthenticating': true,
-          'isAuthenticated': false
-      });
-
-    case ActionTypes.REGISTER_USER_SUCCESS:
-      return Object.assign({}, state, {
-          'isAuthenticating': false,
-          'isAuthenticated': true,
-          'token': payload.token,
-          'username': jwtDecode(payload.token).username,
-          'statusText': 'You have been successfully registered in.'
-      });
-
-    case ActionTypes.REGISTER_USER_FAILURE:
       return Object.assign({}, state, {
           'isAuthenticating': false,
           'isAuthenticated': false,
