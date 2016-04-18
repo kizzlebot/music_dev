@@ -22,7 +22,7 @@ const authReducer = (state = initialState, action) => {
         'isAuthenticated': !!payload.token,
         'token': payload.token
       });
-      
+
     case ActionTypes.LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
         'isAuthenticating': true,
@@ -89,13 +89,6 @@ const authReducer = (state = initialState, action) => {
           'token': null,
           'username': null,
           'statusText': 'You have been successfully logged out.'
-      });
-      return Object.assign({}, state, {
-          'isAuthenticating': false,
-          'isAuthenticated': false,
-          'token': null,
-          'username': null,
-          'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`
       });
     default:
       return state ;

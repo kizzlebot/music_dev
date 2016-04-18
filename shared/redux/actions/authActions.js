@@ -20,6 +20,7 @@ export function restoreLoginStatus() {
 }
 
 
+
 export function registerUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {

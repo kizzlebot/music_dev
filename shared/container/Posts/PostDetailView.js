@@ -21,7 +21,6 @@ class PostDetailView extends Component {
     });
   }
 
-
   render() {
     return (
       <div>
