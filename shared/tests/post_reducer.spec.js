@@ -16,12 +16,11 @@ describe('reducer tests', () => {
       auth: auth
     };
 
-
     deepFreeze(stateAfter);
     deepFreeze(stateBefore);
     deepFreeze(action);
     var out = combination(stateBefore, action);
-    expect(out).toEqual(stateAfter);
+    expect(out.posts).toEqual(stateAfter.posts);
   });
 
   it('action ADD_SELECTED_POST is working', () => {
@@ -72,6 +71,10 @@ describe('reducer tests', () => {
 
     deepFreeze(stateBefore);
     deepFreeze(action);
-    expect(stateAfter).toEqual(combination(stateBefore, action));
+    
+    var rtn = combination(stateBefore, action);
+
+    expect(rtn.posts).toEqual(stateAfter.posts);
+    expect(rtn.post).toEqual(stateAfter.post);
   });
 });

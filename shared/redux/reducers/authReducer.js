@@ -6,7 +6,8 @@ const initialState = {
     username: null,
     isAuthenticated: false,
     isAuthenticating: false,
-    statusText: null
+    statusText: null,
+    reason:[]
 };
 
 

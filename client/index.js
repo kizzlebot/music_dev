@@ -1,4 +1,5 @@
 /*eslint-disable */
+
 require('bootstrap-webpack!./bootstrap.config.js');
 require('animate.css');
 
@@ -11,8 +12,9 @@ import { Router, browserHistory } from 'react-router';
 
 import configureStore from '../shared/redux/store/configureStore';
 import Actions from '../shared/redux/actions';
+import Reducers from '../shared/redux/reducers';
 import jwtDecode from 'jwt-decode';
-
+import SC from 'soundcloud';
 
 const store = configureStore(window.__INITIAL_STATE__);
 const history = browserHistory;
@@ -36,7 +38,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 window.store = store ;
 window.Actions = Actions;
+window.reducers = Reducers;
 window.jwt = jwtDecode;
+window.SC = SC;
 
 if (process.env.CLIENT && !window.devToolsExtension) {
   const devToolsDest = document.createElement('div');

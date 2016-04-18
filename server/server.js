@@ -35,6 +35,7 @@ import renderFullPage, { renderError } from './util/renderFullPage';
 
 import posts from './routes/post.routes';
 import api from './routes/index.js'
+// import auth from './routes/auth.js'
 
 import dummyData from './util/dummyData';
 import serverConfig from './config'
@@ -134,7 +135,9 @@ app.use(...middlewares);
 /* -------------------------------------------------------------------------------------- */
 
 app.use('/api', api);
+app.get('/auth/soundcloud/callback', function(req, res, next){
 
+});
 
 
 
@@ -143,7 +146,6 @@ app.use('/api', api);
 // --------------------------------------------------------------------
 
 app.use((req, res, next) => {
-
 
   // React-router match requested path with a react-router route
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {

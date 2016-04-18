@@ -1,5 +1,4 @@
 import ActionTypes from '../constants';
-// import { pushState } from 'redux-router';
 import Config from '../../../server/config';
 import jwtDecode from 'jwt-decode';
 import fetch from 'isomorphic-fetch';
@@ -69,9 +68,6 @@ export function registerUser(username, password, confirmPassword) {
     })
   }
 }
-
-
-
 
 export function loginUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);

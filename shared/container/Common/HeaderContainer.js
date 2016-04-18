@@ -14,7 +14,10 @@ class HeaderContainer extends Component {
     return (
       <div>
         <Header onClick={function noop() {}}/>
-        <Navbar isAuthenticated={this.props.auth.isAuthenticated} onClick={function noop() {}} onLogout={this.onLogout.bind(this)}/>
+        <Navbar isAuthenticated={this.props.auth.isAuthenticated}
+                onClick={function noop() {}}
+                onLogout={this.onLogout.bind(this)}
+        />
       </div>
     );
   }
