@@ -34,7 +34,7 @@ import { fetchComponentData } from './util/fetchData';
 import renderFullPage, { renderError } from './util/renderFullPage';
 
 import posts from './routes/post.routes';
-import api from './routes/index.js'
+import api from './routes'
 // import auth from './routes/auth.js'
 
 import dummyData from './util/dummyData';
@@ -136,7 +136,7 @@ app.use(...middlewares);
 
 app.use('/api', api);
 app.get('/auth/soundcloud/callback', function(req, res, next){
-
+  // TODO: Implement callback for soundcloud auth
 });
 
 
