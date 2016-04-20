@@ -29,15 +29,12 @@ import { Provider } from 'react-redux';
 
 
 // required react modules
-import routes from '../shared/routes';
+// import routes from '../shared/routes';
+var routes = require('../shared/routes').default;
 import { fetchComponentData } from './util/fetchData';
 import renderFullPage, { renderError } from './util/renderFullPage';
 
-import posts from './routes/post.routes';
 import api from './routes';
-// import auth from './routes/auth.js'
-
-import dummyData from './util/dummyData';
 import serverConfig from './config';
 
 
@@ -75,22 +72,34 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 });
 
 
+// Testing mode
 app.set('test', process.env.NODE_ENV == 'test');
+// No output from webpack
 app.set('quiet', !!process.env.QUIET);
+// PORT for server
+app.set('port', serverConfig.port);
 
 
 // If non-production environment, use wepback-dev-middleware and logger
 if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(config);
-
-  app.use(webpackDevMiddleware(compiler, {
+  const webpackDevMid = webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
     noInfo: app.get('test') || app.get('quiet'),
     quiet: app.get('test') || app.get('quiet'),
     stats: {
       colors: true
     }
-  }));
+  });
+  webpackDevMid.waitUntilValid(function(){
+
+    // TODO: Maybe not use
+    console.log('Is valid now.........');
+    routes = require('../shared/routes').default;
+  });
+
+
+  app.use(webpackDevMid);
   app.use(webpackHotMiddleware(compiler));
 
   // Only use the logger if not testing
@@ -108,7 +117,6 @@ var middlewares = [
 ];
 
 
-app.set('port', serverConfig.port);
 // Set middlewares
 app.use(...middlewares);
 
@@ -155,21 +163,18 @@ app.use((req, res, next) => {
 
 
 
-    // Initialize redux store
     const initialState = {
-      posts: {
-        posts: [], post: {}
-      },
-      auth: {
-        token: '',
-        username: '',
-        isAuthenticated: false,
-        isAuthenticating: false,
-        statusText: ''
-      }
-    };
-    const store = configureStore(initialState);
+      // TODO: rename posts field to entries
+      "posts": { "posts": [], "post": {} },
+      "auth": { "token": null, "username": "", "isAuthenticated": false, "isAuthenticating": false, "statusText": "" },
+      // TODO: Use 'data' key or get rid of
+      "data": { "data": null, "isFetching": false },
+      "soundcloud": { "oauth_token": null, "shouldShowStream": false, "collection": [], "next_href": null, "page":0 }
+    }
 
+
+    // create Redux Store
+    const store = configureStore(initialState);
 
 
     return fetchComponentData(store, renderProps.components, renderProps.params).then(() => {

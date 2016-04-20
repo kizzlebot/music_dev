@@ -46,7 +46,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        CLIENT: JSON.stringify(true)
+        CLIENT: JSON.stringify(true),
+        PORT: JSON.stringify(process.env.PORT || 8000)
       }
     })
   ],

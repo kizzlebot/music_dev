@@ -19,7 +19,7 @@ export function soundcloud_authUser(oauth_token, shouldShowStream) {
   };
 }
 
-export function soundcloudFetch_success(d) {
+function soundcloudFetch_success(d) {
   return {
     type: ActionTypes.SOUNDCLOUD_FETCH_SUCCESS,
     payload: {
@@ -30,16 +30,31 @@ export function soundcloudFetch_success(d) {
 }
 
 
+var defCnt = 50;
 
-export function soundcloudFetch(tags) {
-
-  var page = 0 ;
-  var skip = page * 100;
-  var cnt = page * 100 + 100 ;
+export function soundcloudFetch(tags = '', cnt = defCnt, skip = 0) {
   return dispatch => {
     fetch(`https://api.soundcloud.com/tracks?linked_partitioning=1&client_id=e582b63d83a5fb2997d1dbf2f62705da&limit=${cnt}&offset=${skip}&tags=${tags}`)
       .then(d => d.json())
       .then(d => dispatch(soundcloudFetch_success(d)));
+  };
+}
+
+function soundcloudFetchMore_success(d, page) {
+  return {
+    type: ActionTypes.SOUNDCLOUD_FETCH_MORE_SUCCESS,
+    payload: {
+      collection: d.collection,
+      next_href: d.next_href,
+      page: page
+    }
+  };
+}
+export function soundcloudFetchMore(tags = '', cnt = defCnt, page) {
+  return dispatch => {
+    fetch(`https://api.soundcloud.com/tracks?linked_partitioning=1&client_id=e582b63d83a5fb2997d1dbf2f62705da&limit=${cnt}&offset=${page*cnt}&tags=${tags}`)
+      .then(d => d.json())
+      .then(d => dispatch(soundcloudFetchMore_success(d, page)));
   };
 }
 

@@ -5,10 +5,6 @@ import Actions from '../../redux/actions';
 class SoundCloudContainer extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-
-    };
   }
 
 
@@ -19,12 +15,32 @@ class SoundCloudContainer extends Component {
     // }
     this.props.dispatch(Actions.soundcloudFetch('hiphop'));
   }
+  handleScroll(e){
+
+  }
+  componentDidMount(){
+    if (typeof document !== 'undefined'){
+      $(window).scroll(function() {
+         if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //  alert("bottom!");
+             // getData();
+          this.props.dispatch(Actions.soundcloudFetchMore('country', 50, this.props.soundcloud.page))
+        }
+      }.bind(this));
+    }
+  }
+
+  componentWillUnmount(){
+    if (typeof document !== 'undefined'){
+      document.removeEventListener('scroll', this.handleScroll.bind(this), false);
+    }
+  }
 
 
 
 
 
-
+  // TODO: Split into component
   render() {
     return (
       <div>
@@ -32,9 +48,7 @@ class SoundCloudContainer extends Component {
           {this.props.soundcloud.collection && this.props.soundcloud.collection.map((e,i) => {
             return (
               <div key={i} className={'col-xs-1'}>
-                <a href={e.permalink_url}>
-                  <img src={e.artwork_url}/>
-                </a>
+                <a href={e.permalink_url}><img src={e.artwork_url}/></a>
               </div>
             );
           })}
@@ -56,7 +70,8 @@ SoundCloudContainer.contextTypes = {
 SoundCloudContainer.propTypes = {
   soundcloud: PropTypes.shape({
     collection: PropTypes.array,
-    next_href: PropTypes.string
+    next_href: PropTypes.string,
+    page:PropTypes.number.isRequired
   }),
   dispatch: PropTypes.func.isRequired,
 };

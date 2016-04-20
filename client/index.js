@@ -3,6 +3,9 @@
 require('bootstrap-webpack!./bootstrap.config.js');
 require('animate.css');
 require('./keen.css');
+require('font-awesome-webpack');
+
+
 var Holder = window.Holder = require('holderjs');
 
 
@@ -44,6 +47,7 @@ window.Actions = Actions;
 window.reducers = Reducers;
 window.jwt = jwtDecode;
 window.SC = SC;
+
 
 if (process.env.CLIENT && !window.devToolsExtension) {
   const devToolsDest = document.createElement('div');
