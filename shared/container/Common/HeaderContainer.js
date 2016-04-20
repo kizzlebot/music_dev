@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Header, Navbar }  from '../../components/Common'
+import { Header, Navbar }  from '../../components/Common';
 import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
 
@@ -7,7 +7,7 @@ class HeaderContainer extends Component {
   constructor(props, context) {
     super(props, context);
   }
-  onLogout(){
+  onLogout() {
     this.props.dispatch(Actions.logout());
   }
   render() {
@@ -25,7 +25,7 @@ class HeaderContainer extends Component {
 
 HeaderContainer.contextTypes = {
   router: React.PropTypes.object.isRequired
-}
+};
 
 HeaderContainer.propTypes = {
   auth: PropTypes.shape({
@@ -38,10 +38,10 @@ HeaderContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(store){
+function mapStateToProps(store) {
   return {
     auth: store.auth
-  }
+  };
 }
 
 export default connect(mapStateToProps)(HeaderContainer);

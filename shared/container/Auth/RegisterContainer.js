@@ -9,12 +9,12 @@ import { RegisterView } from '../../components/Auth';
 
 
 class RegisterContainer extends Component {
-  constructor(props, context){
+  constructor(props, context) {
     super(props, context);
     this.props = props ;
   }
 
-  handleSubmit(evt){
+  handleSubmit(evt) {
     evt.preventDefault();
 
     var formFields = $(evt.target).serializeArray().reduce((prev, curr) => {
@@ -24,17 +24,17 @@ class RegisterContainer extends Component {
 
     this.props.dispatch(Actions.registerUser(formFields.username, formFields.password, formFields.confirmPassword));
   }
-  componentWillReceiveProps(newProps, router){
-    if (newProps.auth.isAuthenticated){
+  componentWillReceiveProps(newProps, router) {
+    if (newProps.auth.isAuthenticated) {
       this.context.router.replace('/');
     }
   }
-  componentDidMount(){
-    if (this.props.auth.isAuthenticated){
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
       this.context.router.replace('/');
     }
   }
-  render(){
+  render() {
     return (
       <div>
         <RegisterView onSubmit={this.handleSubmit.bind(this)} />
@@ -46,7 +46,7 @@ class RegisterContainer extends Component {
 
 RegisterContainer.contextTypes = {
   router: React.PropTypes.object.isRequired
-}
+};
 
 RegisterContainer.propTypes = {
   auth: PropTypes.shape({
@@ -60,10 +60,10 @@ RegisterContainer.propTypes = {
 };
 
 
-function mapStateToProps(store){
+function mapStateToProps(store) {
   return {
     auth: store.auth
-  }
+  };
 }
 
 

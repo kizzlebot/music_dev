@@ -6,20 +6,20 @@ var should = chai.should();
 var User = require('../models/user');
 
 
-var defaultUser = { email: 'test@gmail.com', password:'abcdefg' };
+var defaultUser = { email: 'test@gmail.com', password: 'abcdefg' };
 var serverConfig = require('../config');
 
 var server ;
 describe('User Model', function() {
 
-  before(function(done){
+  before(function(done) {
     // Spawn database server
     server = app.listen(process.env.PORT || 8000, (err) => {
       done();
     });
   });
 
-  after(function(done){
+  after(function(done) {
     User.remove({ email: 'test@gmail.com' }, function(err) {
       // if (err) return done(err);
       server.close(() => done());

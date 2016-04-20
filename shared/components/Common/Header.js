@@ -8,11 +8,11 @@ import { Link } from 'react-router';
 
 
 class Header extends React.Component {
-  constructor(props, context){
+  constructor(props, context) {
     super(props, context);
     this.props = props ;
   }
-  render(){
+  render() {
     return (
       <nav className="header ">
         <div className="header-container">

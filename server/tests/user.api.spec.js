@@ -7,36 +7,51 @@ var csrf ;
 var headers = null;
 
 
-describe('main endpoints', function(){
+describe('main endpoints', function() {
 
 
-  beforeEach(function(done){
+  beforeEach(function(done) {
     server = app.listen(process.env.port || 4000, done);
   });
 
 
-  afterEach(function(done){
+  afterEach(function(done) {
     server.close(done);
   });
 
 
 
-  describe('GET /', function(){
-    it('200 (OK)', function(done){
+  describe('GET /', function() {
+    it('200 (OK)', function(done) {
       request(app).get('/').expect(200).end(done);
     });
 
-    it('200 (OK) responds with HTML', function(done){
+    it('200 (OK) responds with HTML', function(done) {
       request(server)
         .get('/')
         .expect(200)
-        .end(function(err, res){
+        .end(function(err, res) {
           expect(res.headers['content-type']).to.include('text/html');
           done();
-        })
+        });
     });
   });
 
+  describe('GET /login', function() {
+    it('200 (OK)', function(done) {
+      request(app).get('/login').expect(200).end(done);
+    });
+
+    it('200 (OK) responds with HTML', function(done) {
+      request(server)
+        .get('/')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.headers['content-type']).to.include('text/html');
+          done();
+        });
+    });
+  });
 
   // describe('GET /login', function(){
 

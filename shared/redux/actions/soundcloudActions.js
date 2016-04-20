@@ -9,24 +9,24 @@ const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http:/
 const CLIENT_ID = process.env.SOUNDCLOUD_ID || 'c3fdaf167c793c07c25d1144ec80a483';
 const COOKIE_PATH = 'soundcloud_token';
 
-export function soundcloud_authUser(oauth_token, shouldShowStream){
+export function soundcloud_authUser(oauth_token, shouldShowStream) {
   return {
     type: ActionTypes.SOUNDCLOUD_LOGIN,
-    payload:{
+    payload: {
       oauth_token: oauth_token,
-      shouldShowStream:shouldShowStream
+      shouldShowStream: shouldShowStream
     }
-  }
+  };
 }
 
-export function soundcloudFetch_success(d){
+export function soundcloudFetch_success(d) {
   return {
-    type:ActionTypes.SOUNDCLOUD_FETCH_SUCCESS,
-    payload:{
-      collection:d.collection,
-      next_href:d.next_href
+    type: ActionTypes.SOUNDCLOUD_FETCH_SUCCESS,
+    payload: {
+      collection: d.collection,
+      next_href: d.next_href
     }
-  }
+  };
 }
 
 
@@ -45,7 +45,7 @@ export function soundcloudFetch(tags) {
 
 export function soundcloudLogin(shouldShowStream = true) {
   return dispatch => {
-    if (process.env.CLIENT){
+    if (process.env.CLIENT) {
       var SC =  require('soundcloud');
       SC.initialize({
         client_id: CLIENT_ID,

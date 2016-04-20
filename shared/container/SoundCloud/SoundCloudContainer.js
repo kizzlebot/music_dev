@@ -15,7 +15,7 @@ class SoundCloudContainer extends Component {
 
   componentWillMount() {
     // if (this.props.posts.length === 0) {
-      // this.props.dispatch(Actions.fetchPosts());
+    // this.props.dispatch(Actions.fetchPosts());
     // }
     this.props.dispatch(Actions.soundcloudFetch('hiphop'));
   }
@@ -36,7 +36,7 @@ class SoundCloudContainer extends Component {
                   <img src={e.artwork_url}/>
                 </a>
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -54,7 +54,7 @@ SoundCloudContainer.contextTypes = {
 };
 
 SoundCloudContainer.propTypes = {
-  soundcloud:PropTypes.shape({
+  soundcloud: PropTypes.shape({
     collection: PropTypes.array,
     next_href: PropTypes.string
   }),

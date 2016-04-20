@@ -1,0 +1,17 @@
+{
+	"preset": "airbnb",
+	"requireTrailingComma": null,
+	"disallowMultipleLineBreaks": null,
+	"maximumLineLength": null,
+	"disallowSpaceBeforeSemicolon": null,
+	"requirePaddingNewLinesAfterBlocks": null,
+	"requireSpacesInAnonymousFunctionExpression": null,
+	"requireSpacesInsideObjectBrackets": null,
+	"requireShorthandArrowFunctions": null,
+	"disallowKeywordsOnNewLine": null,
+	"requireCamelCaseOrUpperCaseIdentifiers": null,
+	"requireSpaceAfterKeywords": null,
+	"validateQuoteMarks": null,
+	"requireSpaceAfterComma": null,
+	"requirePaddingNewLinesBeforeLineComments": null
+}

@@ -1,6 +1,6 @@
 import Post from '../models/post';
 
-export default function (predicate) {
+export default function(predicate) {
   Post.count().exec((err, count) => {
     if (predicate(count)) return;
 
@@ -37,7 +37,7 @@ export default function (predicate) {
 
     Post.create([post1, post2], (error) => {
       if (!error) {
-        // console.log('ready to go....');
+        console.log('ready to go....');
       }
     });
   });

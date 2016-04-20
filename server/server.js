@@ -34,11 +34,11 @@ import { fetchComponentData } from './util/fetchData';
 import renderFullPage, { renderError } from './util/renderFullPage';
 
 import posts from './routes/post.routes';
-import api from './routes'
+import api from './routes';
 // import auth from './routes/auth.js'
 
 import dummyData from './util/dummyData';
-import serverConfig from './config'
+import serverConfig from './config';
 
 
 /* -------------------------------------------------------------------------------------- */
@@ -87,8 +87,8 @@ if (process.env.NODE_ENV !== 'production') {
     publicPath: config.output.publicPath,
     noInfo: app.get('test') || app.get('quiet'),
     quiet: app.get('test') || app.get('quiet'),
-    stats:{
-      colors:true
+    stats: {
+      colors: true
     }
   }));
   app.use(webpackHotMiddleware(compiler));
@@ -135,7 +135,7 @@ app.use(...middlewares);
 /* -------------------------------------------------------------------------------------- */
 
 app.use('/api', api);
-app.get('/auth/soundcloud/callback', function(req, res, next){
+app.get('/auth/soundcloud/callback', function(req, res, next) {
   // TODO: Implement callback for soundcloud auth
 });
 
@@ -157,10 +157,10 @@ app.use((req, res, next) => {
 
     // Initialize redux store
     const initialState = {
-      posts:{
+      posts: {
         posts: [], post: {}
       },
-      auth:{
+      auth: {
         token: '',
         username: '',
         isAuthenticated: false,

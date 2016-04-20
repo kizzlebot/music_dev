@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { HeaderContainer }  from './Common';
-import { Footer }  from '../components/Common'
+import { Footer }  from '../components/Common';
 import Actions from '../redux/actions';
 import { connect } from 'react-redux';
 
 
-if (process.env.CLIENT){
-  require('font-awesome-webpack')
+if (process.env.CLIENT) {
+  require('font-awesome-webpack');
 }
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.dispatch(Actions.fetchPosts());
     this.props.dispatch(Actions.restoreLoginStatus());
   }

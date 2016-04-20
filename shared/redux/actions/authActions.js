@@ -15,7 +15,7 @@ export function restoreLoginStatus() {
     payload: {
       token: token
     }
-  }
+  };
 }
 
 
@@ -27,16 +27,16 @@ export function registerUserSuccess(responseData) {
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
-      message:responseData.message,
+      message: responseData.message,
       reason: responseData.reason
     }
-  }
+  };
 }
 
 export function registerUserFailure(responseData) {
   return {
     type: ActionTypes.REGISTER_USER_FAILURE,
-    payload:{
+    payload: {
       token: responseData.auth_token,
       status: responseData.success,
       reason: responseData.reason
@@ -65,8 +65,8 @@ export function registerUser(username, password, confirmPassword) {
     })
     .catch(error => {
         dispatch(registerUserFailure(error));
-    })
-  }
+      });
+  };
 }
 
 export function loginUserSuccess(responseData) {
@@ -76,10 +76,10 @@ export function loginUserSuccess(responseData) {
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
-      message:responseData.message,
+      message: responseData.message,
       reason: responseData.reason
     }
-  }
+  };
 }
 
 export function loginUserFailure(error) {
@@ -91,13 +91,13 @@ export function loginUserFailure(error) {
       statusText: error.message,
       reason: error.reason
     }
-  }
+  };
 }
 
 export function loginUserRequest() {
   return {
     type: ActionTypes.LOGIN_USER_REQUEST,
-  }
+  };
 }
 
 export function loginUser(username, password, redirect="/") {
@@ -119,8 +119,8 @@ export function loginUser(username, password, redirect="/") {
       (res.success) ? dispatch(loginUserSuccess(res)) : dispatch(loginUserFailure(res));
     })
     .catch(error => {
-        dispatch(loginUserFailure(error)); })
-  }
+        dispatch(loginUserFailure(error)); });
+  };
 }
 
 
@@ -128,16 +128,16 @@ export function loginUser(username, password, redirect="/") {
 
 
 export function logout() {
-    localStorage.removeItem('token');
-    return {
-        type: ActionTypes.LOGOUT_USER,
-    }
+  localStorage.removeItem('token');
+  return {
+      type: ActionTypes.LOGOUT_USER,
+    };
 }
 
 export function logoutAndRedirect() {
-    return (dispatch, state) => {
-        dispatch(logout());
-    }
+  return (dispatch, state) => {
+      dispatch(logout());
+    };
 }
 
 
@@ -157,13 +157,13 @@ export function receiveProtectedData(data) {
     payload: {
       data: data
     }
-  }
+  };
 }
 
 export function fetchProtectedDataRequest() {
   return {
     type: ActionTypes.FETCH_PROTECTED_DATA_REQUEST,
-  }
+  };
 }
 
 export function fetchProtectedData(token) {
@@ -172,8 +172,8 @@ export function fetchProtectedData(token) {
     return fetch(`${baseURL}/api/auth/user`, {
       credentials: 'include',
       headers: {
-          'Authorization': `Bearer ${token}`
-      }
+          Authorization: `Bearer ${token}`
+        }
     })
     .then(response => {
       dispatch(receiveProtectedData(response.data));
@@ -182,6 +182,6 @@ export function fetchProtectedData(token) {
       if(error.response.status === 401) {
         dispatch(loginUserFailure(error));
       }
-    })
-  }
+    });
+  };
 }

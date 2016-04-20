@@ -10,12 +10,12 @@ var $ = require('jquery');
 
 
 class LoginContainer extends Component {
-  constructor(props, context){
+  constructor(props, context) {
     super(props, context);
     this.props = props ;
   }
 
-  handleSubmit(evt){
+  handleSubmit(evt) {
     evt.preventDefault();
     var fields = $(evt.target).serializeArray();
     var formFields = fields.reduce((prev, curr) => {
@@ -25,17 +25,17 @@ class LoginContainer extends Component {
 
     this.props.dispatch(Actions.loginUser(formFields.username, formFields.password));
   }
-  componentWillReceiveProps(newProps, router){
-    if (newProps.auth.isAuthenticated){
+  componentWillReceiveProps(newProps, router) {
+    if (newProps.auth.isAuthenticated) {
       this.context.router.replace('/');
     }
   }
-  componentDidMount(){
-    if (this.props.auth.isAuthenticated){
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
       this.context.router.replace('/');
     }
   }
-  render(){
+  render() {
     return (
       <div>
         <LoginView onSubmit={this.handleSubmit.bind(this)} />
@@ -47,7 +47,7 @@ class LoginContainer extends Component {
 
 LoginContainer.contextTypes = {
   router: React.PropTypes.object.isRequired
-}
+};
 
 LoginContainer.propTypes = {
   auth: PropTypes.shape({
@@ -61,10 +61,10 @@ LoginContainer.propTypes = {
 };
 
 
-function mapStateToProps(store){
+function mapStateToProps(store) {
   return {
     auth: store.auth
-  }
+  };
 }
 
 

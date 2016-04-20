@@ -34,7 +34,7 @@ export function addPost(req, res) {
   newPost.cuid = cuid();
 
   newPost.save((err, saved) => {
-    return (err) ? res.status(500).send(err) : res.json({ post: saved })
+    return (err) ? res.status(500).send(err) : res.json({ post: saved });
   });
 }
 

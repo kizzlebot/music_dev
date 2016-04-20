@@ -48,6 +48,6 @@ class RegisterView extends Component {
 
 RegisterView.propTypes = {
   onSubmit: PropTypes.func
-}
+};
 
 export default RegisterView ;

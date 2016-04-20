@@ -5,14 +5,14 @@ import * as SoundcloudConstants from './soundcloudConstants';
 
 
 
-export default Object.keys(SoundcloudConstants).concat(Object.keys(AuthConstants)).concat(Object.keys(PostConstants)).reduce(function(prev, curr){
-  if (curr in PostConstants){
+export default Object.keys(SoundcloudConstants).concat(Object.keys(AuthConstants)).concat(Object.keys(PostConstants)).reduce(function(prev, curr) {
+  if (curr in PostConstants) {
     prev[curr] = PostConstants[curr];
   }
-  else if (curr in AuthConstants){
+  else if (curr in AuthConstants) {
     prev[curr] = AuthConstants[curr];
   }
-  else if (curr in SoundcloudConstants){
+  else if (curr in SoundcloudConstants) {
     prev[curr] = SoundcloudConstants[curr];
   }
   return prev;

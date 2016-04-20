@@ -53,6 +53,6 @@ class LoginView extends Component {
 
 LoginView.propTypes = {
   onSubmit: PropTypes.func
-}
+};
 
 export default LoginView ;

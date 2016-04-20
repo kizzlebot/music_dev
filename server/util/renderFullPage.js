@@ -14,7 +14,7 @@ const renderFullPage = (html, initialState, opts) => {
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,700italic,300italic|Pacifico' rel='stylesheet' type='text/css'>
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
       </head>
-      <body>
+      <body class='application'>
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};

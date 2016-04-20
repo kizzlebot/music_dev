@@ -2,6 +2,9 @@
 
 require('bootstrap-webpack!./bootstrap.config.js');
 require('animate.css');
+require('./keen.css');
+var Holder = window.Holder = require('holderjs');
+
 
 import React from 'react';
 import routes from '../shared/routes';
