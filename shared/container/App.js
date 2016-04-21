@@ -5,23 +5,19 @@ import Actions from '../redux/actions';
 import { connect } from 'react-redux';
 
 
-if (process.env.CLIENT) {
-  require('font-awesome-webpack');
-}
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
   }
   componentDidMount() {
-    this.props.dispatch(Actions.fetchPosts());
     this.props.dispatch(Actions.restoreLoginStatus());
   }
 
   render() {
     return (
       <div>
-        <HeaderContainer/> ;
+        <HeaderContainer/>
         { this.props.children }
         <Footer/>
       </div>
@@ -34,4 +30,7 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
+
+
+// connect <App/> so it has this.props.dispatch defined
 export default connect()(App);

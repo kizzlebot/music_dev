@@ -25,11 +25,9 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-
   module: {
     loaders: [
-      { test: /\.js*$/,                                         loader: 'babel', query: { presets: ['react-hmre'] }, exclude: [/node_modules/, /.+\.config.js/] },
-      { test: /\.jsx*$/,                                        loader: 'babel', query: { presets: ['react-hmre'] }, exclude: [/node_modules/, /.+\.config.js/] },
+      { test: /\.(js|jsx)*$/,                                   loader: 'babel', query: { presets: ['react-hmre'] }, exclude: [/node_modules/, /.+\.config.js/] },
       { test: /\.json?$/,        exclude: /node_modules/,       loader: 'json'},
       { test: /\.woff(\?\S*)?$/,                                loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
       { test: /\.woff2(\?\S*)?$/,                               loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
@@ -47,7 +45,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         CLIENT: JSON.stringify(true),
-        PORT: JSON.stringify(process.env.PORT || 8000)
+        PORT: JSON.stringify(process.env.PORT || 8000),
+        NODE_ENV: JSON.stringify('development')
       }
     })
   ],

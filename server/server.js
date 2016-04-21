@@ -143,9 +143,7 @@ app.use(...middlewares);
 /* -------------------------------------------------------------------------------------- */
 
 app.use('/api', api);
-app.get('/auth/soundcloud/callback', function(req, res, next) {
-  // TODO: Implement callback for soundcloud auth
-});
+
 
 
 
@@ -169,7 +167,7 @@ app.use((req, res, next) => {
       "auth": { "token": null, "username": "", "isAuthenticated": false, "isAuthenticating": false, "statusText": "" },
       // TODO: Use 'data' key or get rid of
       "data": { "data": null, "isFetching": false },
-      "soundcloud": { "oauth_token": null, "shouldShowStream": false, "collection": [], "next_href": null, "page":0 }
+      "soundcloud": { "oauth_token": null, "shouldShowStream": false, "collection": [], "next_href": null, "page":0, "fetch_success":false, "isFetching":false }
     }
 
 

@@ -91,6 +91,7 @@ const authReducer = (state = initialState, action) => {
           username: null,
           statusText: 'You have been successfully logged out.'
         });
+
     default:
       return state ;
   }

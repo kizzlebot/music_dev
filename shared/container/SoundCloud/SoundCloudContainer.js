@@ -10,13 +10,7 @@ class SoundCloudContainer extends Component {
 
 
   componentWillMount() {
-    // if (this.props.posts.length === 0) {
-    // this.props.dispatch(Actions.fetchPosts());
-    // }
-    this.props.dispatch(Actions.soundcloudFetch('hiphop'));
-  }
-  handleScroll(e){
-
+    // this.props.dispatch(Actions.soundcloudFetch('hiphop'));
   }
   componentDidMount(){
     if (typeof document !== 'undefined'){
@@ -43,12 +37,15 @@ class SoundCloudContainer extends Component {
   // TODO: Split into component
   render() {
     return (
-      <div>
-        <div className="container">
-          {this.props.soundcloud.collection && this.props.soundcloud.collection.map((e,i) => {
+      <div className='container'>
+        <div className="row">
+          {this.props.soundcloud.collection && this.props.soundcloud.collection.filter((e) => e.artwork_url != null && e.artwork_url != undefined )
+          .map((e,i) => {
             return (
-              <div key={i} className={'col-xs-1'}>
-                <a href={e.permalink_url}><img src={e.artwork_url}/></a>
+              <div key={i} className={'col-lg-2 col-md-3 col-xs-5 thumb'}>
+                <a className={'thumbnail'} href={e.permalink_url}>
+                  <img className={'img-responsive'} src={e.artwork_url}/>
+                </a>
               </div>
             );
           })}
@@ -76,11 +73,14 @@ SoundCloudContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
+SoundCloudContainer.need = [() => Actions.soundcloudFetch('hiphop')];
+
 function mapStateToProps(store) {
   return {
     soundcloud: store.soundcloud,
   };
 }
+
 
 
 export default connect(mapStateToProps)(SoundCloudContainer);

@@ -20,9 +20,10 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
+
+
   module: {
     loaders: [
-
       { test: /\.(js|jsx)*$/,                                   loader: 'babel', exclude: /node_modules/ },
       { test: /\.json?$/,        exclude: /node_modules/,       loader: 'json'},
       { test: /\.woff(\?\S*)?$/,                                loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
@@ -40,7 +41,8 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
+        'CLIENT': JSON.stringify(true),
+        'NODE_ENV': JSON.stringify('production')
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
