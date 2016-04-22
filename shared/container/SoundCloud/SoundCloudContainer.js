@@ -104,6 +104,4 @@ function mapStateToProps(store) {
   };
 }
 
-
-
 export default connect(mapStateToProps)(SoundCloudContainer);

@@ -56,12 +56,8 @@ export function registerUser(username, password, confirmPassword) {
         'Content-Type': 'application/json',
       }),
     })
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => {
-      (res.success) ? dispatch(registerUserSuccess(res)) : dispatch(registerUserFailure(res));
-    })
+    .then((res) => res.json())
+    .then((res) => dispatch((res.success) ? registerUserSuccess(res) :registerUserFailure(res)))
     .catch(error => {
         dispatch(registerUserFailure(error));
       });
