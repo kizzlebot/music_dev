@@ -41,7 +41,7 @@ function generateHTMLPage(scriptPaths = [], cssTags = [], scriptElements = [], h
 
 // Render Initial HTML
 const renderFullPage = (html, initialState, opts) => {
-  const cssPath = process.env.NODE_ENV === 'production' ? '/css/app.min.css' : '/css/app.css';
+  const cssPath = (process.env.NODE_ENV === 'production') ? '/css/app.min.css' : '/css/app.css';
   const options = (opts) ? opts : {name: 'Music dev'};
 
   var scriptPaths = ['/dist/bundle.js'];

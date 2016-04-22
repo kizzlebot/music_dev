@@ -16,9 +16,10 @@ import SC from 'soundcloud';
 
 // CSS style requirements
 require('bootstrap-webpack!./bootstrap.config.js');
-require('animate.css');
-require('./keen.css');
 require('font-awesome-webpack');
+require('animate.css');
+// require('./app.css');
+require('./keen.css');
 
 // React+Redux
 const store = configureStore(window.__INITIAL_STATE__);

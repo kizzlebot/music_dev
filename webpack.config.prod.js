@@ -26,8 +26,8 @@ module.exports = {
     loaders: [
       { test: /\.(js|jsx)*$/,                                   loader: 'babel', exclude: /node_modules/ },
       { test: /\.json?$/,        exclude: /node_modules/,       loader: 'json'},
-      { test: /\.woff(\?\S*)?$/,                                loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
-      { test: /\.woff2(\?\S*)?$/,                               loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff'} },
+      { test: /\.woff(\?\S*)?$/,                                loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff', name:'dist/[name].[ext]'} },
+      { test: /\.woff2(\?\S*)?$/,                               loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff', name:'dist/[name].[ext]'} },
       { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
       { test: /\.less$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'less') },
       { test: /\.scss$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'sass') },
