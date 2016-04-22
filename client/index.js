@@ -18,7 +18,6 @@ import SC from 'soundcloud';
 require('bootstrap-webpack!./bootstrap.config.js');
 require('font-awesome-webpack');
 require('animate.css');
-// require('./app.css');
 require('./keen.css');
 
 // React+Redux

@@ -91,10 +91,12 @@ if (process.env.NODE_ENV !== 'production') {
       colors: true
     }
   });
-  webpackDevMid.waitUntilValid(function(){
 
-    // TODO: Maybe not use
-    console.log('Is valid now.........');
+
+  // TODO: Maybe not use
+  webpackDevMid.waitUntilValid(function(){
+    console.log('Is valid again.........');
+    delete require.cache[require.resolve('../shared/routes')];
     routes = require('../shared/routes').default;
   });
 
@@ -141,7 +143,6 @@ app.use(...middlewares);
 /* -------------------------------------------------------------------------------------- */
 /* -------------------------------- SETUP User Config ------------------------------------*/
 /* -------------------------------------------------------------------------------------- */
-
 app.use('/api', api);
 
 

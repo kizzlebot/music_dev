@@ -32,7 +32,6 @@ export function registerUserSuccess(responseData) {
     }
   };
 }
-
 export function registerUserFailure(responseData) {
   return {
     type: ActionTypes.REGISTER_USER_FAILURE,
@@ -77,7 +76,8 @@ export function loginUserSuccess(responseData) {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
       message: responseData.message,
-      reason: responseData.reason
+      reason: responseData.reason,
+      username: jwtDecode(responseData.auth_token).username
     }
   };
 }

@@ -18,8 +18,9 @@ class Header extends React.Component {
         <div className="header-container">
           <div className="header-content navbar-header">
             <h1 className="site-title animated infinite pulse">
-              <Link to="/" onClick={this.props.handleLogoClick}>MERN Starter Blog</Link>
+              <Link to="/" onClick={this.props.handleLogoClick}>Music Dev</Link>
             </h1>
+            <p>Yes. you are here</p>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav" />

@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'source-map',
 
   entry: [
-    `webpack-hot-middleware/client`,
+    `webpack-hot-middleware/client?reload=true`,
     // `bootstrap-webpack!${process.cwd()}/client/bootstrap.config.js`,
     `${process.cwd()}/client/index.js`,
   ],
