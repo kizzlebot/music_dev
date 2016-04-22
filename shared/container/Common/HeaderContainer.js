@@ -8,7 +8,7 @@ class HeaderContainer extends Component {
     super(props, context);
   }
   onLogout() {
-    this.props.dispatch(Actions.logout());
+    this.props.dispatch(Actions.auth.logout());
   }
   render() {
     return (

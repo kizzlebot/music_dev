@@ -11,7 +11,7 @@ class App extends Component {
     super(props, context);
   }
   componentDidMount() {
-    this.props.dispatch(Actions.restoreLoginStatus());
+    this.props.dispatch(Actions.auth.restoreLoginStatus());
   }
 
   render() {

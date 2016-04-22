@@ -22,7 +22,7 @@ class RegisterContainer extends Component {
       return prev ;
     }, {});
 
-    this.props.dispatch(Actions.registerUser(formFields.username, formFields.password, formFields.confirmPassword));
+    this.props.dispatch(Actions.auth.registerUser(formFields.username, formFields.password, formFields.confirmPassword));
   }
   componentWillReceiveProps(newProps, router) {
     if (newProps.auth.isAuthenticated) {

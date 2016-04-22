@@ -23,7 +23,7 @@ class LoginContainer extends Component {
       return prev ;
     }, {});
 
-    this.props.dispatch(Actions.loginUser(formFields.username, formFields.password));
+    this.props.dispatch(Actions.auth.loginUser(formFields.username, formFields.password));
   }
   componentWillReceiveProps(newProps, router) {
     if (newProps.auth.isAuthenticated) {

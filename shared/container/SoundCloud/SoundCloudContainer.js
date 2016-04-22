@@ -35,7 +35,7 @@ class SoundCloudContainer extends Component {
     // If bottom of page reached, fetch more
     if (typeof window != 'undefined'){
       if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        this.props.dispatch(Actions.soundcloudFetchMore('country', 50, this.props.soundcloud.page))
+        this.props.dispatch(Actions.soundcloud.soundcloudFetchMore('country', 50, this.props.soundcloud.page))
       }
     }
   }
@@ -96,7 +96,7 @@ SoundCloudContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-SoundCloudContainer.need = [() => Actions.soundcloudFetch('hiphop')];
+SoundCloudContainer.need = [() => Actions.soundcloud.soundcloudFetch('hiphop')];
 
 function mapStateToProps(store) {
   return {

@@ -44,7 +44,7 @@ class PostDetailView extends Component {
 
 
 PostDetailView.need = [(params) => {
-  return Actions.getPostRequest.bind(null, params.slug)();
+  return Actions.post.getPostRequest.bind(null, params.slug)();
 }];
 
 PostDetailView.contextTypes = {

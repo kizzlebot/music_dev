@@ -18,13 +18,13 @@ class PostContainer extends Component {
 
   componentDidMount() {
     if (this.props.posts.length === 0) {
-      this.props.dispatch(Actions.fetchPosts());
+      this.props.dispatch(Actions.post.fetchPosts());
     }
   }
 
 
   add(name, title, content) {
-    this.props.dispatch(Actions.addPostRequest({ name, title, content }));
+    this.props.dispatch(Actions.post.addPostRequest({ name, title, content }));
     this.setState({
       showAddPost: false,
     });
@@ -56,7 +56,7 @@ class PostContainer extends Component {
 
 
 
-PostContainer.need = [() => Actions.fetchPosts()];
+PostContainer.need = [() => Actions.post.fetchPosts()];
 
 PostContainer.contextTypes = {
   router: React.PropTypes.object,
