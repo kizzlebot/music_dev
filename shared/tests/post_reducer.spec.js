@@ -9,7 +9,7 @@ describe('reducer tests', () => {
   it('action ADD_POST is working', () => {
     const stateBefore = { posts: { posts: [], post: null }, auth: auth };
     const common = {name: 'prank', title: 'first post', content: 'Hello world!', _id: null, cuid: null, slug: 'first-post'};
-    const action = Object.assign({}, { type: ActionTypes.ADD_POST  }, common);
+    const action = Object.assign({}, { type: ActionTypes.post.ADD_POST  }, common);
 
     const stateAfter = {
       posts: { posts: [common], post: null },
@@ -59,7 +59,7 @@ describe('reducer tests', () => {
     };
 
     const action = {
-      type: ActionTypes.ADD_SELECTED_POST,
+      type: ActionTypes.post.ADD_SELECTED_POST,
       post: {
         name: 'prank',
         title: 'second post',

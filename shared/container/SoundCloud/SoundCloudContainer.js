@@ -51,28 +51,95 @@ class SoundCloudContainer extends Component {
 
   // TODO: Split into component
   render() {
+    // return (
+    //   <div>
+    //     <div className='row'>
+    //       <div className='col-xs-12'>
+    //         {'I come from the server prerendered!'}
+    //       </div>
+    //
+    //       <div className='col-xs-12'>
+    //         <input type='text' onChange={this.handleChange.bind(this)}/>
+    //       </div>
+    //     </div>
+    //
+    //     <div className={'row'}>
+    //       <div className='list-group gallery'>
+    //
+    //           {this.props.soundcloud.collection.map((e) => {
+    //             if (e.cover) return (
+    //               <div key={e.link} className='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
+    //                 <a className="thumbnail fancybox" rel="lightbox" href={`${e.}`}>
+    //           <a className={''} href={e.permalink_url}><img className={'img-responsive'} src={e.artwork_url}/></a>
+    //                   <div className='text-center'>
+    //                     <small className='text-muted'>{e.title}</small>
+    //                   </div>
+    //                 </a>
+    //               </div>
+    //             );
+    //           })}
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
+
     const toComponent = (e, i) => {
       return (
-        <div key={i} className={'col-lg-2 col-md-3 col-xs-5'}>
-          <a className={''} href={e.permalink_url}>
-            <img className={'img-thumbnail img-responsive'} src={e.artwork_url}/>
-          </a>
+        <div key={i} className={'col-lg-1 col-md-1 col-xs-1'}>
+          <div className="post">
+            <div className="post-img-content">
+              <a className={''} href={e.permalink_url}><img className={'img-responsive'} src={e.artwork_url}/></a>
+            </div>
+            <div className="content">
+              <div className="author">
+                By <b>{e.user.username}</b>
+              </div>
+              <div>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       );
     };
+
     const filterFunction = (e) => {
       return (e.artwork_url != null && e.artwork_url != undefined);
     };
 
 
-    var splitUp = splitIntoChunks(this.props.soundcloud.collection, 6, toComponent, filterFunction );
+    var splitUp = splitIntoChunks(this.props.soundcloud.collection, 12, toComponent, filterFunction );
 
 
     return (
-      <div className='container'>
-        {splitUp.map(e => {
-          return (<div className={'row'}>{e}</div>);
-        })}
+      <div>
+        <div className='row'>
+          <div className='col-xs-12'>
+            {/*{'I come from the server prerendered!'}*/}
+          </div>
+
+          <div className='col-xs-12'>
+            {/*<input type='text' onChange={this.handleChange.bind(this)}/>*/}
+          </div>
+        </div>
+
+        <div className={'row'}>
+          <div className='list-group gallery'>
+              {this.props.soundcloud.collection.map((e) => {
+                return (
+                  <div key={e.link} className='col-sm-3 col-xs-4 clearfix'>
+                    <a className="thumbnail fancybox" rel="lightbox" href={`${e.permalink_url}`}>
+                      <img className={'img-responsive'} src={e.artwork_url}/>
+                      <div className='text-center'>
+                        <small className='text-muted'>{e.title}</small>
+                      </div>
+                    </a>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
       </div>
     )
   }

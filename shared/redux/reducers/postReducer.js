@@ -5,7 +5,7 @@ const initialState = { posts: [] };
 const postReducer = (state = initialState, action) => {
   if (!action) return state ;
   switch (action.type) {
-    case ActionTypes.ADD_POST :
+    case ActionTypes.post.ADD_POST :
       return {
         posts: [{
           name: action.name,
@@ -18,25 +18,25 @@ const postReducer = (state = initialState, action) => {
         post: state.post
       };
 
-    case ActionTypes.CHANGE_SELECTED_POST :
+    case ActionTypes.post.CHANGE_SELECTED_POST :
       return {
         posts: state.posts,
         post: action.slug,
       };
 
-    case ActionTypes.ADD_POSTS :
+    case ActionTypes.post.ADD_POSTS :
       return {
         posts: action.posts,
         post: state.post,
       };
 
-    case ActionTypes.ADD_SELECTED_POST :
+    case ActionTypes.post.ADD_SELECTED_POST :
       return {
         post: action.post,
         posts: state.posts,
       };
 
-    case ActionTypes.DELETE_POST :
+    case ActionTypes.post.DELETE_POST :
       return {
         posts: state.posts.filter((post) => post._id !== action.post._id),
       };

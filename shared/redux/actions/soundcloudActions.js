@@ -20,7 +20,7 @@ const COOKIE_PATH = 'soundcloud_token';
 
 export function soundcloud_nextPage(curPage){
   return {
-    type: ActionTypes.SOUNDCLOUD_NEXTPAGE,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_NEXTPAGE,
     payload:{
       page:curPage + 1
     }
@@ -29,7 +29,7 @@ export function soundcloud_nextPage(curPage){
 
 export function soundcloud_prevPage(curPage){
   return {
-    type: ActionTypes.SOUNDCLOUD_PREVPAGE,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_PREVPAGE,
     payload: {
       page: (curPage-1 >= 0) ? curPage - 1 : 0
     }
@@ -39,7 +39,7 @@ export function soundcloud_prevPage(curPage){
 
 export function soundcloud_authUser(oauth_token, shouldShowStream) {
   return {
-    type: ActionTypes.SOUNDCLOUD_LOGIN,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_LOGIN,
     payload: {
       oauth_token: oauth_token,
       shouldShowStream: shouldShowStream
@@ -49,7 +49,7 @@ export function soundcloud_authUser(oauth_token, shouldShowStream) {
 
 function soundcloudFetch_success(d) {
   return {
-    type: ActionTypes.SOUNDCLOUD_FETCH_SUCCESS,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_SUCCESS,
     payload: {
       collection: d.collection,
       next_href: d.next_href
@@ -59,7 +59,7 @@ function soundcloudFetch_success(d) {
 
 function soundcloudFetch_fail(d) {
   return {
-    type: ActionTypes.SOUNDCLOUD_FETCH_FAIL,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_FAIL,
     payload: {
       isFetching: false,
       fetch_success:false
@@ -70,7 +70,7 @@ function soundcloudFetch_fail(d) {
 var defCnt = 50;
 function soundcloudFetching(){
   return {
-    type: ActionTypes.SOUNDCLOUD_FETCHING,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCHING,
     payload:{
       isFetching: true,
       fetch_success: null
@@ -98,7 +98,7 @@ export function soundcloudFetch(tags = '', cnt = defCnt, skip = 0) {
 
 function soundcloudFetchMore_success(d) {
   return {
-    type: ActionTypes.SOUNDCLOUD_FETCH_MORE_SUCCESS,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_MORE_SUCCESS,
     payload: {
       collection: d.collection,
       next_href: d.next_href,
@@ -110,7 +110,7 @@ function soundcloudFetchMore_success(d) {
 
 function soundcloudFetchMore_fail(d, page) {
   return {
-    type: ActionTypes.SOUNDCLOUD_FETCH_MORE_FAIL,
+    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_MORE_FAIL,
     payload: {
       isFetching: false,
       fetch_success:false
@@ -178,7 +178,7 @@ export function soundcloudStoreOauthToken(service, token){
   }
   return (dispatch, getState) => {
     dispatch({
-      type: ActionTypes.SOUNDCLOUD_STORE_OAUTH,
+      type: ActionTypes.soundcloud.SOUNDCLOUD_STORE_OAUTH,
       payload: {
         token: token
       }

@@ -14,13 +14,13 @@ const SoundcloudReducer = (state = initialState, action) => {
   if (!action || !action.type) return state;
   switch(action.type){
 
-    case ActionTypes.SOUNDCLOUD_LOGIN:
+    case ActionTypes.soundcloud.SOUNDCLOUD_LOGIN:
       return Object.assign({}, state, {
         oauth_token: action.payload.oauth_token,
         shouldShowStream: action.payload.shouldShowStream
       });
 
-    case ActionTypes.SOUNDCLOUD_FETCH_SUCCESS:
+    case ActionTypes.soundcloud.SOUNDCLOUD_FETCH_SUCCESS:
       return Object.assign({}, state, {
         collection: action.payload.collection,
         isFetching: false,
@@ -28,36 +28,36 @@ const SoundcloudReducer = (state = initialState, action) => {
         next_href: action.payload.next_href
       });
 
-    case ActionTypes.SOUNDCLOUD_FETCH_MORE_SUCCESS:
+    case ActionTypes.soundcloud.SOUNDCLOUD_FETCH_MORE_SUCCESS:
       return Object.assign({}, state, {
         collection: action.payload.collection.slice(0).concat(action.payload.collection),
         isFetching: action.payload.isFetching,
         fetch_success: action.payload.fetch_success
       });
 
-    case ActionTypes.SOUNDCLOUD_FETCH_MORE_FAIL:
+    case ActionTypes.soundcloud.SOUNDCLOUD_FETCH_MORE_FAIL:
       return Object.assign({}, state, {
         isFetching: action.payload.isFetching,
         fetch_success: action.payload.fetch_success
       });
 
-    case ActionTypes.SOUNDCLOUD_FETCH_FAIL:
+    case ActionTypes.soundcloud.SOUNDCLOUD_FETCH_FAIL:
       return Object.assign({}, state, {
         isFetching: action.payload.isFetching,
         fetch_success: action.payload.fetch_success
       });
 
-    case ActionTypes.SOUNDCLOUD_NEXTPAGE:
+    case ActionTypes.soundcloud.SOUNDCLOUD_NEXTPAGE:
       return Object.assign({}, state, {
         page: action.payload.page
       });
 
-    case ActionTypes.SOUNDCLOUD_PREVPAGE:
+    case ActionTypes.soundcloud.SOUNDCLOUD_PREVPAGE:
       return Object.assign({}, state, {
         page: action.payload.page
       });
 
-    case ActionTypes.SOUNDCLOUD_STORE_OAUTH:
+    case ActionTypes.soundcloud.SOUNDCLOUD_STORE_OAUTH:
       return Object.assign({}, state, {
         oauth_token: action.payload.token
       })

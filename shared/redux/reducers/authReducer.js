@@ -17,20 +17,20 @@ const authReducer = (state = initialState, action) => {
   var {payload} = action;
 
   switch(action.type){
-    case ActionTypes.RESTORE_LOGIN_STATUS:
+    case ActionTypes.auth.RESTORE_LOGIN_STATUS:
       return Object.assign({}, state, {
         isAuthenticating: false,
         isAuthenticated: !!payload.token,
         token: payload.token
       });
 
-    case ActionTypes.LOGIN_USER_REQUEST:
+    case ActionTypes.auth.LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
         isAuthenticating: true,
         isAuthenticated: false
       });
 
-    case ActionTypes.LOGIN_USER_SUCCESS:
+    case ActionTypes.auth.LOGIN_USER_SUCCESS:
       return Object.assign({}, state, {
           isAuthenticating: false,
           isAuthenticated: true,
@@ -40,7 +40,7 @@ const authReducer = (state = initialState, action) => {
           reason: payload.reason
         });
 
-    case ActionTypes.LOGIN_USER_FAILURE:
+    case ActionTypes.auth.LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
           isAuthenticating: false,
           isAuthenticated: false,
@@ -50,13 +50,13 @@ const authReducer = (state = initialState, action) => {
           reason: payload.reason
         });
 
-    case ActionTypes.REGISTER_USER_REQUEST:
+    case ActionTypes.auth.REGISTER_USER_REQUEST:
       return Object.assign({}, state, {
           isAuthenticating: true,
           isAuthenticated: false
         });
 
-    case ActionTypes.REGISTER_USER_SUCCESS:
+    case ActionTypes.auth.REGISTER_USER_SUCCESS:
       return Object.assign({}, state, {
           isAuthenticating: false,
           isAuthenticated: true,
@@ -66,7 +66,7 @@ const authReducer = (state = initialState, action) => {
           reason: payload.reason
         });
 
-    case ActionTypes.REGISTER_USER_FAILURE:
+    case ActionTypes.auth.REGISTER_USER_FAILURE:
       return Object.assign({}, state, {
           isAuthenticating: false,
           isAuthenticated: false,
@@ -76,7 +76,7 @@ const authReducer = (state = initialState, action) => {
           reason: payload.reason
         });
 
-    case ActionTypes.LOGOUT_USER_REQUEST:
+    case ActionTypes.auth.LOGOUT_USER_REQUEST:
       return Object.assign({}, state, {
           isAuthenticated: false,
           isAuthenticating: false,
@@ -84,7 +84,7 @@ const authReducer = (state = initialState, action) => {
           username: null
         });
 
-    case ActionTypes.LOGOUT_USER:
+    case ActionTypes.auth.LOGOUT_USER:
       return Object.assign({}, state, {
           isAuthenticated: false,
           token: null,

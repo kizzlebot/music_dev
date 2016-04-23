@@ -11,7 +11,7 @@ const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http:/
 export function restoreLoginStatus() {
   var token = localStorage.getItem('token');
   return {
-    type: ActionTypes.RESTORE_LOGIN_STATUS,
+    type: ActionTypes.auth.RESTORE_LOGIN_STATUS,
     payload: {
       token: token
     }
@@ -23,7 +23,7 @@ export function restoreLoginStatus() {
 export function registerUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {
-    type: ActionTypes.LOGIN_USER_SUCCESS,
+    type: ActionTypes.auth.LOGIN_USER_SUCCESS,
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
@@ -34,7 +34,7 @@ export function registerUserSuccess(responseData) {
 }
 export function registerUserFailure(responseData) {
   return {
-    type: ActionTypes.REGISTER_USER_FAILURE,
+    type: ActionTypes.auth.REGISTER_USER_FAILURE,
     payload: {
       token: responseData.auth_token,
       status: responseData.success,
@@ -65,7 +65,7 @@ export function registerUser(username, password, confirmPassword) {
 export function loginUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {
-    type: ActionTypes.LOGIN_USER_SUCCESS,
+    type: ActionTypes.auth.LOGIN_USER_SUCCESS,
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
@@ -79,7 +79,7 @@ export function loginUserSuccess(responseData) {
 export function loginUserFailure(error) {
   localStorage.removeItem('token');
   return {
-    type: ActionTypes.LOGIN_USER_FAILURE,
+    type: ActionTypes.auth.LOGIN_USER_FAILURE,
     payload: {
       status: error.success,
       statusText: error.message,
@@ -90,7 +90,7 @@ export function loginUserFailure(error) {
 
 export function loginUserRequest() {
   return {
-    type: ActionTypes.LOGIN_USER_REQUEST,
+    type: ActionTypes.auth.LOGIN_USER_REQUEST,
   };
 }
 
@@ -124,7 +124,7 @@ export function loginUser(username, password, redirect="/") {
 export function logout() {
   localStorage.removeItem('token');
   return {
-      type: ActionTypes.LOGOUT_USER,
+      type: ActionTypes.auth.LOGOUT_USER,
     };
 }
 
@@ -147,7 +147,7 @@ export function logoutAndRedirect() {
 
 export function receiveProtectedData(data) {
   return {
-    type: ActionTypes.RECEIVE_PROTECTED_DATA,
+    type: ActionTypes.auth.RECEIVE_PROTECTED_DATA,
     payload: {
       data: data
     }
@@ -156,7 +156,7 @@ export function receiveProtectedData(data) {
 
 export function fetchProtectedDataRequest() {
   return {
-    type: ActionTypes.FETCH_PROTECTED_DATA_REQUEST,
+    type: ActionTypes.auth.FETCH_PROTECTED_DATA_REQUEST,
   };
 }
 

@@ -19,7 +19,7 @@ const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http:/
 
 export function addPost(post) {
   return {
-    type: ActionTypes.ADD_POST,
+    type: ActionTypes.post.ADD_POST,
     name: post.name,
     title: post.title,
     content: post.content,
@@ -31,7 +31,7 @@ export function addPost(post) {
 
 export function changeSelectedPost(slug) {
   return {
-    type: ActionTypes.CHANGE_SELECTED_POST,
+    type: ActionTypes.post.CHANGE_SELECTED_POST,
     slug,
   };
 }
@@ -56,7 +56,7 @@ export function addPostRequest(post) {
 
 export function addSelectedPost(post) {
   return {
-    type: ActionTypes.ADD_SELECTED_POST,
+    type: ActionTypes.post.ADD_SELECTED_POST,
     post,
   };
 }
@@ -74,14 +74,14 @@ export function getPostRequest(post) {
 
 export function deletePost(post) {
   return {
-    type: ActionTypes.DELETE_POST,
+    type: ActionTypes.post.DELETE_POST,
     post,
   };
 }
 
 export function addPosts(posts) {
   return {
-    type: ActionTypes.ADD_POSTS,
+    type: ActionTypes.post.ADD_POSTS,
     posts,
   };
 }

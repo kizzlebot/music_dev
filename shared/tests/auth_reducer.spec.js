@@ -44,7 +44,7 @@ describe('authReducer', () => {
         };
 
         var action = {
-          type: ActionTypes.LOGIN_USER_REQUEST
+          type: ActionTypes.auth.LOGIN_USER_REQUEST
         };
 
         expect(combination({auth: beforeState}, action).auth).toEqual(afterState.auth);
