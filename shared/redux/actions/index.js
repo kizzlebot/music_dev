@@ -1,8 +1,3 @@
-
-
-
-
-
 var modules = {};
 if (process.env.CLIENT){
   function requireAll(requireContext) {
