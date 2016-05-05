@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Actions from '../../redux/actions';
 
 
+
 function splitIntoChunks(arry, chunk_size, transformFunc, filter){
   var arrays = [], size = chunk_size;
   var arr = arry.filter(filter).map(transformFunc);
@@ -165,6 +166,7 @@ SoundCloudContainer.propTypes = {
 
 SoundCloudContainer.need = [() => Actions.soundcloud.soundcloudFetch('hiphop')];
 
+console.log(Actions);
 function mapStateToProps(store) {
   return {
     soundcloud: store.soundcloud,

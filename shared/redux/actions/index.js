@@ -1,17 +1,25 @@
-import * as PostActions from './postActions';
-import * as AuthActions from './authActions';
-import * as SoundcloudActions from './soundcloudActions';
 
 
-export default Object.keys(SoundcloudActions).concat(Object.keys(AuthActions)).concat(Object.keys(PostActions)).reduce(function(prev, curr) {
-  if (curr in PostActions) {
-    prev.post[curr] = PostActions[curr];
+
+
+
+var modules = {};
+if (process.env.CLIENT){
+  function requireAll(requireContext) {
+    return requireContext.keys().reduce((prev, curr, index, array) => {
+      var k = curr.slice(2).replace('Actions.js','');
+      prev[k] = requireContext(curr);
+      return prev ;
+    }, {});
   }
-  else if (curr in AuthActions) {
-    prev.auth[curr] = AuthActions[curr];
-  }
-  else if (curr in SoundcloudActions) {
-    prev.soundcloud[curr] = SoundcloudActions[curr];
-  }
-  return prev;
-}, {soundcloud:{}, auth:{}, post:{}});
+  modules = requireAll(require.context("./", true, /^\.\/(?!index).*\.js/));
+}
+else{
+  var fs = require('fs');
+  modules = fs.readdirSync(__dirname).filter((f) => f.search('index') == -1).reduce((prev, curr, i, array) => {
+    prev[curr.replace('Actions.js','')] = require(`./${curr}`)
+    return prev;
+  }, {});
+}
+
+export default modules ;
