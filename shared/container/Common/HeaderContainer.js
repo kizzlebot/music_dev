@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Header, Navbar }  from '../../components/Common';
 import { connect } from 'react-redux';
-
 import Actions from '../../redux/actions';
 
 class HeaderContainer extends Component {

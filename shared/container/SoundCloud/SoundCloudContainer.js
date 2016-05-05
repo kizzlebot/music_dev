@@ -52,37 +52,6 @@ class SoundCloudContainer extends Component {
 
   // TODO: Split into component
   render() {
-    // return (
-    //   <div>
-    //     <div className='row'>
-    //       <div className='col-xs-12'>
-    //         {'I come from the server prerendered!'}
-    //       </div>
-    //
-    //       <div className='col-xs-12'>
-    //         <input type='text' onChange={this.handleChange.bind(this)}/>
-    //       </div>
-    //     </div>
-    //
-    //     <div className={'row'}>
-    //       <div className='list-group gallery'>
-    //
-    //           {this.props.soundcloud.collection.map((e) => {
-    //             if (e.cover) return (
-    //               <div key={e.link} className='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
-    //                 <a className="thumbnail fancybox" rel="lightbox" href={`${e.}`}>
-    //           <a className={''} href={e.permalink_url}><img className={'img-responsive'} src={e.artwork_url}/></a>
-    //                   <div className='text-center'>
-    //                     <small className='text-muted'>{e.title}</small>
-    //                   </div>
-    //                 </a>
-    //               </div>
-    //             );
-    //           })}
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
 
     const toComponent = (e, i) => {
       return (
@@ -166,7 +135,7 @@ SoundCloudContainer.propTypes = {
 
 SoundCloudContainer.need = [() => Actions.soundcloud.soundcloudFetch('hiphop')];
 
-console.log(Actions);
+
 function mapStateToProps(store) {
   return {
     soundcloud: store.soundcloud,

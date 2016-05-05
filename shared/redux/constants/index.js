@@ -5,15 +5,26 @@ import * as SoundcloudConstants from './soundcloudConstants';
 
 
 
-export default Object.keys(SoundcloudConstants).concat(Object.keys(AuthConstants)).concat(Object.keys(PostConstants)).reduce(function(prev, curr) {
-  if (curr in PostConstants) {
-    prev.post[curr] = PostConstants[curr];
+
+
+
+var modules = {};
+if (process.env.CLIENT){
+  function requireAll(requireContext) {
+    return requireContext.keys().reduce((prev, curr, index, array) => {
+      var k = curr.slice(2).replace('Constants.js','');
+      prev[k] = requireContext(curr);
+      return prev ;
+    }, {});
   }
-  else if (curr in AuthConstants) {
-    prev.auth[curr] = AuthConstants[curr];
-  }
-  else if (curr in SoundcloudConstants) {
-    prev.soundcloud[curr] = SoundcloudConstants[curr];
-  }
-  return prev;
-}, {soundcloud:{}, auth:{}, post:{}});
+  modules = requireAll(require.context("./", true, /^\.\/(?!index).*\.js/));
+}
+else{
+  var fs = require('fs');
+  modules = fs.readdirSync(__dirname).filter((f) => f.search('index') == -1).reduce((prev, curr, i, array) => {
+    prev[curr.replace('Constants.js','')] = require(`./${curr}`)
+    return prev;
+  }, {});
+}
+
+export default modules ;
