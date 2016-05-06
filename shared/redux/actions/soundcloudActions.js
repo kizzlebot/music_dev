@@ -147,10 +147,8 @@ export function login(shouldShowStream = true) {
       });
 
       SC.connect().then(authObj => {
-        console.log('inside then');
-        alert(authObj);
-        // Cookies.set(COOKIE_PATH, authObj.oauth_token);
-        // dispatch(auth_user(authObj.oauth_token, shouldShowStream));
+        Cookies.set(COOKIE_PATH, authObj.oauth_token);
+        dispatch(auth_user(authObj.oauth_token, shouldShowStream));
       })
       .catch(err => {
         console.log(err);

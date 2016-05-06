@@ -20,10 +20,10 @@ export function restoreLoginStatus() {
 
 
 
-export function registerUserSuccess(responseData) {
+function registerUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {
-    type: ActionTypes.auth.LOGIN_USER_SUCCESS,
+    type: ActionTypes.auth.REGISTER_USER_SUCCESS,
     payload: {
       // TODO: Either rename token or authToken
       token: responseData.auth_token,
@@ -32,7 +32,7 @@ export function registerUserSuccess(responseData) {
     }
   };
 }
-export function registerUserFailure(responseData) {
+function registerUserFailure(responseData) {
   return {
     type: ActionTypes.auth.REGISTER_USER_FAILURE,
     payload: {
@@ -42,9 +42,15 @@ export function registerUserFailure(responseData) {
     }
   };
 }
+function registerUserRequest(){
+  return {
+    type: ActionTypes.auth.REGISTER_USER_REQUEST
+  }
+}
 
 export function registerUser(username, password, confirmPassword) {
   return (dispatch) => {
+    dispatch(registerUserRequest());
     fetch(`${baseURL}/api/users/register`, {
       method: 'post',
       body: JSON.stringify({
@@ -55,14 +61,21 @@ export function registerUser(username, password, confirmPassword) {
       headers: new Headers({ 'Content-Type': 'application/json' }),
     })
     .then((res) => res.json())
-    .then((res) => dispatch((res.success) ? registerUserSuccess(res) :registerUserFailure(res)))
-    .catch(error => {
-        dispatch(registerUserFailure(error));
-      });
+    .then((res) => dispatch((res.success) ? registerUserSuccess(res) : registerUserFailure(res)))
+    .catch(error => dispatch(registerUserFailure(error)));
   };
 }
 
-export function loginUserSuccess(responseData) {
+
+
+
+
+
+
+
+
+
+function loginUserSuccess(responseData) {
   localStorage.setItem('token', responseData.auth_token);
   return {
     type: ActionTypes.auth.LOGIN_USER_SUCCESS,
@@ -76,7 +89,7 @@ export function loginUserSuccess(responseData) {
   };
 }
 
-export function loginUserFailure(error) {
+function loginUserFailure(error) {
   localStorage.removeItem('token');
   return {
     type: ActionTypes.auth.LOGIN_USER_FAILURE,
@@ -88,7 +101,7 @@ export function loginUserFailure(error) {
   };
 }
 
-export function loginUserRequest() {
+function loginUserRequest() {
   return {
     type: ActionTypes.auth.LOGIN_USER_REQUEST,
   };

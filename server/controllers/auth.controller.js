@@ -6,7 +6,14 @@ import jwt from 'jsonwebtoken';
 import serverConfig from '../config';
 
 
-
+/**
+ * This function finds given 'username' from database and compares against given
+ * password, then calls the callback function which indicates successful or unsuccessful
+ *
+ * @param {string} username - The username to check the password for
+ * @param {string} password - The password for username
+ * @param {function} callback - The function to call after user is authenticated or authentication failed
+ */
 function findByUsernamePassword(username, password, callback) {
   User.findOne({ username }, function(err, user) {
     if (err) throw err;
@@ -32,6 +39,7 @@ function findByUsernamePassword(username, password, callback) {
           callback(user, {
             success: true,
             message: 'Authentication success.',
+            username: user.username,
             auth_token
           });
         }
@@ -51,6 +59,29 @@ export function getUsers(req, res) {
 }
 
 
+
+
+export function isAuthenticated(req, res, next){
+  var access_token = req.headers['x-access-token'];
+  if (!access_token){
+    res.status(403).json({
+      success:false,
+      message:'access_token is missing'
+    });
+    return ;
+  }
+  else{
+    jwt.verify(access_token, serverConfig.secret, (err, decoded) => {
+      if (err){
+        res.json({success:false, message:'Failed to authenticate token'});
+      }
+      else{
+        req.decoded = decoded ;
+        next();
+      }
+    })
+  }
+}
 
 
 export function authenticate(req, res, next) {
@@ -80,32 +111,33 @@ export function register(req, res, next) {
     reason: []
   };
 
-  // See if user already exists
+  // Find a user with the given username
   User.find({ username }, function(err, existingUsers) {
-    if (err) return res.json(msg);
+    if (err) {
+      msg.message = 'Error in registration';
+      return res.json(msg);
+    }
 
     // If user with username already exists, then fail
-    if (!existingUsers || existingUsers.length > 0) {
+    if (existingUsers.length > 0) {
       msg.success &= false;
-      msg.message = `Registration failed.`;
+      msg.message = `Registration failed. User with username already exists`;
       msg.reason.push('username');
     }
 
     // NOTE: Should password.length check be moved before User.find?
     if (password.length < 7) {
       msg.success &= false;
-      msg.message = `Registration failed.`;
+      msg.message = `Registration failed. Password length must be 7 or greater`;
       msg.reason.push('password length');
     }
 
     // NOTE: Should password != confirmPassword be moved before User.find?
     if (password != confirmPassword) {
       msg.success &= false;
-      msg.message = `Registration failed.`;
+      msg.message = `Registration failed. Password does not match`;
       msg.reason.push('password does not match');
     }
-
-
 
 
     // If msg.success is now false return 403
@@ -115,8 +147,8 @@ export function register(req, res, next) {
       var newUser = new User({ username, password });
 
       var auth_token = jwt.sign({ username: username}, serverConfig.secret, { expiresIn: '1440h' });
-
       msg.auth_token = auth_token;
+      msg.username = username ;
       // newUser.auth_token = auth_token;
 
       newUser.save(function(err, u) {

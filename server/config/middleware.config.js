@@ -34,6 +34,8 @@ const middlewareConfigurer = (cb) => {
   app.set('quiet', !!process.env.QUIET);
   // PORT for server
   app.set('port', serverConfig.port);
+  // Secret used to sign jwt
+  app.set('secret', serverConfig.secret);
 
 
 
