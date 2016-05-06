@@ -10,6 +10,7 @@ import { SoundCloudContainer } from './container/SoundCloud';
 const routes = (
   <Route path="/" component={App} >
     <IndexRoute component={SoundCloudContainer}/>
+    <Route path="/post" component={PostContainer}/>
     <Route path="/post/:slug" component={PostDetailView}/>
     <Route path="/login" component={LoginContainer}/>
     <Route path="/register" component={RegisterContainer}/>

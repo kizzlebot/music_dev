@@ -464,3 +464,23 @@ footer {
     padding: 10px 15px;
     margin-top: 5px;
 }
+.row
+{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.col-md-4
+{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width:33%;
+}
+.panel {
+  width:100%;
+}

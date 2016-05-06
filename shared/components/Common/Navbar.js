@@ -54,6 +54,7 @@ class Navbar extends React.Component {
               <li className="dropdown" style={{ borderLeft: '1px solid rgb(63, 152, 230)', borderRight: '1px solid rgb(63, 152, 230)' }}>
                 <a aria-expanded="false" aria-haspopup="true" className="dropdown-toggle" data-toggle="dropdown" href="#" role="button">Dropdown <span className="caret" /></a>
                 <ul className="dropdown-menu">
+                  <li><Link to={'/post'}>Post</Link></li>
                 </ul>
               </li>
             </ul>

@@ -18,18 +18,18 @@ const COOKIE_PATH = 'soundcloud_token';
 
 
 
-export function soundcloud_nextPage(curPage){
+export function next_page(curPage){
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_NEXTPAGE,
+    type: ActionTypes.soundcloud.NEXTPAGE,
     payload:{
-      page:curPage + 1
+      page: (curPage||0) + 1
     }
   }
 }
 
-export function soundcloud_prevPage(curPage){
+export function prev_page(curPage){
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_PREVPAGE,
+    type: ActionTypes.soundcloud.PREVPAGE,
     payload: {
       page: (curPage-1 >= 0) ? curPage - 1 : 0
     }
@@ -37,9 +37,9 @@ export function soundcloud_prevPage(curPage){
 }
 
 
-export function soundcloud_authUser(oauth_token, shouldShowStream) {
+export function auth_user(oauth_token, shouldShowStream) {
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_LOGIN,
+    type: ActionTypes.soundcloud.LOGIN,
     payload: {
       oauth_token: oauth_token,
       shouldShowStream: shouldShowStream
@@ -47,9 +47,9 @@ export function soundcloud_authUser(oauth_token, shouldShowStream) {
   };
 }
 
-function soundcloudFetch_success(d) {
+function fetch_success(d) {
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_SUCCESS,
+    type: ActionTypes.soundcloud.FETCH_SUCCESS,
     payload: {
       collection: d.collection,
       next_href: d.next_href
@@ -57,9 +57,9 @@ function soundcloudFetch_success(d) {
   };
 }
 
-function soundcloudFetch_fail(d) {
+function fetch_fail(d) {
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_FAIL,
+    type: ActionTypes.soundcloud.FETCH_FAIL,
     payload: {
       isFetching: false,
       fetch_success:false
@@ -68,9 +68,9 @@ function soundcloudFetch_fail(d) {
 }
 
 var defCnt = 50;
-function soundcloudFetching(){
+function fetching(){
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCHING,
+    type: ActionTypes.soundcloud.FETCHING,
     payload:{
       isFetching: true,
       fetch_success: null
@@ -78,7 +78,7 @@ function soundcloudFetching(){
   }
 }
 
-export function soundcloudFetch(tags = '', cnt = defCnt, skip = 0) {
+export function fetch_data(tags = '', cnt = defCnt, skip = 0) {
   var query = {
     linked_partitioning:1,
     client_id:SOUNDCLOUD_CLIENT_ID,
@@ -87,18 +87,18 @@ export function soundcloudFetch(tags = '', cnt = defCnt, skip = 0) {
     tags:tags
   };
   return (dispatch, getState) => {
-    soundcloudFetching();
+    fetching();
     return fetch(`https://api.soundcloud.com/tracks?${qs.stringify(query)}`)
       .then(d => d.json())
-      .then(d => dispatch(soundcloudFetch_success(d)))
-      // .then(d => dispatch(soundcloud_nextPage(getState().soundcloud.page)))
-      // .catch(err => dispatch(soundcloudFetch_fail(err)));
+      .then(d => dispatch(fetch_success(d)))
+      .then(d => dispatch(next_page(getState().soundcloud.page)))
+      .catch(err => dispatch(fetch_fail(err)));
   };
 }
 
-function soundcloudFetchMore_success(d) {
+function fetch_more_success(d) {
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_MORE_SUCCESS,
+    type: ActionTypes.soundcloud.FETCH_MORE_SUCCESS,
     payload: {
       collection: d.collection,
       next_href: d.next_href,
@@ -108,9 +108,9 @@ function soundcloudFetchMore_success(d) {
   };
 }
 
-function soundcloudFetchMore_fail(d, page) {
+function fetch_more_fail(d, page) {
   return {
-    type: ActionTypes.soundcloud.SOUNDCLOUD_FETCH_MORE_FAIL,
+    type: ActionTypes.soundcloud.FETCH_MORE_FAIL,
     payload: {
       isFetching: false,
       fetch_success:false
@@ -118,7 +118,7 @@ function soundcloudFetchMore_fail(d, page) {
   };
 }
 
-export function soundcloudFetchMore(tags = '', cnt = defCnt, page) {
+export function fetch_more(tags = '', cnt = defCnt, page = 1) {
   var query = {
     linked_partitioning:1,
     client_id:SOUNDCLOUD_CLIENT_ID,
@@ -128,16 +128,16 @@ export function soundcloudFetchMore(tags = '', cnt = defCnt, page) {
   };
 
   return (dispatch, getState) => {
-    soundcloudFetching();
-    return fetch(`https://api.soundcloud.com/tracks?${qs.stringify(query)}`)
+
+    return fetch(`${getState().soundcloud.next_href}`)
       .then(d => d.json())
-      .then(d => dispatch(soundcloudFetchMore_success(d, page)))
-      .then(d => dispatch(soundcloud_nextPage(getState().soundcloud.page)))
-      .catch(err => dispatch(soundcloudFetchMore_fail(err)));
+      .then(d => dispatch(fetch_more_success(d, page)))
+      .then(d => dispatch(next_page(getState().soundcloud.page)))
+      .catch(err => dispatch(fetch_more_fail(err)));
   };
 }
 
-export function soundcloudLogin(shouldShowStream = true) {
+export function login(shouldShowStream = true) {
   return (dispatch, getState) => {
     if (SC != null && SC != undefined) {
 
@@ -148,8 +148,9 @@ export function soundcloudLogin(shouldShowStream = true) {
 
       SC.connect().then(authObj => {
         console.log('inside then');
-        Cookies.set(COOKIE_PATH, authObj.oauth_token);
-        dispatch(soundcloud_authUser(authObj.oauth_token, shouldShowStream));
+        alert(authObj);
+        // Cookies.set(COOKIE_PATH, authObj.oauth_token);
+        // dispatch(auth_user(authObj.oauth_token, shouldShowStream));
       })
       .catch(err => {
         console.log(err);
@@ -161,24 +162,24 @@ export function soundcloudLogin(shouldShowStream = true) {
 
 
 
-export function soundcloudLoginCallback(service, location, router) {
+export function login_callback(service, location, router) {
   var query = qs.parse(location.hash);
   return (dispatch, getState) => {
     if (query.access_token){
-      return dispatch(soundcloudStoreOauthToken(service, query.access_token));
+      return dispatch(store_oauth(service, query.access_token));
     }
   }
 }
 
 
 
-export function soundcloudStoreOauthToken(service, token){
+export function store_oauth(service, token){
   if (typeof localStorage != 'undefined'){
     localStorage.setItem('soundcloud', token);
   }
   return (dispatch, getState) => {
     dispatch({
-      type: ActionTypes.soundcloud.SOUNDCLOUD_STORE_OAUTH,
+      type: ActionTypes.soundcloud.STORE_OAUTH,
       payload: {
         token: token
       }

@@ -23,7 +23,10 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx']
+    // alias:{
+    //   bootstrap:`${__dirname}/node_modules/bootstrap`
+    // }
   },
   module: {
     loaders: [

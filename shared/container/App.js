@@ -3,6 +3,7 @@ import { HeaderContainer }  from './Common';
 import { Footer }  from '../components/Common';
 import Actions from '../redux/actions';
 import { connect } from 'react-redux';
+import { RouteTransition } from 'react-router-transition';
 
 
 
@@ -18,7 +19,16 @@ class App extends Component {
     return (
       <div>
         <HeaderContainer/>
-        { this.props.children }
+          <RouteTransition
+            pathname={this.props.location.pathname}
+            atEnter={{ translateX: 100 }}
+            atLeave={{ translateX: -100 }}
+            atActive={{ translateX: 0 }}
+            mapStyles={styles => ({ transform: `translateX(${styles.translateX}%)` })}
+          >
+            {this.props.children}
+          </RouteTransition>
+
         <Footer/>
       </div>
     );

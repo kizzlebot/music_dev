@@ -26,20 +26,20 @@ class SoundCloudContainer extends Component {
       $(window).bind('scroll', this.handleScroll.bind(this));
     }
   }
-
-  handleScroll(){
-    // If bottom of page reached, fetch more
-    if (typeof window != 'undefined'){
-      if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        this.props.dispatch(Actions.soundcloud.soundcloudFetchMore('country', 50, this.props.soundcloud.page))
-      }
-    }
-  }
   componentWillUnmount(){
     if (typeof document !== 'undefined'){
       $(window).unbind('scroll');
     }
   }
+  handleScroll(){
+    // If bottom of page reached, fetch more
+    if (typeof window != 'undefined'){
+      if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        this.props.dispatch(Actions.soundcloud.fetch_more('country', 50, this.props.soundcloud.page))
+      }
+    }
+  }
+
 
 
 
@@ -47,18 +47,20 @@ class SoundCloudContainer extends Component {
 
   // TODO: Split into component
   render() {
+
     return (
       <div className={'container'}>
         <div className={'row'}>
-          {this.props.soundcloud.collection.map((e) => {
+          {this.props.soundcloud.collection.filter((e) => !!e.artwork_url).map((e) => {
             return (
-              <div key={e.link} className='col-sm-3 col-xs-4 clearfix'>
-                <a className="thumbnail fancybox" rel="lightbox" href={`${e.permalink_url}`}>
-                  <img className={'img-responsive'} src={e.artwork_url}/>
-                  <div className='text-center'>
-                    <small className='text-muted'>{e.title}</small>
+              <div key={e.artwork_url} className='col-md-2'>
+                <div className='panel panel-default'>
+                  <div className={'panel-body'}>
+                    <a className="thumbnail fancybox" rel="lightbox" href={`${e.permalink_url}`}>
+                      <img className={'img-responsive'} src={e.artwork_url}/>
+                    </a>
                   </div>
-                </a>
+                </div>
               </div>
             );
           })}
@@ -86,7 +88,7 @@ SoundCloudContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-SoundCloudContainer.need = [() => Actions.soundcloud.soundcloudFetch('hiphop')];
+SoundCloudContainer.need = [() => Actions.soundcloud.fetch_data('hiphop')];
 
 function mapStateToProps(store) {
   return {
