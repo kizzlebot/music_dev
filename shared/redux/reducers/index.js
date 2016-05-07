@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 
 
 
-
+/**
+ * Requires all js files in the current directory. Uses webpacks
+ * require.context for client and fs for node
+ */
 
 var modules = {};
 if (process.env.CLIENT){

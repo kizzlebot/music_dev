@@ -15,6 +15,7 @@ const authReducer = (state = initialState, action) => {
   if (!action || !action.type) return state ;
 
   var {payload} = action;
+  if (typeof payload == 'undefined') return state ;
 
   switch(action.type){
     case ActionTypes.auth.RESTORE_LOGIN_STATUS:

@@ -9,7 +9,10 @@ const initialState = {
 
 
 const dataReducer = (state = initialState, action) => {
-  if (!action) return state ;
+  if (!action || !action.type) return state ;
+
+  var {payload} = action;
+  if (typeof payload == 'undefined') return state ;
 
   switch(action.type){
     case ActionTypes.RECEIVE_PROTECTED_DATA:
@@ -25,7 +28,7 @@ const dataReducer = (state = initialState, action) => {
       return state ;
   }
 
-  return (action && action.type in funcs) ? funcs[action.type](state, action.payload) : state ;
+  return state ;
 };
 
 
