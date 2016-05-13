@@ -1,7 +1,7 @@
 /*eslint-disable */
 import React from 'react';
 import routes from '../shared/routes';
-import DevTools from '../shared/container/DevTools/DevTools';
+import DevTools from '../shared/containers/DevTools/DevTools';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
@@ -18,7 +18,7 @@ import SC from 'soundcloud';
 require('bootstrap-webpack!./bootstrap.config.js');
 require('font-awesome-webpack');
 require('animate.css');
-
+require('shared/containers/spotify/spotify.scss');
 require('./keen.css');
 require('./app.css');
 

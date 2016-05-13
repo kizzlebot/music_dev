@@ -1,5 +1,6 @@
 /*eslint-disable */
 var webpack = require('webpack');
+var path = require('path');
 
 
 var quiet = (process.env.NODE_ENV == 'test');
@@ -23,7 +24,12 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      shared: path.join(`${__dirname}`, './shared')
+      // components: path.join(`${__dirname}`, './shared/components'),
+      // redux: path.join(`${__dirname}`, './shared/redux')
+    }
     // alias:{
     //   bootstrap:`${__dirname}/node_modules/bootstrap`
     // }

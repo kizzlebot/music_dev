@@ -25,7 +25,7 @@ function generateHTMLPage(scriptPaths = [], cssTags = [], scriptElements = [], h
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>${(options.name) ? options.name : 'TLDR App'}</title>
-        ${cssElements}
+        
       </head>
       <body class='application'>
         <div id="root">${html}</div>
