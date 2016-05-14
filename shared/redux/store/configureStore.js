@@ -10,7 +10,6 @@ export default function configureStore(initialState = {}) {
 
   if (process.env.CLIENT) {
     const logger = createLogger();
-
     finalCreateStore = compose(
       applyMiddleware(thunk, logger),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),

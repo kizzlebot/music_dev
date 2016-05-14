@@ -15,7 +15,7 @@ const authReducer = (state = initialState, action) => {
   if (!action || !action.type) return state ;
 
   var {payload} = action;
-  if (typeof payload == 'undefined') return state ;
+  // if (typeof payload == 'undefined') return state ;
 
   switch(action.type){
     case ActionTypes.auth.RESTORE_LOGIN_STATUS:
@@ -27,8 +27,8 @@ const authReducer = (state = initialState, action) => {
 
     case ActionTypes.auth.LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
-        isAuthenticating: true,
-        isAuthenticated: false
+        isAuthenticated: false,
+        isAuthenticating: true
       });
 
     case ActionTypes.auth.LOGIN_USER_SUCCESS:

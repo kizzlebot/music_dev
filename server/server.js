@@ -65,11 +65,46 @@ middlewareConfigurer((app) => {
 
       const initialState = {
         // TODO: rename posts field to entries
-        "posts": { "posts": [], "post": {} },
-        "auth": { "token": null, "username": "", "isAuthenticated": false, "isAuthenticating": false, "statusText": "" },
+        "posts": {
+          "posts": [],
+          "post": {}
+        },
+        "auth": {
+          "token": null,
+          "username": "",
+          "isAuthenticated": false,
+          "isAuthenticating": false,
+          "statusText": ""
+        },
         // TODO: Use 'data' key or get rid of
-        "data": { "data": null, "isFetching": false },
-        "soundcloud": { "oauth_token": null, "shouldShowStream": false, "collection": [], "next_href": null, "page":0, "fetch_success":false, "isFetching":false }
+        "data": {
+          "data": null,
+          "isFetching": false
+        },
+        "soundcloud": {
+          "oauth_token": null,
+          "shouldShowStream": false,
+          "collection": [],
+          "next_href": null,
+          "page":0,
+          "fetch_success":false,
+          "isFetching":false
+        },
+        "spotify": {
+          "oauth_token": null,
+          "current": {
+            artist:null,
+            album: null,
+            track:null
+          },
+          "search": {
+            query: null,
+            type: 'artist',
+            tracks: [],
+            artists: [],
+            albums: []
+          }
+        }
       }
 
 

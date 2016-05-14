@@ -52,6 +52,7 @@
     "history": "^1.17.0",
     "holderjs": "^2.9.3",
     "isomorphic-fetch": "^2.2.1",
+    "isomorphic-spotify": "^0.1.1",
     "jade": "~1.11.0",
     "jquery": "^2.2.2",
     "js-cookies": "^1.0.4",
@@ -67,7 +68,9 @@
     "node-sass": "^3.4.2",
     "node-sass-middleware": "^0.9.8",
     "nodemailer": "^2.3.0",
+    "nouislider": "^8.5.1",
     "query-string": "^4.1.0",
+    "querystring": "^0.2.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-inline-css": "^2.1.0",
@@ -87,7 +90,8 @@
     "sanitize-html": "^1.11.3",
     "serve-favicon": "~2.3.0",
     "slug": "^0.9.1",
-    "soundcloud": "^3.1.0"
+    "soundcloud": "^3.1.0",
+    "spotify": "^0.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta6",

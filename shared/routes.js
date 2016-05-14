@@ -5,7 +5,7 @@ import { PostContainer, PostDetailView } from './containers/Posts';
 
 import { LoginContainer, RegisterContainer, AuthCallbackContainer } from './containers/Auth';
 import { SoundCloudContainer } from './containers/SoundCloud';
-import Spotify from './containers/Spotify';
+import {Content, ContentMiddle, CurrentTrack, Header} from './containers/Spotify';
 
 
 // const routes = (
@@ -19,9 +19,11 @@ import Spotify from './containers/Spotify';
 //   </Route>
 // );
 
+
+
 const routes = (
-  <Route path="/" component={Spotify} >
-    {/*<IndexRoute component={SoundCloudContainer}/>*/}
+  <Route path="/" component={App} >
+    <IndexRoute component={ContentMiddle}/>
   </Route>
 );
 export default routes;

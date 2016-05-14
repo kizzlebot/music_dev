@@ -123,7 +123,7 @@ export function loginUser(username, password, redirect="/") {
       return res.json();
     })
     .then((res) => {
-      (res.success) ? dispatch(loginUserSuccess(res)) : dispatch(loginUserFailure(res));
+      return (res.success) ? dispatch(loginUserSuccess(res)) : dispatch(loginUserFailure(res));
     })
     .catch(error => {
         dispatch(loginUserFailure(error)); });

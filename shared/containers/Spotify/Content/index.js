@@ -7,10 +7,14 @@ export default class Content extends React.Component{
   render(){
     return (
       <div className={'content'}>
-        <ContentLeft />
-        <ContentMiddle>{this.props.children}</ContentMiddle>
-        <ContentRight />
+        <ContentLeft {...this.props} />
+        {this.props.children}
+        <ContentRight {...this.props}/>
       </div>
     )
   }
 }
+
+
+
+export {ContentMiddle};

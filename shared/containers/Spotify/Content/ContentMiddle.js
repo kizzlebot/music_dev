@@ -10,11 +10,11 @@ export default class ContentMiddle extends React.Component {
           <div className="artist__header">
             <div className="artist__info">
               <div className="profile__img">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/g_eazy_propic.jpg" alt="G-Eazy" />
+                <img src={this.props.image} alt={this.props.artist} />
               </div>
               <div className="artist__info__meta">
                 <div className="artist__info__type">Artist</div>
-                <div className="artist__info__name">G-Eazy</div>
+                <div className="artist__info__name">{this.props.artist}</div>
                 <div className="artist__info__actions">
                   <button className="button-dark">
                     <i className="ion-ios-play" />
@@ -39,9 +39,6 @@ export default class ContentMiddle extends React.Component {
                 <li role="presentation">
                   <a href="#related-artists" aria-controls="related-artists" role="tab" data-toggle="tab">Related Artists</a>
                 </li>
-                {/*<li role="presentation">
-              <a href="#artist-about" aria-controls="artist-about" role="tab" data-toggle="tab">About</a>
-            </li>*/}
               </ul>
               <div className="artist__navigation__friends">
                 <a href="#">
@@ -80,6 +77,7 @@ export default class ContentMiddle extends React.Component {
                     {/* / */}
                     {/* Popular*/}
                     <div className="section-title">Popular</div>
+
                     <div className="tracks">
                       <div className="track">
                         <div className="track__art">
@@ -588,3 +586,8 @@ export default class ContentMiddle extends React.Component {
     );
   }
 }
+
+
+ContentMiddle.contextTypes = {
+  router: React.PropTypes.object,
+};

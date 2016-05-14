@@ -11,7 +11,7 @@ import Actions from '../shared/redux/actions';
 import Reducers from '../shared/redux/reducers';
 import jwtDecode from 'jwt-decode';
 import SC from 'soundcloud';
-
+var spotify = require('isomorphic-spotify')
 
 
 // CSS style requirements
@@ -19,8 +19,8 @@ require('bootstrap-webpack!./bootstrap.config.js');
 require('font-awesome-webpack');
 require('animate.css');
 require('shared/containers/spotify/spotify.scss');
-require('./keen.css');
-require('./app.css');
+// require('./keen.css');
+// require('./app.css');
 
 // React+Redux
 const store = configureStore(window.__INITIAL_STATE__);
@@ -43,9 +43,10 @@ if (process.env.NODE_ENV !== 'production') {
 
   // Redux modules
   window.store = store ;
-  window.Actions = Actions;
+  window.actions = Actions;
   window.reducers = Reducers;
 
+  window.spotify = spotify ;
   // Misc
   window.jwt = jwtDecode;
   window.SC = SC;
@@ -54,8 +55,6 @@ if (process.env.NODE_ENV !== 'production') {
   if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
     console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.'); // eslint-disable-line
   }
-
-
 }
 
 
@@ -63,7 +62,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 
-if (process.env.CLIENT && !window.devToolsExtension) {
+if (!window.devToolsExtension) {
   const devToolsDest = document.createElement('div');
 
   dest.parentNode.insertBefore(devToolsDest, dest.nextSibling);
@@ -73,5 +72,4 @@ if (process.env.CLIENT && !window.devToolsExtension) {
     </Provider>,
     devToolsDest
   );
-
 }

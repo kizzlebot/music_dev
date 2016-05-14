@@ -3,13 +3,21 @@ import React from 'react';
 
 
 export default class ContentLeft extends React.Component {
+  componentDidMount(){
+  }
+  _handleHeaderClick(tgt){
+    // console.log(tgt);
+    $(tgt.target).toggleClass( "active" );
+  }
   render() {
     return (
       <div className="content__left">
         <section className="navigation">
           {/* Main */}
           <div className="navigation__list">
-            <div className="navigation__list__header" role="button" data-toggle="collapse" href="#main" aria-expanded="true" aria-controls="main">
+            <div className="navigation__list__header"
+                 onClick={this._handleHeaderClick}
+                 role="button" data-toggle="collapse" href="#main" aria-expanded="true" aria-controls="main">
               Main
             </div>
             <div className="collapse in" id="main">
@@ -30,7 +38,9 @@ export default class ContentLeft extends React.Component {
           {/* / */}
           {/* Your Music */}
           <div className="navigation__list">
-            <div className="navigation__list__header" role="button" data-toggle="collapse" href="#yourMusic" aria-expanded="true" aria-controls="yourMusic">
+            <div className="navigation__list__header"
+                 onClick={this._handleHeaderClick}
+                 role="button" data-toggle="collapse" href="#yourMusic" aria-expanded="true" aria-controls="yourMusic">
               Your Music
             </div>
             <div className="collapse in" id="yourMusic">
@@ -55,7 +65,9 @@ export default class ContentLeft extends React.Component {
           {/* / */}
           {/* Playlists */}
           <div className="navigation__list">
-            <div className="navigation__list__header" role="button" data-toggle="collapse" href="#playlists" aria-expanded="true" aria-controls="playlists">
+            <div className="navigation__list__header"
+                 onClick={this._handleHeaderClick}
+                 role="button" data-toggle="collapse" href="#playlists" aria-expanded="true" aria-controls="playlists">
               Playlists
             </div>
             <div className="collapse in" id="playlists">
