@@ -15,8 +15,7 @@ function requestSearch(opt){
   return {
     type: ActionTypes.spotify.REQUEST_SEARCH,
     payload:{
-      type: opt.type,
-      query: opt.query
+      ...opt
     }
   }
 }
@@ -25,8 +24,7 @@ function receiveSearch(d){
   return {
     type: ActionTypes.spotify.RECEIVE_SEARCH,
     payload:{
-      type: d.type,
-      results: d.results
+      ...d
     }
   }
 }
@@ -35,7 +33,7 @@ export function searchArtist(artistName){
   return (dispatch, getState) => {
     dispatch(requestSearch({type:'artist', query:artistName}));
     return spotify.search({type:'artist', query:artistName})
-                  .then(results => dispatch(receiveSearch({type:'artist', results})));
+                  .then(results => dispatch(receiveSearch({type:'artist', artists:results.artists})));
   }
 }
 

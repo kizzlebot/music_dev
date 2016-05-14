@@ -2,9 +2,11 @@ import React from 'react';
 
 
 export default class Header extends React.Component {
+  _handleChange(){
+    console.info('Header._handleChange');
+  }
   render() {
     return (
-
       <section className="header">
         <div className="page-flows">
           <span className="flow">
@@ -15,7 +17,7 @@ export default class Header extends React.Component {
           </span>
         </div>
         <div className="search">
-          <input type="text" placeholder="Search" />
+          <input type="text" placeholder="Search" onChange={this._handleChange}/>
         </div>
         <div className="user">
           <div className="user__notifications">
