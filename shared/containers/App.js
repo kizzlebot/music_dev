@@ -49,13 +49,9 @@ class App extends React.Component{
         $(".collapse").addClass("in");
     	}
     });
-
-
-
-
-
-    // Collapse Toggles
-
+  }
+  componentWillUnmount(){
+    $(window).off("resize load");
   }
   render(){
     return (

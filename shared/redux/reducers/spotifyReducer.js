@@ -23,9 +23,7 @@ const SpotifyReducer = (state = initialState, action) => {
 
   switch(action.type){
     case ActionTypes.spotify.SEARCH_ARTIST:
-      return Object.assign({}, state, {
-        search:{...action.payload}
-      })
+      return Object.assign({}, state, {search:Object.assign({}, state.search, {...action.payload})});
     case ActionTypes.spotify.REQUEST_SEARCH:
       return Object.assign({}, state, {search:Object.assign({}, state.search, {...action.payload})});
     case ActionTypes.spotify.RECEIVE_SEARCH:
@@ -33,5 +31,6 @@ const SpotifyReducer = (state = initialState, action) => {
     default:
       return state;
   }
+  return state ;
 }
 export default SpotifyReducer;
