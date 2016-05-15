@@ -70,7 +70,7 @@ export class Navigation extends React.Component {
         </div>
         {/* / */}
         {/* Playlists */}
-        <div className="navigation__list">
+        {/*<div className="navigation__list">
           <div className="navigation__list__header"
             onClick={this._handleHeaderClick}
             role="button" data-toggle="collapse" href="#playlists" aria-expanded="true" aria-controls="playlists">
@@ -126,7 +126,7 @@ export class Navigation extends React.Component {
               <span>Sleep</span>
             </a>
           </div>
-        </div>
+        </div>*/}
         {/* / */}
       </section>
     );
@@ -150,6 +150,7 @@ export class Playing extends React.Component {
     );
   }
 }
+
 export default class ContentLeft extends React.Component {
   componentDidMount(){
   }

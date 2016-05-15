@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import DevTools from '../../container/DevTools/DevTools';
+import DevTools from '../../containers/DevTools/DevTools';
 import rootReducer from '../reducers';
 import createLogger from 'redux-logger';
 
 
-export function configureStore(initialState = {}) {
+export default function configureStore(initialState = {}) {
   let enhancerClient;
   if (process.env.CLIENT) {
     const logger = createLogger();
@@ -17,18 +17,11 @@ export function configureStore(initialState = {}) {
 
 
   const enhancerServer = applyMiddleware(thunk);
-
-  let store;
-
-  if (process.env.CLIENT) {
-    store = createStore(rootReducer, initialState, enhancerClient);
-  } else {
-    store = createStore(rootReducer, initialState, enhancerServer);
-  }
+  let store = createStore(rootReducer, initialState, (process.env.CLIENT) ? enhancerClient : enhancerServer);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
+    module.hot.accept(['../reducers'], () => {
       const nextReducer = require('../reducers').default;
       store.replaceReducer(nextReducer);
     });
