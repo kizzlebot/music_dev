@@ -19,8 +19,6 @@ require('bootstrap-webpack!./bootstrap.config.js');
 require('font-awesome-webpack');
 require('animate.css');
 require('./spotify.scss');
-// require('./keen.css');
-// require('./app.css');
 
 // React+Redux
 const store = configureStore(window.__INITIAL_STATE__);
@@ -39,37 +37,39 @@ render((
 
 // If non-production environment, enable stuff for debugging purposes
 if (process.env.NODE_ENV !== 'production') {
-  window.React = React;           // enable debugger
+  window.React = React;                         // enables debugger
+
+
+
+
+
+  /* For debugging purposes */
+
+  // Misc
+  window.jwt = jwtDecode;
+  window.spotify = spotify ;
+  window.SC = SC;
 
   // Redux modules
   window.store = store ;
   window.actions = Actions;
   window.reducers = Reducers;
 
-  window.spotify = spotify ;
-  // Misc
-  window.jwt = jwtDecode;
-  window.SC = SC;
 
 
   if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
     console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.'); // eslint-disable-line
   }
-}
 
+  if (!window.devToolsExtension) {
+    const devToolsDest = document.createElement('div');
 
-
-
-
-
-if (!window.devToolsExtension) {
-  const devToolsDest = document.createElement('div');
-
-  dest.parentNode.insertBefore(devToolsDest, dest.nextSibling);
-  render(
-    <Provider store={store} key="provider">
-      <DevTools />
-    </Provider>,
-    devToolsDest
-  );
+    dest.parentNode.insertBefore(devToolsDest, dest.nextSibling);
+    render(
+      <Provider store={store} key="provider">
+        <DevTools />
+      </Provider>,
+      devToolsDest
+    );
+  }
 }

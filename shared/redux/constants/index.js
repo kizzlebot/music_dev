@@ -1,4 +1,7 @@
-
+/*
+ *  This will export all files in the this directory (excluding index.js) as
+ *  a key-value pair with {<filename>:required(<filename>)}
+ */
 var modules = {};
 if (process.env.CLIENT){
   function requireAll(requireContext) {

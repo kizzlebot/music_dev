@@ -67,7 +67,13 @@ class App extends React.Component{
   }
 }
 
+function mapStateToProps(store) {
+  return {
+    spotify: store.spotify
+  };
+}
 
+App.need = [() => Actions.post.fetchPosts(), () => Actions.spotify.lookupArtist('3nFkdlSjzX9mRTtwJOzDYB')]
 
 
 App.propTypes = {
@@ -78,4 +84,4 @@ App.propTypes = {
 
 
 // connect <App/> so it has this.props.dispatch defined
-export default connect()(App);
+export default connect(mapStateToProps)(App);

@@ -34,20 +34,12 @@ import serverConfig from './config';
 
 
 
-
-
-
-
 /* -------------------------------------------------------------------------------------- */
 /* -------------------------------- SETUP MIDDLEWARE -------------------------------------*/
 /* -------------------------------------------------------------------------------------- */
 middlewareConfigurer((app) => {
 
-
   app.use('/api', api);
-
-
-
 
   // --------------------------------------------------------------------
   // Server Side Rendering based on routes matched by React-router.
@@ -112,8 +104,8 @@ middlewareConfigurer((app) => {
       const store = configureStore(initialState);
 
 
-      return fetchComponentData(store, renderProps.components, renderProps.params).then(() => {
-
+      return fetchComponentData(store, renderProps.components, renderProps.params)
+        .then(() => {
           const initialView = renderToString(
             <Provider store={store}>
               <RouterContext {...renderProps} />
@@ -124,7 +116,8 @@ middlewareConfigurer((app) => {
           const html = renderFullPage(initialView, finalState);
 
           res.status(200).end(html);
-        });
+        })
+        .catch(err => res.status(500).end(renderError(err)));
     });
   });
 
@@ -151,15 +144,15 @@ middlewareConfigurer((app) => {
 
 
 
-  /* -------------------------------------------------------------------------------------- */
-  /* ----------------------------- Start/Export Server -------------------------------------*/
-  /* -------------------------------------------------------------------------------------- */
-  if (process.env.NODE_ENV != 'test') {
-    app.listen(serverConfig.port, (error) => {
-      if (!error) console.log(`musicDev is running on port: ${serverConfig.port}! Build something amazing!`);
-    });
-  }
+/* -------------------------------------------------------------------------------------- */
+/* ----------------------------- Start/Export Server -------------------------------------*/
+/* -------------------------------------------------------------------------------------- */
+if (process.env.NODE_ENV != 'test') {
+ app.listen(serverConfig.port, (error) => {
+   if (!error) console.log(`musicDev is running on port: ${serverConfig.port}! Build something amazing!`);
+ });
+}
 
 
   module.exports.default = app;
-})
+});

@@ -6,7 +6,7 @@ import { PostContainer, PostDetailView } from './containers/Posts';
 import { LoginContainer, RegisterContainer, AuthCallbackContainer } from './containers/Auth';
 import { SoundCloudContainer } from './containers/SoundCloud';
 import {ContentContainer, CurrentTrackContainer, HeaderContainer} from './containers/Common';
-import { ContentMiddleContainer } from './containers/Common'
+import { ContentMiddleContainer } from './containers/Common';
 
 
 // const routes = (

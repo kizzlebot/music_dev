@@ -74,7 +74,7 @@ export function lookupArtist(artistID){
   return (dispatch, getState) => {
     dispatch(requestLookup({type:'artist', id:artistID}));
     return lookup({type:'artist', id:artistID})
-                .then(results => dispatch(receiveLookup({type:'artist', ...results})))
+                .then(results => dispatch(receiveLookup({type:'artist', artist:{...results.artist}})))
                 .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST}))
                 .catch(err =>    dispatch(fetch_fail(err)));
   }
@@ -83,7 +83,7 @@ export function lookupAlbum(albumID){
   return (dispatch, getState) => {
     dispatch(requestLookup({type:'album', id:albumID}));
     return lookup({type:'album', id:albumID})
-                .then(results => dispatch(receiveLookup({type:'album', ...results})))
+                .then(results => dispatch(receiveLookup({type:'album', album:{...results}})))
                 .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ALBUM}))
                 .catch(err =>    dispatch(fetch_fail(err)));
   }
