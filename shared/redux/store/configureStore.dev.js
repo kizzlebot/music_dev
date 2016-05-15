@@ -7,17 +7,17 @@ import createLogger from 'redux-logger';
 
 export default function configureStore(initialState = {}) {
   let enhancerClient;
+  let enhancer ;
   if (process.env.CLIENT) {
     const logger = createLogger();
-    enhancerClient = compose(
+    enhancer = compose(
       applyMiddleware(thunk, logger),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
     );
   }
+  else enhancer = applyMiddleware(thunk);
 
-
-  const enhancerServer = applyMiddleware(thunk);
-  let store = createStore(rootReducer, initialState, (process.env.CLIENT) ? enhancerClient : enhancerServer);
+  let store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

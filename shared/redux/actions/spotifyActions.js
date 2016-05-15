@@ -4,13 +4,8 @@ import querystring from 'querystring';
 var spotify = require('isomorphic-spotify');
 
 
-export function search(query='', type='album'){
-  // return (dispatch, getState) => {
-  // dispatch(requestSearch({type,query}));
-  return spotify.search({type:type, query:query});
-    // .then(results => dispatch(receiveSearch({type:type, results})))
-  // }
-}
+const search = ({query='', type='album'}) => spotify.search({type:type, query:query});
+
 function requestSearch(opt){
   return {
     type: ActionTypes.spotify.REQUEST_SEARCH,
@@ -32,11 +27,28 @@ function receiveSearch(d){
 export function searchArtist(artistName){
   return (dispatch, getState) => {
     dispatch(requestSearch({type:'artist', query:artistName}));
-    return spotify.search({type:'artist', query:artistName})
-                  .then(results => dispatch(receiveSearch({type:'artist', artists:results.artists})));
+    return search({type:'artist', query:artistName})
+                  .then(results => dispatch(receiveSearch({type:'artist', artists:results.artists})))
+                  .then(e => dispatch({type:ActionTypes.spotify.SEARCH_ARTIST, payload:{...getState()}}))
+                  .catch(err => dispatch(fetch_fail(err)));
   }
 }
-
+export function searchAlbum(albumName){
+  return (dispatch, getState) =>{
+    dispatch(requestSearch({type:'album', query:albumName}));
+    return spotify.search({type:'album', query:albumName})
+                  .then(results => dispatch(receiveSearch({type:'album', albums:results.albums})))
+                  .catch(err => dispatch(fetch_fail(err)));
+  }
+}
+export function searchTrack(trackName){
+  return (dispatch, getState) => {
+    dispatch(requestSearch({type:'track', query:trackName}));
+    return search({type:'track', query:trackName})
+                .then(results => dispatch(receiveSearch({type:'track', tracks:results.tracks})))
+                .catch(err => dispatch(fetch_fail(err)));
+  }
+}
 
 
 
