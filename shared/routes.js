@@ -5,8 +5,8 @@ import { PostContainer, PostDetailView } from './containers/Posts';
 
 import { LoginContainer, RegisterContainer, AuthCallbackContainer } from './containers/Auth';
 import { SoundCloudContainer } from './containers/SoundCloud';
-import {Content, CurrentTrack, Header} from './containers/Common';
-import { ContentMiddle } from './containers/Common/Content';
+import {ContentContainer, CurrentTrackContainer, HeaderContainer} from './containers/Common';
+import { ContentMiddleContainer } from './containers/Common'
 
 
 // const routes = (
@@ -24,7 +24,7 @@ import { ContentMiddle } from './containers/Common/Content';
 
 const routes = (
   <Route path="/" component={App} >
-    <IndexRoute component={ContentMiddle}/>
+    <IndexRoute component={ContentMiddleContainer}/>
   </Route>
 );
 export default routes;

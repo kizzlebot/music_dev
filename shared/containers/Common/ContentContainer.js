@@ -1,8 +1,8 @@
 import React from 'react';
-import {ContentLeft, ContentMiddle, ContentRight} from './Content';
+import {ContentLeft, ContentMiddle, ContentRight} from '../../components/Common/Content';
 
 
-export default class Content extends React.Component{
+export default class ContentContainer extends React.Component{
   render(){
     return (
       <section className={'content'}>
