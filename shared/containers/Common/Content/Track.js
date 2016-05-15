@@ -1,4 +1,6 @@
-export default class ContentMiddle extends React.Component {
+import React from 'react';
+
+export default class Track extends React.Component {
   render(){
     return (
       <div className="track">

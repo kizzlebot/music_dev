@@ -5,8 +5,7 @@ import React from 'react';
 export default class ContentMiddle extends React.Component {
   render() {
     return (
-      <div className="content__middle">
-        <div className="artist is-verified">
+      <div className="artist is-verified">
           <div className="artist__header">
             <div className="artist__info">
               <div className="profile__img">
@@ -582,7 +581,6 @@ export default class ContentMiddle extends React.Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

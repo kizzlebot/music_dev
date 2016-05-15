@@ -5,7 +5,6 @@ import React from 'react'
 export default class ContentRight extends React.Component {
   render() {
     return (
-
       <div className="content__right">
         <div className="social">
           <div className="friends">

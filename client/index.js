@@ -18,7 +18,7 @@ var spotify = require('isomorphic-spotify')
 require('bootstrap-webpack!./bootstrap.config.js');
 require('font-awesome-webpack');
 require('animate.css');
-require('shared/containers/spotify/spotify.scss');
+require('./spotify.scss');
 // require('./keen.css');
 // require('./app.css');
 

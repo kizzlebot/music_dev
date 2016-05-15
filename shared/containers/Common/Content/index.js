@@ -16,7 +16,7 @@ if (process.env.CLIENT){
 }
 else{
   var fs = require('fs');
-  modules = fs.readdirSync(__dirname).filter((f) => /(?!index).*\.js/.test(f)).reduce((prev, curr, i, array) => {
+  modules = fs.readdirSync(__dirname).filter((f) => f.search('index') == -1).reduce((prev, curr, i, array) => {
     prev[curr.replace('.js','')] = require(`./${curr}`).default;
     return prev;
   }, {});

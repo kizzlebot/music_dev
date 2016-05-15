@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 // import { HeaderContainer }  from './Common';
 // import { Footer }  from '../components/Common';
-import {Content, ContentMiddle, CurrentTrack, Header} from './Spotify';
+import {ContentContainer, CurrentTrack, Header} from './Common';
 
 
 import Actions from '../redux/actions';
@@ -18,7 +18,6 @@ class App extends React.Component{
     })
 
     // Viewport Heights
-
     $(window).on("resize load", function(){
 
       var totalHeight = $(window).height();
@@ -57,11 +56,11 @@ class App extends React.Component{
     return (
       <div>
         <Header/>
-        <section className='content'>
-          <Content>
+        {/*<section className='content'>*/}
+          <ContentContainer>
             {this.props.children}
-          </Content>
-        </section>
+          </ContentContainer>
+        {/*</section>*/}
         <CurrentTrack/>
       </div>
     );
