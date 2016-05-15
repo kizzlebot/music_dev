@@ -1,3 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+export const REQUEST_SEARCH = 'REQUEST_SEARCH';
+export const REQUEST_LOOKUP = 'REQUEST_LOOKUP';
+
+export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
+export const RECEIVE_LOOKUP = 'RECEIVE_LOOKUP';
+
 export const SEARCH_ARTIST = 'SEARCH_ARTIST';
 export const SEARCH_ALBUM = 'SEARCH_ALBUM';
 export const SEARCH_TRACK = 'SEARCH_TRACK';
@@ -6,7 +22,3 @@ export const LOOKUP_ARTIST = 'LOOKUP_ARTIST';
 export const LOOKUP_ALBUM = 'LOOKUP_ALBUM';
 
 export const FETCH_FAIL = 'FETCH_FAIL';
-export const REQUEST_SEARCH = 'REQUEST_SEARCH';
-export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
-export const REQUEST_LOOKUP = 'REQUEST_LOOKUP';
-export const RECEIVE_LOOKUP = 'RECEIVE_LOOKUP';

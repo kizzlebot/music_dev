@@ -26,5 +26,5 @@ else{
   }, {});
 }
 
-console.log(modules);
+// console.log(modules);
 export default combineReducers(modules);

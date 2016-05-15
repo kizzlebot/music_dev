@@ -5,7 +5,6 @@ var noUiSlider = require('nouislider');
 
 export default class CurrentTrack extends React.Component{
   componentDidMount(){
-    console.log(noUiSlider);
     var slider = document.getElementById('song-progress');
     noUiSlider.create(this.refs.songprogress, {
     	start: [ 0 ],

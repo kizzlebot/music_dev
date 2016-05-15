@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 // import { HeaderContainer }  from './Common';
 // import { Footer }  from '../components/Common';
-import {ContentContainer, CurrentTrack, Header} from './Common';
+import {ContentContainer, CurrentTrackContainer, Header} from './Common';
 
 
 import Actions from '../redux/actions';
@@ -61,7 +61,7 @@ class App extends React.Component{
             {this.props.children}
           </ContentContainer>
         {/*</section>*/}
-        <CurrentTrack/>
+        <CurrentTrackContainer/>
       </div>
     );
   }

@@ -2,8 +2,6 @@ import ActionTypes from '../constants';
 
 var initialState = {
   "oauth_token": null,
-  "currentArtist": {
-  },
   "current": {
     artist:{},
     album:{},

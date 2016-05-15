@@ -22,5 +22,5 @@ else{
   }, {});
 }
 
-console.log(modules);
+// console.log(modules);
 module.exports = modules ;
