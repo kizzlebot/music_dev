@@ -5,7 +5,7 @@ var spotify = require('isomorphic-spotify');
 
 
 const search = ({query='', type='album'}) => spotify.search({type:type, query:query});
-const lookup = ({id='', type='album'}) => spotify.lookup({type:type, id:id});
+const lookup = ({id='', type='album'}, queryEx) => spotify.lookup({type:type, id:id}, queryEx);
 
 
 function requestSearch(opt){
@@ -92,7 +92,7 @@ export function lookupArtistAlbums(artistID){
   return (dispatch, getState) => {
     // dispatch(requestLookup({type:'artist', id:artistID}));
     return lookupArtist(artistID)(dispatch, getState).then(() => {
-      return lookup({type:'albums', id:artistID})
+      return lookup({type:'albums', id:artistID}, {album_type:'album'})
                 .then(results => dispatch(receiveLookup({
                   type:'albums',
                   artist: { ...getState().spotify.current.artist, albums:Object.assign({}, {...results})},

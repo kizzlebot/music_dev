@@ -13,7 +13,7 @@ export default class HeaderContainer extends React.Component {
   }
   _handleSelect(evt){
     console.log(evt.target.id);
-    // evt[0].id ? this.props.dispatch(Actions.spotify.lookupArtist(evt[0].id)) : '';
+    evt.target.id ? this.props.dispatch(Actions.spotify.lookupArtistAlbums(evt.target.id)) : '';
   }
   render() {
     return (

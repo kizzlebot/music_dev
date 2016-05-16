@@ -4,12 +4,13 @@ import moment from 'moment';
 
 export default class ContentMiddle extends React.Component {
   render() {
+    var imageUrl = this.props.spotify.current.artist.images.length > 0 ? this.props.spotify.current.artist.images[0].url : '';
     return (
       <div className="artist is-verified">
           <div className="artist__header">
             <div className="artist__info">
               <div className="profile__img">
-                <img src={this.props.spotify.current.artist.images[0].url} alt={this.props.spotify.current.artist.name} />
+                <img src={imageUrl} alt={this.props.spotify.current.artist.name} />
               </div>
               <div className="artist__info__meta">
                 <div className="artist__info__type">Artist</div>
