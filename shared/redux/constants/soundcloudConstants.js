@@ -1,0 +1,9 @@
+export const LOGIN = 'LOGIN';
+export const NEXTPAGE = 'NEXTPAGE';
+export const PREVPAGE = 'PREVPAGE';
+export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_FAIL = 'FETCH_FAIL';
+export const FETCH_MORE_SUCCESS = 'FETCH_MORE_SUCCESS';
+export const FETCH_MORE_FAIL = 'FETCH_MORE_FAIL';
+export const FETCHING = 'FETCHING';
+export const STORE_OAUTH = 'STORE_OAUTH';
