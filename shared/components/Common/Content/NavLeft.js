@@ -151,7 +151,7 @@ export class Playing extends React.Component {
   }
 }
 
-export default class ContentLeft extends React.Component {
+export default class NavLeft extends React.Component {
   componentDidMount(){
   }
   _handleHeaderClick(tgt){

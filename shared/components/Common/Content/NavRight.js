@@ -2,7 +2,7 @@ import React from 'react'
 
 
 
-export default class ContentRight extends React.Component {
+export default class NavRight extends React.Component {
   render() {
     return (
       <div className="content__right">

@@ -9,11 +9,11 @@ export default class ContentMiddle extends React.Component {
           <div className="artist__header">
             <div className="artist__info">
               <div className="profile__img">
-                <img src={this.props.image} alt={this.props.artist} />
+                <img src={this.props.spotify.current.artist.images[0].url} alt={this.props.spotify.current.artist.name} />
               </div>
               <div className="artist__info__meta">
                 <div className="artist__info__type">Artist</div>
-                <div className="artist__info__name">{this.props.artist}</div>
+                <div className="artist__info__name">{this.props.spotify.current.artist.name}</div>
                 <div className="artist__info__actions">
                   <button className="button-dark">
                     <i className="ion-ios-play" />
@@ -27,7 +27,7 @@ export default class ContentMiddle extends React.Component {
               </div>
             </div>
             <div className="artist__listeners">
-              <div className="artist__listeners__count">15,662,810</div>
+              <div className="artist__listeners__count">{this.props.spotify.current.artist.followers.total}</div>
               <div className="artist__listeners__label">Monthly Listeners</div>
             </div>
             <div className="artist__navigation">
@@ -59,7 +59,7 @@ export default class ContentMiddle extends React.Component {
                 <div className="overview">
                   <div className="overview__artist">
                     {/* Latest Release*/}
-                    <div className="section-title">Latest Release</div>
+                    {/*<div className="section-title">Latest Release</div>
                     <div className="latest-release">
                       <div className="latest-release__art">
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/whenDarkOut.jpg" alt="When It's Dark Out" />
@@ -72,11 +72,10 @@ export default class ContentMiddle extends React.Component {
                           <span className="year">2015</span>
                         </div>
                       </div>
-                    </div>
+                    </div>*/}
                     {/* / */}
                     {/* Popular*/}
-                    <div className="section-title">Popular</div>
-
+                    {/*<div className="section-title">Popular</div>
                     <div className="tracks">
                       <div className="track">
                         <div className="track__art">
@@ -149,11 +148,11 @@ export default class ContentMiddle extends React.Component {
                         <div className="track__plays">40,882,954</div>
                       </div>
                     </div>
-                    <button className="show-more button-light">Show 5 More</button>
+                    <button className="show-more button-light">Show 5 More</button>*/}
                     {/* / */}
                   </div>
                   <div className="overview__related">
-                    <div className="section-title">Related Artists</div>
+                    {/*<div className="section-title">Related Artists</div>
                     <div className="related-artists">
                       <a href="#" className="related-artist">
                         <span className="related-artist__img">
@@ -197,7 +196,7 @@ export default class ContentMiddle extends React.Component {
                         </span>
                         <span className="related-artist__name">Yonas</span>
                       </a>
-                    </div>
+                    </div>*/}
                   </div>
                   <div className="overview__albums">
                     <div className="overview__albums__head">
