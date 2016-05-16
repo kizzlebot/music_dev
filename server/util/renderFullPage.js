@@ -49,10 +49,10 @@ const renderFullPage = (html, initialState, opts) => {
 
     { href: 'https://fonts.googleapis.com/css?family=Lato:400,300,700,700italic,300italic|Pacifico', rel: 'stylesheet', type: 'text/css' },
     { href: 'https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900', rel:'stylesheet', type:'text/css'},
-    { href: 'http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png', rel: 'shortcut icon', type: 'image/png' },
+    // { href: 'https://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png', rel: 'shortcut icon', type: 'image/png' },
     { href: 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.3.0/nouislider.min.css', rel:'stylesheet', type:'text/css'},
 
-    { href: 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css', rel: 'stylesheet', type:'text/css'},
+    { href: 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css', rel: 'stylesheet', type:'text/css'},
     { href: cssPath, rel: 'stylesheet'}
   ];
   var scriptElements = [`<script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`];
