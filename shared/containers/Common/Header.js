@@ -28,11 +28,10 @@ export default class Header extends React.Component {
           </div>
           <div className="user__info">
             <span className="user__info__img">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/7022/adam_proPic.jpg" alt="Profile Picture" className="img-responsive" />
-            </span>
+              <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAevAAAAJGFjNDBhZmM2LWE5MzAtNGQyZi1iNGE4LWZkMjZkMGM2ZWY1Mw.jpg" alt="Profile Picture" className="img-responsive" />
+            </span>{' '}
             <span className="user__info__name">
-              <span className="first">Adam</span>
-              <span className="last">Lowenthal</span>
+              <span className="first">James </span> <span className="last">Choi</span>
             </span>
           </div>
           <div className="user__actions">

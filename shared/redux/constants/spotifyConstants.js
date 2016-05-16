@@ -19,6 +19,7 @@ export const SEARCH_ALBUM = 'SEARCH_ALBUM';
 export const SEARCH_TRACK = 'SEARCH_TRACK';
 
 export const LOOKUP_ARTIST = 'LOOKUP_ARTIST';
+export const LOOKUP_ARTIST_ALBUMS = 'LOOKUP_ARTIST_ALBUMS';
 export const LOOKUP_ALBUM = 'LOOKUP_ALBUM';
 
 export const FETCH_FAIL = 'FETCH_FAIL';

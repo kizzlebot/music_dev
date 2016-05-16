@@ -57,7 +57,7 @@ middlewareConfigurer((app) => {
 
       const initialState = {
         // TODO: rename posts field to entries
-        "posts": {
+        "post": {
           "posts": [],
           "post": {}
         },

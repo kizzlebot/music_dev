@@ -13,7 +13,7 @@ export default class CurrentTrackContainer extends React.Component{
   }
 }
 
-CurrentTrackContainer.need = [() => { console.log('in here'); return Actions.spotify.lookupAlbum('0anlRE2dYlRqEKL1gj1WPq')}];
+// CurrentTrackContainer.need = [() => { console.log('in here'); return Actions.spotify.lookupAlbum('0anlRE2dYlRqEKL1gj1WPq')}];
 
 CurrentTrackContainer.contextTypes = {
   router: React.PropTypes.object

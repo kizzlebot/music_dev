@@ -33,13 +33,15 @@ const SpotifyReducer = (state = initialState, action) => {
 
 
     case ActionTypes.spotify.LOOKUP_ARTIST:
-      return Object.assign({}, state, { current:Object.assign({}, state.current, { ...action.payload })});
+      return Object.assign({}, state, { current:Object.assign({}, state.current)});
     case ActionTypes.spotify.LOOKUP_ALBUM:
-      return Object.assign({}, state, { current:Object.assign({}, state.current, { ...action.payload })});
+      return Object.assign({}, state, { current:Object.assign({}, state.current, { album:{ ...action.payload }})});
+    case ActionTypes.spotify.LOOKUP_ARTIST_ALBUMS:
+      return Object.assign({}, state, { current:Object.assign({}, state.current, { artist:{...state.current.artist, ...action.payload}})});
     case ActionTypes.spotify.REQUEST_LOOKUP:
       return Object.assign({}, state, { current:Object.assign({}, state.current, { ...action.payload })});
     case ActionTypes.spotify.RECEIVE_LOOKUP:
-      return Object.assign({}, state, { current: Object.assign({}, state.current, { ...action.payload }) });
+      return Object.assign({}, state, { current: Object.assign({}, state.current, { artist:action.payload.artist }) });
     default:
       return state;
   }

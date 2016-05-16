@@ -73,7 +73,7 @@ function mapStateToProps(store) {
   };
 }
 
-App.need = [() => Actions.post.fetchPosts(), () => Actions.spotify.lookupArtist('3nFkdlSjzX9mRTtwJOzDYB')]
+App.need = [() => Actions.spotify.lookupArtistAlbums('5K4W6rqBFWDnAN6FQUkS6x')]
 
 
 App.propTypes = {

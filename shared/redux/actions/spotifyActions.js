@@ -34,6 +34,7 @@ function receiveSearch(d){
   }
 }
 function receiveLookup(d){
+  // console.log(d);
   return {
     type: ActionTypes.spotify.RECEIVE_LOOKUP,
     payload:{
@@ -70,18 +71,40 @@ export function searchTrack(trackName){
   }
 }
 
+
+
+
+
+
 export function lookupArtist(artistID){
   return (dispatch, getState) => {
-    dispatch(requestLookup({type:'artist', id:artistID}));
+    // dispatch(requestLookup({type:'artist', id:artistID}));
     return lookup({type:'artist', id:artistID})
-                .then(results => dispatch(receiveLookup({type:'artist', artist:{...results.artist}})))
+                .then(results => dispatch(receiveLookup({
+                  type:'artist',
+                  artist:Object.assign({}, {...results}),
+                })))
                 .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST}))
                 .catch(err =>    dispatch(fetch_fail(err)));
   }
 }
+export function lookupArtistAlbums(artistID){
+  return (dispatch, getState) => {
+    // dispatch(requestLookup({type:'artist', id:artistID}));
+    return lookupArtist(artistID)(dispatch, getState).then(() => {
+      return lookup({type:'albums', id:artistID})
+                .then(results => dispatch(receiveLookup({
+                  type:'albums',
+                  artist: { ...getState().spotify.current.artist, albums:Object.assign({}, {...results})},
+                })))
+                .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST_ALBUMS}))
+                .catch(err =>    dispatch(fetch_fail(err)));
+    })
+  }
+}
 export function lookupAlbum(albumID){
   return (dispatch, getState) => {
-    dispatch(requestLookup({type:'album', id:albumID}));
+    // dispatch(requestLookup({type:'album', id:albumID}));
     return lookup({type:'album', id:albumID})
                 .then(results => dispatch(receiveLookup({type:'album', album:{...results}})))
                 .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ALBUM}))
