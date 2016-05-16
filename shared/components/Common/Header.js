@@ -1,15 +1,15 @@
 import React from 'react';
-
+import Typeahead from './Typeahead';
 
 class UserHeaderSection extends React.Component {
   render(){
     var menuItems = (this.props.auth && this.props.auth.isAuthenticated) ? [
-      <li><a href="#">Private Session</a></li>,
-      <li><a href="#">Account</a></li>,
-      <li><a href="#">Settings</a></li>,
-      <li><a href="#">Log Out</a></li>
+      <li key={'privatesess'}><a href="#">Private Session</a></li>,
+      <li key={'account'}><a href="#">Account</a></li>,
+      <li key={'settings'}><a href="#">Settings</a></li>,
+      <li key={'logout'}><a href="#">Log Out</a></li>
     ] : [
-      <li><a href="#">Log In</a></li>
+      <li key={'login'}><a href="#">Log In</a></li>
     ];
 
     return (
@@ -45,13 +45,16 @@ class UserHeaderSection extends React.Component {
 
 
 export default class Header extends React.Component {
-  _handleChange(){
-    console.info('Header._handleChange');
+  _handleChange(evt){
+    console.log('hi')
+    // Actions.spotify.searchArtist('J');
   }
-  _handleSubmit(){
-    console.info('Header._handleSubmit');
-  }
+
   render() {
+    var items = this.props.spotify.search.artists.items || [];
+    var objs = items.map(e => {
+      return {id:e.id, label:e.name};
+    });
     return (
       <section className="header">
         <div className="page-flows">
@@ -63,7 +66,13 @@ export default class Header extends React.Component {
           </span>
         </div>
         <div className="search">
-          <input type="text" placeholder="Search" onChange={this._handleChange} onSubmit={this._handleSubmit}/>
+          {/*<input type="text" placeholder="Search" onChange={this._handleChange} onSubmit={this._handleSubmit}/>*/}
+            <Typeahead
+              onInputChange={(e) => this.props._handleChange(e)}
+              onChange={e => this.props._handleChange(e)}
+              onSelect={e => this.props._handleSelect(e)}
+              options={objs || []}
+            />
         </div>
         <UserHeaderSection {...this.props} />
       </section>
