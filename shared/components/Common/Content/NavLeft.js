@@ -58,7 +58,8 @@ export class Navigation extends React.Component {
               <span>Artists</span>
             </a>
             <a href="#" className="navigation__list__item">
-              <i className="ion-document" /> <span>Local Files</span>
+              <i className="ion-document" />
+              <span>Local Files</span>
             </a>
           </div>
         </div>

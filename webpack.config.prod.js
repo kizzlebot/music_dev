@@ -32,9 +32,13 @@ module.exports = {
       { test: /\.woff(\?\S*)?$/,                                loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff', name:'dist/[name].[ext]'} },
       { test: /\.woff2(\?\S*)?$/,                               loader: 'url',   query: { limit: 10000, mimetype:'application/font-woff', name:'dist/[name].[ext]'} },
       { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,           loader: 'file-loader' },
-      { test: /\.less$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'less') },
-      { test: /\.scss$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'sass') },
-      { test: /\.css$/,                                         loader: ExtractTextPlugin.extract('style','css'), },
+      // { test: /\.less$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'less') },
+      // { test: /\.scss$/,                                        loader: ExtractTextPlugin.extract('style', 'css', 'sass') },
+      // { test: /\.css$/,                                         loader: ExtractTextPlugin.extract('style','css'), },
+      { test: /\.less$/,                                        loaders: ['style', 'css', 'less'] },
+      { test: /\.scss$/,                                        loaders: ['style', 'css', 'sass'] },
+      { test: /\.css$/,                                         loader: 'style!css' },
+  
       { test: require.resolve('jquery'),                        loader: 'expose?$!expose?jQuery' },
       { test: /bootstrap\/js\//,                                loader: 'imports?jQuery=jquery' }
     ],

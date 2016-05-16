@@ -88,6 +88,10 @@ export function lookupArtist(artistID){
                 .catch(err =>    dispatch(fetch_fail(err)));
   }
 }
+
+
+
+
 export function lookupArtistAlbums(artistID){
   return (dispatch, getState) => {
     // dispatch(requestLookup({type:'artist', id:artistID}));
@@ -102,6 +106,7 @@ export function lookupArtistAlbums(artistID){
     })
   }
 }
+
 export function lookupAlbum(albumID){
   return (dispatch, getState) => {
     // dispatch(requestLookup({type:'album', id:albumID}));
