@@ -23,21 +23,17 @@ export class Navigation extends React.Component {
 
           <div className="navigation__list__header"
             onClick={this._handleHeaderClick}
-            role="button" data-toggle="collapse" href="#main" aria-expanded="true" aria-controls="main">
-            Main
+            role="button" data-toggle="collapse" href="#main" aria-expanded="true" aria-controls="main"> Main
           </div>
           <div className="collapse in" id="main">
             <a href="#" className="navigation__list__item">
-              <i className="ion-ios-browsers" />
-              <span>Browse</span>
+              <i className="ion-ios-browsers" /> <span>Browse</span>
             </a>
             <a href="#" className="navigation__list__item">
-              <i className="ion-person-stalker" />
-              <span>Activity</span>
+              <i className="ion-person-stalker" /> <span>Activity</span>
             </a>
             <a href="#" className="navigation__list__item">
-              <i className="ion-radio-waves" />
-              <span>Radio</span>
+              <i className="ion-radio-waves" /> <span>Radio</span>
             </a>
           </div>
         </div>
@@ -46,8 +42,7 @@ export class Navigation extends React.Component {
         <div className="navigation__list">
           <div className="navigation__list__header"
             onClick={this._handleHeaderClick}
-            role="button" data-toggle="collapse" href="#yourMusic" aria-expanded="true" aria-controls="yourMusic">
-            Your Music
+            role="button" data-toggle="collapse" href="#yourMusic" aria-expanded="true" aria-controls="yourMusic"> Your Music
           </div>
           <div className="collapse in" id="yourMusic">
             <a href="#" className="navigation__list__item">
@@ -63,8 +58,7 @@ export class Navigation extends React.Component {
               <span>Artists</span>
             </a>
             <a href="#" className="navigation__list__item">
-              <i className="ion-document" />
-              <span>Local Files</span>
+              <i className="ion-document" /> <span>Local Files</span>
             </a>
           </div>
         </div>
@@ -163,9 +157,7 @@ export default class NavLeft extends React.Component {
       <div className="content__left">
         <Navigation />
         <Playlist/>
-
         <Playing />
-
       </div>
     );
   }
