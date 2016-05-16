@@ -20,6 +20,7 @@ const SpotifyReducer = (state = initialState, action) => {
   if (!action || !action.type) return state ;
 
   switch(action.type){
+    /* Search Actions */
     case ActionTypes.spotify.SEARCH_ARTIST:
       return Object.assign({}, state, { search:Object.assign({}, state.search, { ...action.payload })});
     case ActionTypes.spotify.SEARCH_ALBUM:
@@ -32,6 +33,7 @@ const SpotifyReducer = (state = initialState, action) => {
       return Object.assign({}, state, { search:Object.assign({}, state.search, { ...action.payload })});
 
 
+    /* Lookup Actions (id is known) */
     case ActionTypes.spotify.LOOKUP_ARTIST:
       return Object.assign({}, state, { current:Object.assign({}, state.current )});
     case ActionTypes.spotify.LOOKUP_ALBUM:
