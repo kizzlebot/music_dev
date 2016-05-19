@@ -54,50 +54,64 @@ middlewareConfigurer((app) => {
       if (!renderProps)     return next();
 
 
-
-      const initialState = {
-        // TODO: rename posts field to entries
-        "post": {
-          "posts": [],
-          "post": {}
-        },
-        "auth": {
-          "token": null,
-          "username": "",
-          "isAuthenticated": false,
-          "isAuthenticating": false,
-          "statusText": ""
-        },
-        // TODO: Use 'data' key or get rid of
-        "data": {
-          "data": null,
-          "isFetching": false
-        },
-        "soundcloud": {
-          "oauth_token": null,
-          "shouldShowStream": false,
-          "collection": [],
-          "next_href": null,
-          "page":0,
-          "fetch_success":false,
-          "isFetching":false
-        },
-        "spotify": {
-          "oauth_token": null,
-          "current": {
-            artist:null,
-            album: null,
-            track:null
+    var initialState = {
+      "auth": {
+        "token": null,
+        "username": "",
+        "isAuthenticated": false,
+        "isAuthenticating": false,
+        "statusText": ""
+      },
+      "data": {
+        "data": null,
+        "isFetching": false
+      },
+      "post": {
+        "posts": [],
+        "post": {}
+      },
+      "soundcloud": {
+        "oauth_token": null,
+        "shouldShowStream": false,
+        "collection": [],
+        "next_href": null,
+        "page": 0
+      },
+      "spotify": {
+        "oauth_token": null,
+        "current": {
+          "artist": {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/523DmwgD1gR3sTr9Tzitee"
+            },
+            "followers": {
+              "href": null,
+              "total": 0
+            },
+            "genres": [],
+            "href": "https://api.spotify.com/v1/artists/523DmwgD1gR3sTr9Tzitee",
+            "id": "523DmwgD1gR3sTr9Tzitee",
+            "images": [],
+            "name": "Jay Z and Kayne West",
+            "popularity": 7,
+            "type": "artist",
+            "uri": "spotify:artist:523DmwgD1gR3sTr9Tzitee",
+            "error": {
+            }
           },
-          "search": {
-            query: null,
-            type: 'artist',
-            tracks: [],
-            artists: [],
-            albums: []
-          }
+          "album": null,
+          "track": null,
+          "type": "artist"
+        },
+        "search": {
+          "query": null,
+          "type": "artist",
+          "tracks": [],
+          "artists": [],
+          "albums": []
         }
       }
+    }
 
 
       // create Redux Store

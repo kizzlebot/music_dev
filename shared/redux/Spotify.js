@@ -34,31 +34,51 @@ var serialize = function(obj) {
   return str.join("&");
 }
 
+/*
+* Lookup by artist ID requires 3 ajax calls
+*  1. Get artist info
+*  2. Get list of 20 ids of artists albums
+*  3. Get list of albums
+*/
 Spotify.prototype.lookup = function(opts, queryExtras){
-  // if (!opts.type && !opts.id) throw new Error('option.type & option.id are missing');
-  // else if (!opts.type) throw new Error('option.type is missing');
-  // else if (!opts.id) throw new Error('option.id is missing');
-  // else if (this.validLookupTypes.indexOf(opts.type) == -1) throw new Error('invalid lookup type');
+  if (!opts.type && !opts.id) throw new Error('option.type & option.id are missing');
+  else if (!opts.type) throw new Error('option.type is missing');
+  else if (!opts.id) throw new Error('option.id is missing');
+  else if (this.validLookupTypes.indexOf(opts.type) == -1) throw new Error('invalid lookup type');
 
 
   var query ;
   // if plural
-  if (opts.type= 'albums'){
+  if (opts.type[opts.type.length-1] == 's'){
     var q = null;
     if (queryExtras && typeof queryExtras == 'object'){
       q = `${'?' + serialize(queryExtras)}`;
     }
-    // query = (opts.type == 'albums') ? `/v1/albums/?ids=${opts.ids.join(',')}` : `/v1/${opts.type}/${opts.id}`;
-    query = (opts.type == 'albums') ? `/v1/artists/${opts.id}/albums${q || ''}` : `/v1/${opts.type}/${opts.id}`;
-    return this.get(query).then((e) => this.get(`/v1/albums/?ids=${e.items.map(f => f.id).join(',')}`).then(k => {e.albums = k.albums; return e;}))
-  }
-  else{
-    query = `/v1/${opts.type}s/${opts.id}${queryExtras || ''}`;
+    query = (opts.type == 'albums') ? `/v1/artists/${opts.id}/albums?album_type=album&market=US&limit=50` : `/v1/${opts.type}/${opts.id}`;
+    // console.log(query);
     return this.get(query);
   }
-}
-Spotify.prototype.lookupArtistAlbums = function(){
+  else{
+    query = `/v1/${opts.type}s/${opts.id}`;
+    let artist = {albums:[]};
+    return this.get(query)
+      .then(e => {
+        artist = e;
+        var basicAlbums = `/v1/${opts.type}s/${opts.id}/albums?album_type=album&market=US`;
+        return this.get(basicAlbums);
+      })
+      .then(k => {
+        if (!k.items || k.items.length < 1) return artist;
 
+        var newQuery = `/v1/albums/?ids=${k.items.map(m => m.id).join(',')}`;
+        return this.get(newQuery)
+      })
+      .then(p => {
+        artist.albums = p.albums;
+        // console.log(rtn);
+        return artist ;
+      })
+  }
 }
 
 
@@ -66,7 +86,7 @@ Spotify.prototype.search = function(opts){
   if (!opts.type && !opts.query) throw new Error('option.type & option.query are missing');
   else if (!opts.type) throw new Error('option.type is missing');
   else if (!opts.query) throw new Error('option.query is missing');
-  // else if (this.validSearchTypes.indexOf(opts.type) == -1) throw new Error('invalid search type');
+  else if (this.validSearchTypes.indexOf(opts.type) == -1) throw new Error('invalid search type');
 
   var query = `/v1/search?type=${opts.type}&q=${opts.query}&limit=${opts.limit||20}`;
   return this.get(query);
@@ -86,5 +106,4 @@ Spotify.prototype.get = function(query){
 }
 
 
-var spotify = new Spotify();
-export default spotify ;
+module.exports = new Spotify();

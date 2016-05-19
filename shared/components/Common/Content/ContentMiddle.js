@@ -4,20 +4,24 @@ import moment from 'moment';
 
 export default class ContentMiddle extends React.Component {
   render() {
+    var {artist = {albums:[]}} = this.props.spotify.current;
+    var {albums = []} = artist ;
+    var { images = [], followers = { total: 0 } } = artist;
 
-    var { images } = this.props.spotify.current.artist;
-    var imageUrl = images && images.length > 0 ? images[0].url : '';
-    
-    return !this.props.spotify.current.artist ? (<div></div>) : (
+    var imageUrl = images.length > 0 ? images[0].url||'' : '';
+    var total = followers.total;
+
+
+    return !artist ? (<div></div>) : (
       <div className="artist is-verified">
           <div className="artist__header">
             <div className="artist__info">
               <div className="profile__img">
-                <img src={imageUrl} alt={this.props.spotify.current.artist.name} />
+                <img src={imageUrl} alt={artist.name} />
               </div>
               <div className="artist__info__meta">
                 <div className="artist__info__type">Artist</div>
-                <div className="artist__info__name">{this.props.spotify.current.artist.name}</div>
+                <div className="artist__info__name">{artist.name}</div>
                 <div className="artist__info__actions">
                   <button className="button-dark">
                     <i className="ion-ios-play" />
@@ -31,7 +35,7 @@ export default class ContentMiddle extends React.Component {
               </div>
             </div>
             <div className="artist__listeners">
-              <div className="artist__listeners__count">{this.props.spotify.current.artist.followers.total}</div>
+              <div className="artist__listeners__count">{total}</div>
               <div className="artist__listeners__label">Monthly Listeners</div>
             </div>
             <div className="artist__navigation">
@@ -210,7 +214,9 @@ export default class ContentMiddle extends React.Component {
                         <i className="fa fa-th-large card" />
                       </span>
                     </div>
-                    <Album album={this.props.spotify.current.album}/>
+                    {albums.length > 0 && albums.map(e => {
+                      return (<Album key={e.id} album={e} tracks={e.tracks || []} />)
+                    })}
                   </div>
                 </div>
               </div>
@@ -268,7 +274,6 @@ export default class ContentMiddle extends React.Component {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -286,11 +291,22 @@ ContentMiddle.contextTypes = {
 
 class Album extends React.Component {
   render(){
+    var {album = {images:['']}, tracks = {items:[]}} = this.props ;
+    var {images=[{url:null}]} = album;
+
+
+    // console.log(this.props);
+    if (!album || !tracks || !(tracks.items instanceof Array)) {
+      // console.log(album);
+      return (<div/>);
+    }
+
+
     return (
       <div className="album">
         <div className="album__info">
           <div className="album__info__art">
-            <img src={this.props.album.images[0].url} alt={this.props.album.name} />
+            <img src={images.length > 0 && images[0].url} alt={album.name} />
           </div>
           <div className="album__info__meta">
             <div className="album__year">{moment(this.props.album.release_date).format('YYYY')}</div>
@@ -315,7 +331,7 @@ class Album extends React.Component {
                 <i className="ion-thumbsup" />
               </div>
             </div>
-            {this.props.album.tracks.items.map(t => {
+            {tracks.items.map(t => {
                 var duration = new moment.duration(t.duration_ms);
                 var mins = (duration.minutes() < 10) ? `0${duration.minutes()}` : duration.minutes();
                 var secs = (duration.seconds() < 10) ? `0${duration.seconds()}` : duration.seconds();

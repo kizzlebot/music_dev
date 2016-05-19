@@ -72,6 +72,7 @@ export default class Header extends React.Component {
               onChange={e => this.props._handleChange(e)}
               onSelect={e => this.props._handleSelect(e)}
               options={objs || []}
+              {...this.props}
             />
         </div>
         <UserHeaderSection {...this.props} />

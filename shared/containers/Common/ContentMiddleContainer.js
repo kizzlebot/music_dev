@@ -17,7 +17,8 @@ ContentMiddle.contextTypes = {
 
 function mapStateToProps(store) {
   return {
-    spotify: store.spotify
+    spotify: store.spotify,
+    artist: store.spotify.artist
   };
 }
 

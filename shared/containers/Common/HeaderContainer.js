@@ -6,18 +6,29 @@ import Header from '../../components/Common/Header';
 
 
 export default class HeaderContainer extends React.Component {
+  constructor(props, context){
+    super(props, context);
+    this.state = {hide: true};
+  }
   _handleChange(evt){
-    console.log(evt.target.value);
-
-    evt.target.value != '' ? this.props.dispatch(Actions.spotify.searchArtist(evt.target.value)) : '';
+    if (evt.type != 'change') return ;
+    if (evt.target.value == '') return ;
+    this.props.dispatch(Actions.spotify.searchArtist(evt.target.value)).then(e => {
+      this.setState({hide:false});
+    });
   }
   _handleSelect(evt){
     console.log(evt.target.id);
-    evt.target.id ? this.props.dispatch(Actions.spotify.lookupArtistAlbums(evt.target.id)) : '';
+    var {id} = evt.target;
+
+    this.setState({hide:true}, () => {
+      id ? this.props.dispatch(Actions.spotify.lookupArtist(id)) : null;
+    });
   }
   render() {
     return (
       <Header {...this.props}
+        {...this.state}
         _handleChange={this._handleChange.bind(this)}
         _handleSelect={this._handleSelect.bind(this)} />
     );
