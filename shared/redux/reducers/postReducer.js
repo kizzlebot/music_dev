@@ -1,6 +1,6 @@
 import ActionTypes from '../constants';
 
-const initialState = { posts: [] };
+const initialState = { posts: [], post:{} };
 
 const postReducer = (state = initialState, action) => {
   if (!action) return state ;
