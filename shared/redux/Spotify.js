@@ -63,7 +63,7 @@ Spotify.prototype.lookup = function(opts, queryExtras){
     let artist = {albums:[]};
     return this.get(query)
       .then(e => {
-        artist = Object.assign({}, artist, e);
+        artist = e;
         var basicAlbums = `/v1/${opts.type}s/${opts.id}/albums?album_type=album&market=US`;
         return this.get(basicAlbums);
       })
@@ -74,9 +74,9 @@ Spotify.prototype.lookup = function(opts, queryExtras){
         return this.get(newQuery)
       })
       .then(p => {
-        var rtn = Object.assign({}, artist, p);
+        artist.albums = p.albums;
         // console.log(rtn);
-        return rtn ;
+        return artist ;
       })
   }
 }

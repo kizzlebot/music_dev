@@ -11,6 +11,7 @@ export default class HeaderContainer extends React.Component {
     this.state = {hide: true};
   }
   _handleChange(evt){
+    if (evt.type != 'change') return ;
     if (evt.target.value == '') return ;
     this.props.dispatch(Actions.spotify.searchArtist(evt.target.value)).then(e => {
       this.setState({hide:false});
@@ -21,7 +22,7 @@ export default class HeaderContainer extends React.Component {
     var {id} = evt.target;
 
     this.setState({hide:true}, () => {
-      id ? this.props.dispatch(Actions.spotify.lookupArtistAlbums(id)) : null;
+      id ? this.props.dispatch(Actions.spotify.lookupArtist(id)) : null;
     });
   }
   render() {

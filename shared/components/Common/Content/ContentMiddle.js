@@ -215,7 +215,7 @@ export default class ContentMiddle extends React.Component {
                       </span>
                     </div>
                     {albums.length > 0 && albums.map(e => {
-                      return (<Album album={e} tracks={e.tracks || []} />)
+                      return (<Album key={e.id} album={e} tracks={e.tracks || []} />)
                     })}
                   </div>
                 </div>
@@ -274,7 +274,6 @@ export default class ContentMiddle extends React.Component {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -296,9 +295,9 @@ class Album extends React.Component {
     var {images=[{url:null}]} = album;
 
 
-    console.log(this.props);
+    // console.log(this.props);
     if (!album || !tracks || !(tracks.items instanceof Array)) {
-      console.log(album);
+      // console.log(album);
       return (<div/>);
     }
 

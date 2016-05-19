@@ -16,7 +16,7 @@ export default class Typeahead extends React.Component {
              />*/}
           <DebounceInput
             className="bootstrap-typeahead-input-main form-control"
-            style={{backgroundColor: 'transparent', display: 'block', position: 'relative', zIndex: 1, borderRadius:0}}
+            style={{backgroundColor: 'white', display: 'block', position: 'relative', zIndex: 1, borderRadius:0}}
             minLength={2}
             debounceTimeout={300}
             onChange={this.props.onChange}
