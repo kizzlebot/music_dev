@@ -4,6 +4,7 @@ import querystring from 'querystring';
 var spotify = require('../Spotify.js');
 
 
+
 const search = ({query='', type='album'}) => spotify.search({type:type, query:query});
 const lookup = ({id='', type='album'}, queryEx) => spotify.lookup({type:type, id:id}, queryEx);
 
@@ -34,7 +35,7 @@ function receiveSearch(d){
   }
 }
 function receiveLookup(d){
-  // console.log(d);
+  console.log(d);
   return {
     type: ActionTypes.spotify.RECEIVE_LOOKUP,
     payload:{
@@ -80,12 +81,12 @@ export function lookupArtist(artistID){
   return (dispatch, getState) => {
     // dispatch(requestLookup({type:'artist', id:artistID}));
     return lookup({type:'artist', id:artistID})
-                .then(results => dispatch(receiveLookup({
-                  type:'artist',
-                  artist:Object.assign({}, {...results}),
-                })))
-                .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST}))
-                .catch(err =>    dispatch(fetch_fail(err)));
+            .then(results => dispatch(receiveLookup({
+              type:'artist',
+              artist:Object.assign({}, {...results}),
+            })))
+            // .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST}))
+            .catch(err =>    dispatch(fetch_fail(err)));
   }
 }
 

@@ -73,7 +73,7 @@ function mapStateToProps(store) {
   };
 }
 
-App.need = [() => Actions.spotify.lookupArtistAlbums('5K4W6rqBFWDnAN6FQUkS6x'), () => Actions.spotify.lookupAlbum('2P2Xwvh2xWXIZ1OWY9S9o5')]
+App.need = [() => Actions.spotify.lookupArtist('5K4W6rqBFWDnAN6FQUkS6x')]
 
 
 App.propTypes = {

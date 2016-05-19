@@ -54,23 +54,30 @@ Spotify.prototype.lookup = function(opts, queryExtras){
     if (queryExtras && typeof queryExtras == 'object'){
       q = `${'?' + serialize(queryExtras)}`;
     }
-    query = (opts.type == 'albums') ? `/v1/artists/${opts.id}/albums${q || ''}` : `/v1/${opts.type}/${opts.id}`;
-    console.log(query);
+    query = (opts.type == 'albums') ? `/v1/artists/${opts.id}/albums?album_type=album&market=US&limit=50` : `/v1/${opts.type}/${opts.id}`;
+    // console.log(query);
     return this.get(query);
   }
   else{
-    query = `/v1/${opts.type}s/${opts.id}?album_type=album`;
-    var artist = null ;
-    return this.get(query).then(e => {
-      var basicAlbums = `/v1/${opts.type}s/${opts.id}/albums?album_type=album&available_markets=US`;
-      artist = Object.assign({}, e) ;
-      return this.get(basicAlbums).then(k => {
-        var newQuery = `/v1/albums/?ids=${k.items.map(m => m.id).join(',')}`;
-        return this.get(newQuery).then(p => {
-          return Object.assign({}, artist, p);
-        })
+    query = `/v1/${opts.type}s/${opts.id}`;
+    let artist = {albums:[]};
+    return this.get(query)
+      .then(e => {
+        artist = Object.assign({}, artist, e);
+        var basicAlbums = `/v1/${opts.type}s/${opts.id}/albums?album_type=album&market=US`;
+        return this.get(basicAlbums);
       })
-    });
+      .then(k => {
+        if (!k.items || k.items.length < 1) return artist;
+
+        var newQuery = `/v1/albums/?ids=${k.items.map(m => m.id).join(',')}`;
+        return this.get(newQuery)
+      })
+      .then(p => {
+        var rtn = Object.assign({}, artist, p);
+        // console.log(rtn);
+        return rtn ;
+      })
   }
 }
 
