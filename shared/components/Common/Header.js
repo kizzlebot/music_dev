@@ -9,7 +9,8 @@ class UserHeaderSection extends React.Component {
       <li key={'settings'}><a href="#">Settings</a></li>,
       <li key={'logout'}><a href="#">Log Out</a></li>
     ] : [
-      <li key={'login'}><Link to="/login">Log In</Link></li>
+      <li key={'login'}><Link to="/login">Log In</Link></li>,
+      <li key={'register'}><Link to="/register">Register</Link></li>
     ];
 
     return (
