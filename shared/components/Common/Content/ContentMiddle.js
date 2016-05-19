@@ -294,11 +294,8 @@ class Album extends React.Component {
     var {album = {images:['']}, tracks = {items:[]}} = this.props ;
     var {images=[{url:null}]} = album;
 
-
-    // console.log(this.props);
     if (!album || !tracks || !(tracks.items instanceof Array)) {
-      // console.log(album);
-      return (<div/>);
+      return (<div>{'No albums or tracks found'}</div>);
     }
 
 
