@@ -1,6 +1,7 @@
 import React from 'react';
 import Typeahead from './Typeahead';
 import {Link} from 'react-router';
+
 class UserHeaderSection extends React.Component {
   render(){
     var menuItems = (this.props.auth && this.props.auth.isAuthenticated) ? [
@@ -15,12 +16,8 @@ class UserHeaderSection extends React.Component {
 
     return (
       <div className="user">
-        <div className="user__notifications">
-          <i className="ion-android-notifications" />
-        </div>
-        <div className="user__inbox">
-          <i className="ion-archive" />
-        </div>
+        <div className="user__notifications"><i className="ion-android-notifications" /></div>
+        <div className="user__inbox"><i className="ion-archive" /></div>
         <div className="user__info">
           <span className="user__info__img">
             <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAevAAAAJGFjNDBhZmM2LWE5MzAtNGQyZi1iNGE4LWZkMjZkMGM2ZWY1Mw.jpg" alt="Profile Picture" className="img-responsive" />

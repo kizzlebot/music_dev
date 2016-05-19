@@ -9,7 +9,7 @@ class LoginView extends Component {
 
   render() {
     return (
-      <div className={'container'}>
+      <div style={{color:'white'}} className={'login_view container'}>
         <div className="page-header">
           <h3>Sign in</h3>
         </div>
@@ -39,7 +39,7 @@ class LoginView extends Component {
           </div>
           <div className="form-group">
             <div className="col-sm-offset-3 col-sm-7">
-            <a href="/auth/lastfm" className="btn btn-block btn-lastfm btn-social"><i className="fa fa-lastfm" />Sign in with Last.fm</a>
+            <a href="/auth/lastfm" style={{color:'white', backgroundColor:'rgb(185,0,0)'}}className="btn btn-block btn-lastfm btn-social"><i className="fa fa-lastfm" />Sign in with Last.fm</a>
             <a href="/auth/facebook" className="btn btn-block btn-facebook btn-social"><i className="fa fa-facebook" />Sign in with Facebook</a>
             <a href="/auth/google" className="btn btn-block btn-google btn-social"><i className="fa fa-google-plus" />Sign in with Google</a>
             <a href="/auth/github" className="btn btn-block btn-github btn-social"><i className="fa fa-github" />Sign in with GitHub</a>

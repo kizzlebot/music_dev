@@ -54,6 +54,16 @@ body {
 
 }
 
+
+.container{
+  &.login_view, &.register_view{
+    input {
+      border-radius:0px;
+    }  
+  }
+
+}
+
 .header {
 
   & {

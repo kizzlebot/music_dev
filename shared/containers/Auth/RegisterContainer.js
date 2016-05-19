@@ -36,9 +36,7 @@ class RegisterContainer extends Component {
   }
   render() {
     return (
-      <div>
-        <RegisterView onSubmit={this.handleSubmit.bind(this)} />
-      </div>
+      <RegisterView onSubmit={this.handleSubmit.bind(this)} />
     );
   }
 }

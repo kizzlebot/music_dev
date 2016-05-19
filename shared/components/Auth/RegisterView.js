@@ -9,7 +9,7 @@ class RegisterView extends Component {
 
   render() {
     return (
-      <div className={'container'}>
+      <div style={{color:'white'}} className={'register_view container'}>
         <div className="page-header">
           <h3>Register</h3>
         </div>

@@ -20,6 +20,7 @@ require('bootstrap-webpack!./bootstrap.config.js');
 require('font-awesome-webpack');
 require('animate.css');
 require('./spotify.scss');
+require('bootstrap-social/bootstrap-social.css');
 
 // React+Redux
 const store = configureStore(window.__INITIAL_STATE__);
