@@ -25,6 +25,8 @@ import { ContentMiddleContainer } from './containers/Common';
 const routes = (
   <Route path="/" component={App} >
     <IndexRoute component={ContentMiddleContainer}/>
+    <Route path="/auth/spotify" component={AuthCallbackContainer}></Route>
+    <Route path="/login" component={LoginContainer}></Route>
   </Route>
 );
 export default routes;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Typeahead from './Typeahead';
-
+import {Link} from 'react-router';
 class UserHeaderSection extends React.Component {
   render(){
     var menuItems = (this.props.auth && this.props.auth.isAuthenticated) ? [
@@ -9,7 +9,7 @@ class UserHeaderSection extends React.Component {
       <li key={'settings'}><a href="#">Settings</a></li>,
       <li key={'logout'}><a href="#">Log Out</a></li>
     ] : [
-      <li key={'login'}><a href="#">Log In</a></li>
+      <li key={'login'}><Link to="/login">Log In</Link></li>
     ];
 
     return (
@@ -45,10 +45,6 @@ class UserHeaderSection extends React.Component {
 
 
 export default class Header extends React.Component {
-  _handleChange(evt){
-    console.log('hi')
-    // Actions.spotify.searchArtist('J');
-  }
 
   render() {
     var items = this.props.spotify.search.artists.items || [];
@@ -68,11 +64,11 @@ export default class Header extends React.Component {
         <div className="search">
           {/*<input type="text" placeholder="Search" onChange={this._handleChange} onSubmit={this._handleSubmit}/>*/}
             <Typeahead
+              {...this.props}
               onInputChange={(e) => this.props._handleChange(e)}
               onChange={e => this.props._handleChange(e)}
               onSelect={e => this.props._handleSelect(e)}
               options={objs || []}
-              {...this.props}
             />
         </div>
         <UserHeaderSection {...this.props} />

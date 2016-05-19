@@ -35,7 +35,6 @@ function receiveSearch(d){
   }
 }
 function receiveLookup(d){
-  console.log(d);
   return {
     type: ActionTypes.spotify.RECEIVE_LOOKUP,
     payload:{
@@ -86,7 +85,7 @@ export function lookupArtist(artistID){
                 if (prev.indexOf(curr) == -1) prev.push(curr);
                 return prev ;
               }, []);
-              return rec ; 
+              return rec ;
             })
             .then(results => dispatch(receiveLookup({
               type:'artist',
