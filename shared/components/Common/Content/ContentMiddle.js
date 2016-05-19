@@ -7,7 +7,10 @@ export default class ContentMiddle extends React.Component {
 
     var { images } = this.props.spotify.current.artist;
     var imageUrl = images && images.length > 0 ? images[0].url : '';
-    
+    var {followers} = this.props.spotify.current.artist || {};
+    var total = (followers && followers.total) ? followers.total : '0';
+
+
     return !this.props.spotify.current.artist ? (<div></div>) : (
       <div className="artist is-verified">
           <div className="artist__header">
@@ -31,7 +34,7 @@ export default class ContentMiddle extends React.Component {
               </div>
             </div>
             <div className="artist__listeners">
-              <div className="artist__listeners__count">{this.props.spotify.current.artist.followers.total}</div>
+              <div className="artist__listeners__count">{total}</div>
               <div className="artist__listeners__label">Monthly Listeners</div>
             </div>
             <div className="artist__navigation">
@@ -210,7 +213,7 @@ export default class ContentMiddle extends React.Component {
                         <i className="fa fa-th-large card" />
                       </span>
                     </div>
-                    <Album album={this.props.spotify.current.album}/>
+                    {/*<Album album={this.props.spotify.current.album}/>*/}
                   </div>
                 </div>
               </div>

@@ -70,7 +70,7 @@ Spotify.prototype.lookup = function(opts, queryExtras){
           return Object.assign({}, artist, p);
         })
       })
-    })
+    });
   }
 }
 
