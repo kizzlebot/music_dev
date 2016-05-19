@@ -6,11 +6,12 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 
-import configureStore from '../shared/redux/store/configureStore';
+import configureStore from '../shared/redux/store';
 import Actions from '../shared/redux/actions';
 import Reducers from '../shared/redux/reducers';
 import jwtDecode from 'jwt-decode';
 import SC from 'soundcloud';
+
 // var spotify = require('spotify')
 var spotify = require('../shared/redux/Spotify');
 

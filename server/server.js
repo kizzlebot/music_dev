@@ -10,7 +10,7 @@ import { match, RouterContext } from 'react-router';
 
 
 // Redux
-import configureStore  from '../shared/redux/store/configureStore';
+import configureStore  from '../shared/redux/store';
 import { Provider } from 'react-redux';
 
 
