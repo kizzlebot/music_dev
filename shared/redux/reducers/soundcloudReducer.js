@@ -50,12 +50,12 @@ const SoundcloudReducer = (state = initialState, action) => {
 
     case ActionTypes.soundcloud.NEXTPAGE:
       return Object.assign({}, state, {
-        page: action.payload.page|| state.page
+        page: action.payload.page || state.page
       });
 
     case ActionTypes.soundcloud.PREVPAGE:
       return Object.assign({}, state, {
-        page: action.payload.page|| state.page
+        page: action.payload.page || state.page
       });
 
     case ActionTypes.soundcloud.STORE_OAUTH:
