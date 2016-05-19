@@ -1,4 +1,6 @@
 /* global describe, it, expect, before, request, assert */
+import mongoose from 'mongoose';
+
 import app from '../server';
 
 var path = require('path');
@@ -7,9 +9,10 @@ var csrf ;
 var headers = null;
 
 
+
+
+
 describe('main endpoints', function() {
-
-
   beforeEach(function(done) {
     server = app.listen(process.env.port || 4000, done);
   });
@@ -20,14 +23,14 @@ describe('main endpoints', function() {
   });
 
 
-
+  //
   describe('GET /', function() {
     it('200 (OK)', function(done) {
       request(app).get('/').expect(200).end(done);
     });
 
     it('200 (OK) responds with HTML', function(done) {
-      request(server)
+      request(app)
         .get('/')
         .expect(200)
         .end(function(err, res) {
@@ -36,22 +39,22 @@ describe('main endpoints', function() {
         });
     });
   });
-
-  describe('GET /login', function() {
-    it('200 (OK)', function(done) {
-      request(app).get('/login').expect(200).end(done);
-    });
-
-    it('200 (OK) responds with HTML', function(done) {
-      request(server)
-        .get('/')
-        .expect(200)
-        .end(function(err, res) {
-          expect(res.headers['content-type']).to.include('text/html');
-          done();
-        });
-    });
-  });
+  //
+  // describe('GET /login', function() {
+  //   it('200 (OK)', function(done) {
+  //     request(app).get('/login').expect(200).end(done);
+  //   });
+  //
+  //   it('200 (OK) responds with HTML', function(done) {
+  //     request(server)
+  //       .get('/')
+  //       .expect(200)
+  //       .end(function(err, res) {
+  //         expect(res.headers['content-type']).to.include('text/html');
+  //         done();
+  //       });
+  //   });
+  // });
 
   // describe('GET /login', function(){
 

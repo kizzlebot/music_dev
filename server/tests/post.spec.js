@@ -11,10 +11,7 @@ var serverConfig = require('../config');
 
 
 function connectDB(done) {
-  if (mongoose.connection.name !== 'mern-test') {
-    return done();
-  }
-
+  if (mongoose.connection.name !== 'music_dev_test') return done();
   mongoose.connect(serverConfig.mongoURL, function(err) {
     if (err) return done(err);
     done();
@@ -22,10 +19,7 @@ function connectDB(done) {
 }
 
 function dropDB(done) {
-  if (mongoose.connection.name !== 'mern-test') {
-    return done();
-  }
-
+  if (mongoose.connection.name !== 'music_dev_test') return done();
   mongoose.connection.db.dropDatabase(function(err) {
     mongoose.connection.close(done);
   });

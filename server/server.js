@@ -94,6 +94,7 @@ middlewareConfigurer((app) => {
           // Generate HTML
           const html = renderFullPage(initialView, finalState);
 
+          res.setHeader('content-type', 'text/html');
           res.status(200).end(html);
         })
         .catch(err => res.status(500).end(renderError(err)));
@@ -132,5 +133,5 @@ if (process.env.NODE_ENV != 'test') {
  });
 }
 
-  module.exports.default = app;
+  module.exports = app;
 });
