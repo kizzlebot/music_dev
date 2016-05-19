@@ -1476,7 +1476,12 @@ body {
 
 }
 
+
+
 .album {
+  .album:not(:first-child) {
+    margin-bottom:100px;
+  }
 
   &__info {
 
