@@ -1,7 +1,7 @@
 import ActionTypes from '../constants';
 import fetch from 'isomorphic-fetch';
 import querystring from 'querystring';
-var spotify = require('isomorphic-spotify');
+var spotify = require('../Spotify.js');
 
 
 const search = ({query='', type='album'}) => spotify.search({type:type, query:query});
@@ -89,6 +89,21 @@ export function lookupArtist(artistID){
   }
 }
 
+
+export function lookupArtistAlbums(artistID){
+  return (dispatch, getState) => {
+    // dispatch(requestLookup({type:'artist', id:artistID}));
+    return lookupArtist(artistID)(dispatch, getState).then(() => {
+      return lookup({type:'albums', id:artistID}, {album_type:'album'})
+                .then(results => dispatch(receiveLookup({
+                  type:'albums',
+                  artist: { ...getState().spotify.current.artist, albums:Object.assign({}, {...results})},
+                })))
+                .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST_ALBUMS}))
+                .catch(err =>    dispatch(fetch_fail(err)));
+    })
+  }
+}
 
 
 

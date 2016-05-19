@@ -11,7 +11,8 @@ import Actions from '../shared/redux/actions';
 import Reducers from '../shared/redux/reducers';
 import jwtDecode from 'jwt-decode';
 import SC from 'soundcloud';
-var spotify = require('isomorphic-spotify')
+// var spotify = require('spotify')
+var spotify = require('../shared/redux/Spotify');
 
 
 // CSS style requirements

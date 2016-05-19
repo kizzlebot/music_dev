@@ -19,17 +19,17 @@ export default class Typeahead extends React.Component {
             style={{backgroundColor: 'transparent', display: 'block', position: 'relative', zIndex: 1, borderRadius:0}}
             minLength={2}
             debounceTimeout={300}
-            onChange={(e) => this.props.onChange(e)}
+            onChange={this.props.onChange}
           />
              {/*<input className="bootstrap-typeahead-input-hint form-control"
                     style={{borderColor: 'transparent', bottom: 0, boxShadow: 'none', display: 'block', position: 'absolute', top: 0, width: '100%', zIndex: 0, borderRadius:0, display:'hidden'}}
 
               />*/}
           </div>
-          <ul className={`dropdown-menu bootstrap-typeahead-menu dropdown-menu-justify ${!this.props.options.length > 0 ? 'hide' : ''}`} style={{maxHeight: 300, overflow:'scroll'}}>
+          <ul className={`dropdown-menu bootstrap-typeahead-menu dropdown-menu-justify ${this.props.hide ? 'hide' : ''}`} style={{maxHeight: 300, overflow:'scroll'}}>
             {this.props.options && this.props.options.map(e => {
               return (
-                <li key={e.id} onClick={(e) => this.props.onSelect(e)} className><a href="#"><span><strong id={e.id} className="highlight">{e.label}</strong></span></a></li>
+                <li key={e.id} onClick={this.props.onSelect} className><a id={e.id} href="#"><span><strong id={e.id} className="highlight">{e.label}</strong></span></a></li>
               )
             })}
           </ul>
