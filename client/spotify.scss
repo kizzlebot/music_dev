@@ -37,6 +37,11 @@ $xx-large: 36px;
 $xxx-large: 52px;
 
 
+.flexend{
+  justify-content: flex-end;
+}
+
+
 
 // ===== Styles ==== //
 
@@ -59,7 +64,7 @@ body {
   &.login_view, &.register_view{
     input {
       border-radius:0px;
-    }  
+    }
   }
 
 }

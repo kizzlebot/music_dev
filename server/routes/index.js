@@ -8,7 +8,7 @@ const router = new Router();
 
 
 router.use('/posts', PostRouter);
-router.use('/users', AuthRouter);
+router.use('/auth', AuthRouter);
 
 
 

@@ -51,7 +51,7 @@ function registerUserRequest(){
 export function registerUser(username, password, confirmPassword) {
   return (dispatch) => {
     dispatch(registerUserRequest());
-    fetch(`${baseURL}/api/users/register`, {
+    fetch(`${baseURL}/api/auth/register`, {
       method: 'post',
       body: JSON.stringify({
         username: username,
@@ -110,7 +110,7 @@ function loginUserRequest() {
 export function loginUser(username, password, redirect="/") {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    fetch(`${baseURL}/api/users/login`, {
+    fetch(`${baseURL}/api/auth/login`, {
       method: 'post',
       body: JSON.stringify({
         username: username, password: password

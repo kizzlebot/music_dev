@@ -12,6 +12,9 @@ import $ from 'jquery';
 
 class App extends React.Component{
   componentDidMount(){
+    this.props.dispatch(Actions.auth.restoreLoginStatus());
+
+
     // Tooltips
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
@@ -73,6 +76,8 @@ function mapStateToProps(store) {
   };
 }
 
+
+// Resole server-side
 App.need = [() => Actions.spotify.lookupArtist('5K4W6rqBFWDnAN6FQUkS6x')]
 
 

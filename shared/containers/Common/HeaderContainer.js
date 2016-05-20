@@ -25,7 +25,7 @@ export default class HeaderContainer extends React.Component {
       id ? this.props.dispatch(Actions.spotify.lookupArtist(id)) : null;
     });
   }
-  _handleLoginClick(evt){
+  _handleLinkSpotify(evt){
     console.log('clicked login button');
     var pos = {x:800, y:500};
 
@@ -60,7 +60,7 @@ export default class HeaderContainer extends React.Component {
         _handleBack={this._handleBack.bind(this)}
         _handleChange={this._handleChange.bind(this)}
         _handleSelect={this._handleSelect.bind(this)}
-        _handleLoginClick={this._handleLoginClick.bind(this)} />
+        _handleLinkSpotify={this._handleLinkSpotify.bind(this)} />
     );
   }
 }

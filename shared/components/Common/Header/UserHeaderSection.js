@@ -1,11 +1,28 @@
 import React from 'react';
 import {Link} from 'react-router';
-
+var $ = require('jquery');
 
 
 
 
 export default class UserHeaderSection extends React.Component {
+  constructor(props, context){
+    super(props, context);
+    this.state = {hidden:true};
+  }
+  componentDidMount(){
+    this.state.hidden = (!this.props.auth || !this.props.auth.isAuthenticated) ? true : false;
+
+    if(this.state.hidden) {
+      $(this.refs['user']).addClass('flexend');
+    }
+    else{
+      $(this.refs['user']).removeClass('flexend');
+    }
+
+
+    this.setState({...this.state});
+  }
   render(){
     var menuItems = (this.props.auth && this.props.auth.isAuthenticated) ? [
       <li key={'privatesess'}><a href="#">Private Session</a></li>,
@@ -17,8 +34,12 @@ export default class UserHeaderSection extends React.Component {
       <li key={'register'}><Link to="/register">Register</Link></li>
     ];
 
+    var defUser = {username:'', email:'', profile:{name:'', picture:''}};
+    var user = (this.state.hidden) ? defUser : this.props.auth;
+
+
     return (
-      <div className="user">
+      <div ref={'user'} className="user">
         <div className="user__notifications"><i className="ion-android-notifications" /></div>
         <div className="user__inbox"><i className="ion-archive" /></div>
         <div className="user__info">

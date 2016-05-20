@@ -17,6 +17,10 @@ router.post('/register', AuthController.register);
 router.post('/login', AuthController.authenticate);
 
 
+router.get('/spotify', AuthController.spotifyCodeCallback);
+router.get('/callback/spotify', AuthController.spotifyCodeCallback);
+
+
 
 
 

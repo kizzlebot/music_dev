@@ -95,8 +95,6 @@ export function lookupArtist(artistID){
             .catch(err =>    dispatch(fetch_fail(err)));
   }
 }
-
-
 export function lookupArtistAlbums(artistID){
   return (dispatch, getState) => {
     dispatch(requestLookup({type:'artist', id:artistID}));
@@ -109,24 +107,6 @@ export function lookupArtistAlbums(artistID){
               .catch(err =>    dispatch(fetch_fail(err)));
   }
 }
-
-
-
-// export function lookupArtistAlbums(artistID){
-//   return (dispatch, getState) => {
-//     // dispatch(requestLookup({type:'artist', id:artistID}));
-//     return lookupArtist(artistID)(dispatch, getState).then(() => {
-//       return lookup({type:'albums', id:artistID}, {album_type:'album'})
-//                 .then(results => dispatch(receiveLookup({
-//                   type:'albums',
-//                   artist: { ...getState().spotify.current.artist, albums:Object.assign({}, {...results})},
-//                 })))
-//                 .then(e =>       dispatch({type:ActionTypes.spotify.LOOKUP_ARTIST_ALBUMS}))
-//                 .catch(err =>    dispatch(fetch_fail(err)));
-//     })
-//   }
-// }
-
 export function lookupAlbum(albumID){
   return (dispatch, getState) => {
     // dispatch(requestLookup({type:'album', id:albumID}));
