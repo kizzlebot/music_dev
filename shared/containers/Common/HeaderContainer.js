@@ -47,10 +47,10 @@ export default class HeaderContainer extends React.Component {
 
   }
   _handleBack(evt){
-    console.info('_handleBack');
+    this.context.router.goBack();
   }
   _handleForward(evt){
-    console.info('_handleForward');
+    this.context.router.goForward();
   }
   render() {
     return (
