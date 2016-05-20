@@ -3,7 +3,7 @@ import Actions from '../../redux/actions';
 import { connect } from 'react-redux';
 
 import Header from '../../components/Common/Header';
-
+var querystring = require('querystring');
 
 export default class HeaderContainer extends React.Component {
   constructor(props, context){
@@ -25,12 +25,34 @@ export default class HeaderContainer extends React.Component {
       id ? this.props.dispatch(Actions.spotify.lookupArtist(id)) : null;
     });
   }
+  _handleLoginClick(evt){
+    console.log('clicked login button');
+    var pos = {x:800, y:500};
+
+    var query = querystring.stringify({ response_type: 'code',
+      client_id: `21af28a899214cb5b9311fb75e18230a`,
+      scope: `user-read-private user-read-email`,
+      redirect_uri: 'http://localhost:8000/auth/spotify',
+      state: 'abcd'
+    });
+
+    var url = `https://accounts.spotify.com/authorize?${query}`;
+
+
+
+    var signinWin = window.open(url, "SignIn", "width=780,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=" + pos.x + ",top=" + pos.y);
+    // setTimeout(CheckLoginStatus, 2000);
+    signinWin.focus();
+    return false;
+
+  }
   render() {
     return (
       <Header {...this.props}
         {...this.state}
         _handleChange={this._handleChange.bind(this)}
-        _handleSelect={this._handleSelect.bind(this)} />
+        _handleSelect={this._handleSelect.bind(this)}
+        _handleLoginClick={this._handleLoginClick.bind(this)} />
     );
   }
 }

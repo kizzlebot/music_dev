@@ -54,6 +54,16 @@ body {
 
 }
 
+
+.container{
+  &.login_view, &.register_view{
+    input {
+      border-radius:0px;
+    }  
+  }
+
+}
+
 .header {
 
   & {
@@ -1476,7 +1486,12 @@ body {
 
 }
 
+
+
 .album {
+  &:not(:first-child) {
+    margin-bottom:100px;
+  }
 
   &__info {
 

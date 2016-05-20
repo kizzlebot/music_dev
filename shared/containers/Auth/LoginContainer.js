@@ -37,9 +37,7 @@ class LoginContainer extends Component {
   }
   render() {
     return (
-      <div>
-        <LoginView onSubmit={this.handleSubmit.bind(this)} />
-      </div>
+      <LoginView onSubmit={this.handleSubmit.bind(this)} />
     );
   }
 }

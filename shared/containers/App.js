@@ -57,9 +57,9 @@ class App extends React.Component{
       <div>
         <HeaderContainer {...this.props}/>
         {/*<section className='content'>*/}
-          <ContentContainer {...this.props}>
-            {this.props.children}
-          </ContentContainer>
+        <ContentContainer {...this.props}>
+          {this.props.children}
+        </ContentContainer>
         {/*</section>*/}
         <CurrentTrackContainer {...this.props}/>
       </div>

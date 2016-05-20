@@ -18,16 +18,8 @@ const middlewareConfigurer = (cb) => {
   // Initialize Express App server object
   const app = new Express();
 
-
-  // MongoDB Connection
-  mongoose.connect(serverConfig.mongoURL, (error) => {
-    if (error) {
-      console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
-      throw error;
-    }
-  });
-
-
+  // Set express environment variables
+  app.set('env', process.env.NODE_ENV);
   // Testing mode
   app.set('test', process.env.NODE_ENV == 'test');
   // No output from webpack
@@ -39,10 +31,22 @@ const middlewareConfigurer = (cb) => {
 
 
 
+  // MongoDB Connection
+  mongoose.connect(serverConfig.mongoURL, (error) => {
+    if (error) {
+      console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+      throw error;
+    }
+    else (!app.get('test') && app.get('env') != 'production') ? console.info(`Mongoose connected to ${serverConfig.mongoURL}`) : ''; // eslint-disable-line no-console
+  });
+
+
+
+
 
 
   // If non-production environment, use wepback-dev-middleware and logger
-  if (process.env.NODE_ENV !== 'production') {
+  if (app.get('env') != 'production' && !app.get('test')) {
     const compiler = webpack(config);
     const webpackDevMid = webpackDevMiddleware(compiler, {
       publicPath: config.output.publicPath,
@@ -72,15 +76,14 @@ const middlewareConfigurer = (cb) => {
 
 
 
-  // General Middlwares
+  // define Middlwares
   var middlewares = [
     bodyParser.json({ limit: '20mb' }),
     bodyParser.urlencoded({ limit: '20mb', extended: false }),
     Express.static(path.resolve(path.join(process.cwd(), '/static')))
   ];
 
-
-  // Set middlewares
+  // use the middlewares
   app.use(...middlewares);
 
   cb(app);

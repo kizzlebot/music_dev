@@ -34,7 +34,6 @@ function receiveSearch(d){
   }
 }
 function receiveLookup(d){
-  console.log(d);
   return {
     type: ActionTypes.spotify.RECEIVE_LOOKUP,
     payload:{

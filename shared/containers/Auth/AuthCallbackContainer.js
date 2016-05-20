@@ -13,7 +13,8 @@ class AuthCallbackContainer extends React.Component{
     }
   }
   componentDidMount(){
-    this.props.dispatch(Actions.soundcloud.login_callback(this.props.params.service, this.props.location, this.context.router))
+    window.close()
+    // this.props.dispatch(Actions.soundcloud.login_callback(this.props.params.service, this.props.location, this.context.router))
   }
   render(){
     return (

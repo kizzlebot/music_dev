@@ -10,16 +10,15 @@ import { match, RouterContext } from 'react-router';
 
 
 // Redux
-import configureStore  from '../shared/redux/store/configureStore';
-
+import configureStore  from '../shared/redux/store';
 import { Provider } from 'react-redux';
 
 
 
 
 // required react modules
-var routes = require('../shared/routes').default;
-import { fetchComponentData } from './util/fetchData';
+import routes from '../shared/routes';
+import fetchComponentData from './util/fetchComponentData';
 import renderFullPage, { renderError } from './util/renderFullPage';
 
 import api from './routes';
@@ -54,70 +53,34 @@ middlewareConfigurer((app) => {
       if (!renderProps)     return next();
 
 
-    var initialState = {
-      "auth": {
-        "token": null,
-        "username": "",
-        "isAuthenticated": false,
-        "isAuthenticating": false,
-        "statusText": ""
-      },
-      "data": {
-        "data": null,
-        "isFetching": false
-      },
-      "post": {
-        "posts": [],
-        "post": {}
-      },
-      "soundcloud": {
-        "oauth_token": null,
-        "shouldShowStream": false,
-        "collection": [],
-        "next_href": null,
-        "page": 0
-      },
-      "spotify": {
-        "oauth_token": null,
-        "current": {
-          "artist": {
-            "external_urls": {
-              "spotify": "https://open.spotify.com/artist/523DmwgD1gR3sTr9Tzitee"
+      var initialState = {
+        "auth": { "token": null, "username": "", "isAuthenticated": false, "isAuthenticating": false, "statusText": "" },
+        "data": { "data": null, "isFetching": false },
+        "post": { "posts": [], "post": {} },
+        "soundcloud": { "oauth_token": null, "shouldShowStream": false, "collection": [], "next_href": null, "page": 0 },
+        "spotify": {
+          "oauth_token": null,
+          "current": {
+            "artist": {
+              "external_urls": { "spotify": "" },
+              "followers": { "href": null, "total": 0 },
+              "genres": [], "images": [], "error": { },
+              "href": "", "id": "", "name": "", "popularity": 7, "type": "", "uri": ""
             },
-            "followers": {
-              "href": null,
-              "total": 0
-            },
-            "genres": [],
-            "href": "https://api.spotify.com/v1/artists/523DmwgD1gR3sTr9Tzitee",
-            "id": "523DmwgD1gR3sTr9Tzitee",
-            "images": [],
-            "name": "Jay Z and Kayne West",
-            "popularity": 7,
-            "type": "artist",
-            "uri": "spotify:artist:523DmwgD1gR3sTr9Tzitee",
-            "error": {
-            }
+            "album": null, "track": null, "type": "artist"
           },
-          "album": null,
-          "track": null,
-          "type": "artist"
-        },
-        "search": {
-          "query": null,
-          "type": "artist",
-          "tracks": [],
-          "artists": [],
-          "albums": []
+          "search": {
+            "query": null, "type": "artist", "tracks": [], "artists": [], "albums": []
+          }
         }
       }
-    }
 
 
-      // create Redux Store
+      // create Redux Store with initial state
       const store = configureStore(initialState);
 
 
+      // Dispatch every function in ReactComponent.need = [...] array
       return fetchComponentData(store, renderProps.components, renderProps.params)
         .then(() => {
           const initialView = renderToString(
@@ -127,8 +90,11 @@ middlewareConfigurer((app) => {
           );
 
           const finalState = store.getState();
+
+          // Generate HTML
           const html = renderFullPage(initialView, finalState);
 
+          res.setHeader('content-type', 'text/html');
           res.status(200).end(html);
         })
         .catch(err => res.status(500).end(renderError(err)));
@@ -167,6 +133,5 @@ if (process.env.NODE_ENV != 'test') {
  });
 }
 
-
-  module.exports.default = app;
+  module.exports = app;
 });

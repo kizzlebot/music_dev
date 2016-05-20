@@ -1,5 +1,6 @@
 import React from 'react';
 import Typeahead from './Typeahead';
+import {Link} from 'react-router';
 
 class UserHeaderSection extends React.Component {
   render(){
@@ -9,17 +10,14 @@ class UserHeaderSection extends React.Component {
       <li key={'settings'}><a href="#">Settings</a></li>,
       <li key={'logout'}><a href="#">Log Out</a></li>
     ] : [
-      <li key={'login'}><a href="#">Log In</a></li>
+      <li key={'login'}><Link to="/login">Log In</Link></li>,
+      <li key={'register'}><Link to="/register">Register</Link></li>
     ];
 
     return (
       <div className="user">
-        <div className="user__notifications">
-          <i className="ion-android-notifications" />
-        </div>
-        <div className="user__inbox">
-          <i className="ion-archive" />
-        </div>
+        <div className="user__notifications"><i className="ion-android-notifications" /></div>
+        <div className="user__inbox"><i className="ion-archive" /></div>
         <div className="user__info">
           <span className="user__info__img">
             <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAevAAAAJGFjNDBhZmM2LWE5MzAtNGQyZi1iNGE4LWZkMjZkMGM2ZWY1Mw.jpg" alt="Profile Picture" className="img-responsive" />
@@ -45,10 +43,6 @@ class UserHeaderSection extends React.Component {
 
 
 export default class Header extends React.Component {
-  _handleChange(evt){
-    console.log('hi')
-    // Actions.spotify.searchArtist('J');
-  }
 
   render() {
     var items = this.props.spotify.search.artists.items || [];
@@ -68,11 +62,11 @@ export default class Header extends React.Component {
         <div className="search">
           {/*<input type="text" placeholder="Search" onChange={this._handleChange} onSubmit={this._handleSubmit}/>*/}
             <Typeahead
+              {...this.props}
               onInputChange={(e) => this.props._handleChange(e)}
               onChange={e => this.props._handleChange(e)}
               onSelect={e => this.props._handleSelect(e)}
               options={objs || []}
-              {...this.props}
             />
         </div>
         <UserHeaderSection {...this.props} />
