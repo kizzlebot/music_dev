@@ -74,7 +74,9 @@ HeaderContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-
+HeaderContainer.contextTypes = {
+  router: React.PropTypes.object
+}
 
 // connect <HeaderContainer/> so it has this.props.dispatch defined
 export default connect(mapStateToProps)(HeaderContainer);

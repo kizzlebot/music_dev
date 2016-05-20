@@ -11,7 +11,7 @@ export default class ContentMiddleContainer extends React.Component {
 }
 
 
-ContentMiddle.contextTypes = {
+ContentMiddleContainer.contextTypes = {
   router: React.PropTypes.object,
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 
 export class Playlist extends React.Component {
@@ -26,9 +27,11 @@ export class Navigation extends React.Component {
             role="button" data-toggle="collapse" href="#main" aria-expanded="true" aria-controls="main"> Main
           </div>
           <div className="collapse in" id="main">
-            <a href="#" className="navigation__list__item">
+            <Link to='/' className="navigation__list__item">
               <i className="ion-ios-browsers" /> <span>Browse</span>
-            </a>
+            </Link>
+
+
             <a href="#" className="navigation__list__item">
               <i className="ion-person-stalker" /> <span>Activity</span>
             </a>
