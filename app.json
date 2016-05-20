@@ -1,6 +1,6 @@
 {
   "name": "music_dev",
-  "description": "",
+  "description": "Connects to various music apis and lets you use its services in you music-listening experience",
   "scripts": {
   },
   "env": {

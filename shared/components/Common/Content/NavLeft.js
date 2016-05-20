@@ -30,8 +30,6 @@ export class Navigation extends React.Component {
             <Link to='/' className="navigation__list__item">
               <i className="ion-ios-browsers" /> <span>Browse</span>
             </Link>
-
-
             <a href="#" className="navigation__list__item">
               <i className="ion-person-stalker" /> <span>Activity</span>
             </a>

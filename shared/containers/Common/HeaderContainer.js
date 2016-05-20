@@ -46,10 +46,18 @@ export default class HeaderContainer extends React.Component {
     return false;
 
   }
+  _handleBack(evt){
+    console.info('_handleBack');
+  }
+  _handleForward(evt){
+    console.info('_handleForward');
+  }
   render() {
     return (
       <Header {...this.props}
         {...this.state}
+        _handleForward={this._handleForward.bind(this)}
+        _handleBack={this._handleBack.bind(this)}
         _handleChange={this._handleChange.bind(this)}
         _handleSelect={this._handleSelect.bind(this)}
         _handleLoginClick={this._handleLoginClick.bind(this)} />

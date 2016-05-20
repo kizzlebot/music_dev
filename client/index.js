@@ -6,14 +6,17 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 
+
 import configureStore from '../shared/redux/store';
 import Actions from '../shared/redux/actions';
 import Reducers from '../shared/redux/reducers';
 import jwtDecode from 'jwt-decode';
+
 import SC from 'soundcloud';
 
 // var spotify = require('spotify')
 var spotify = require('../shared/redux/Spotify');
+var hist = require('history');
 
 
 // CSS style requirements
@@ -47,7 +50,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 
   /* For debugging purposes */
-
   // Misc
   window.jwt = jwtDecode;
   window.spotify = spotify ;
