@@ -1,0 +1,112 @@
+{
+  "name": "music_dev",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "FACEBOOK_ID": {
+      "required": true
+    },
+    "FACEBOOK_SECRET": {
+      "required": true
+    },
+    "GITHUB_ID": {
+      "required": true
+    },
+    "GITHUB_SECRET": {
+      "required": true
+    },
+    "GOOGLE_ID": {
+      "required": true
+    },
+    "GOOGLE_SECRET": {
+      "required": true
+    },
+    "HOMEBREW_GITHUB_API_TOKEN": {
+      "required": true
+    },
+    "HOST": {
+      "required": true
+    },
+    "HOSTNAME": {
+      "required": true
+    },
+    "IMGUR_API_ID": {
+      "required": true
+    },
+    "IMGUR_API_SECRET": {
+      "required": true
+    },
+    "IMGUR_CLIENT_ID": {
+      "required": true
+    },
+    "IMGUR_CLIENT_SECRET": {
+      "required": true
+    },
+    "INSTAGRAM_ID": {
+      "required": true
+    },
+    "INSTAGRAM_SECRET": {
+      "required": true
+    },
+    "LASTFM_KEY": {
+      "required": true
+    },
+    "LASTFM_SECRET": {
+      "required": true
+    },
+    "LINKEDIN_ID": {
+      "required": true
+    },
+    "LINKEDIN_SECRET": {
+      "required": true
+    },
+    "MONGODB": {
+      "required": true
+    },
+    "MONGOLAB_URI": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    },
+    "SENDGRID_PASSWORD": {
+      "required": true
+    },
+    "SENGRID_USER": {
+      "required": true
+    },
+    "SESSION_SECRET": {
+      "required": true
+    },
+    "SOUNDCLOUD_ID": {
+      "required": true
+    },
+    "SOUNDCLOUD_SECRET": {
+      "required": true
+    },
+    "TWITTER_KEY": {
+      "required": true
+    },
+    "TWITTER_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "mongolab",
+    "newrelic"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
