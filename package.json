@@ -35,6 +35,20 @@
   "license": "MIT",
   "dependencies": {
     "animate.css": "^3.5.1",
+    "blipp": "^2.3.0",
+    "confidence": "^3.0.0",
+    "glue": "^3.2.1",
+    "good": "^7.0.1",
+    "good-console": "^6.1.1",
+    "good-file": "^6.0.1",
+    "good-squeeze": "^3.0.1",
+    "hapi": "^12.1.0",
+    "hapi-info": "^2.0.1",
+    "hapi-swagger": "^5.1.0",
+    "inert": "^4.0.0",
+    "joi": "^8.1.1",
+    "vision": "^4.1.0",
+    "wreck": "^7.2.1",
     "async": "^2.0.0-rc.3",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.4.5",
@@ -148,7 +162,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12",
     "webpack-dev-middleware": "^1.5.1",
-    "webpack-hot-middleware": "^2.6.4"
+    "webpack-hot-middleware": "^2.6.4",
+    "webpack-node-externals": "^1.2.0"
   },
   "engines": {
     "node": ">=4"
