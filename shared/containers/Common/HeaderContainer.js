@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Header from '../../components/Common/Header';
 var querystring = require('querystring');
 
-export default class HeaderContainer extends React.Component {
+export class HeaderContainer extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = {hide: true};

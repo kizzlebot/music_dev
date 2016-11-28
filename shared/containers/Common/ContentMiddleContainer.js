@@ -2,7 +2,7 @@ import React from 'react';
 import ContentMiddle from '../../components/Common/Content/ContentMiddle';
 import {connect} from 'react-redux';
 
-export default class ContentMiddleContainer extends React.Component {
+export class ContentMiddleContainer extends React.Component {
   render() {
     return (
       <ContentMiddle {...this.props} />

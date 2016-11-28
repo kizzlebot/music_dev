@@ -5,7 +5,7 @@ import CurrentTrack from '../../components/Common/CurrentTrack';
 
 
 
-export default class CurrentTrackContainer extends React.Component{
+export class CurrentTrackContainer extends React.Component{
   render() {
     return (
       <CurrentTrack />

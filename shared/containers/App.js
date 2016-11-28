@@ -55,12 +55,12 @@ class App extends React.Component{
   render(){
     return (
       <div>
-        <HeaderContainer {...this.props}/>
-        {/*<section className='content'>*/}
-        <ContentContainer {...this.props}>
-          {this.props.children}
-        </ContentContainer>
-        {/*</section>*/}
+       <HeaderContainer {...this.props}/>
+       {/*<section className='content'>*/}
+       <ContentContainer {...this.props}>
+        {this.props.children}
+       </ContentContainer>
+       {/*</section>*/}
         <CurrentTrackContainer {...this.props}/>
       </div>
     );
